@@ -8,6 +8,23 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700;1,900&family=Barlow:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+/* Extra keyframes that reference JS-triggered classes */
+@keyframes logoGlitch {
+  0%  { transform: translate(0,0);   color: var(--green) }
+  25% { transform: translate(-3px,0); color: var(--violet) }
+  50% { transform: translate(3px,0);  color: var(--green) }
+  75% { transform: translate(-2px,0); color: var(--white) }
+  100%{ transform: translate(0,0);   color: var(--green) }
+}
+/* Scroll progress bar */
+#scroll-bar {
+  position:fixed;top:56px;left:0;height:2px;width:0%;
+  background:linear-gradient(90deg,var(--green),var(--violet));
+  z-index:300;transition:width .05s linear;
+  box-shadow:0 0 8px rgba(0,255,136,.4);
+}
+</style>
 </head>
 <body>
 
@@ -24,19 +41,13 @@
 <!-- ═══════ NAV ═══════ -->
 <nav>
   <div class="nav-logo">APEX<span class="dot">.</span></div>
-  <ul class="nav-links" id="nav-links">
+  <ul class="nav-links">
     <li><a href="#experiencias">Experiencias</a></li>
     <li><a href="#programas">Programas</a></li>
     <li><a href="#tecnologia">Simuladores</a></li>
     <li><a href="#academia">Academia</a></li>
     <li><a href="#cta">Contacto</a></li>
   </ul>
-  <!-- BUG FIX: botón hamburguesa agregado — faltaba en el HTML original -->
-  <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
   <button class="nav-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">
     Inscribirme
   </button>
@@ -157,37 +168,30 @@
     </p>
   </div>
 
-  <!-- BUG FIX: estructura de exp-circuit corregida para que coincida con el CSS.
-       El CSS espera .exp-circuit-img y .exp-circuit-body como hijos directos.
-       El HTML original tenía .exp-num, .exp-name, etc. sueltos sin ese wrapper,
-       lo que rompía todos los estilos de hover (imagen, overlay, borde inferior). -->
   <div class="exp-circuits reveal d1">
     <div class="exp-circuit">
-      <div class="exp-circuit-img">[ FOTO — TRAZADA ]</div>
-      <div class="exp-circuit-body">
-        <div class="exp-num">01</div>
+      <div class="exp-num">01</div>
+      <div>
         <div class="exp-name">Trazada Perfecta</div>
         <div class="exp-desc">Dominá la geometría de cada curva con telemetría en tiempo real. Aprendé el punto de entrada, el ápex y la salida como un piloto de fábrica.</div>
-        <div class="exp-tag">Técnica</div>
       </div>
+      <div class="exp-tag">Técnica</div>
     </div>
     <div class="exp-circuit">
-      <div class="exp-circuit-img">[ FOTO — NEUMÁTICOS ]</div>
-      <div class="exp-circuit-body">
-        <div class="exp-num">02</div>
+      <div class="exp-num">02</div>
+      <div>
         <div class="exp-name">Gestión de Neumáticos</div>
         <div class="exp-desc">Aprendé a leer y administrar cada décima de desgaste como un profesional. La consistencia gana carreras.</div>
-        <div class="exp-tag">Estrategia</div>
       </div>
+      <div class="exp-tag">Estrategia</div>
     </div>
     <div class="exp-circuit">
-      <div class="exp-circuit-img">[ FOTO — CARRERA ]</div>
-      <div class="exp-circuit-body">
-        <div class="exp-num">03</div>
+      <div class="exp-num">03</div>
+      <div>
         <div class="exp-name">Carrera Bajo Presión</div>
         <div class="exp-desc">Simulaciones de race-pace con adversarios y condiciones dinámicas. Mentalidad de campeón cuando más importa.</div>
-        <div class="exp-tag">Competencia</div>
       </div>
+      <div class="exp-tag">Competencia</div>
     </div>
   </div>
 
@@ -450,6 +454,6 @@
   </div>
 </footer>
 
-<script src="script.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
