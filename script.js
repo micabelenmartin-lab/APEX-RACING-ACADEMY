@@ -1,3 +1,7 @@
+/* ═══════════════════════════════════════════
+   APEX SIM RACING — main.js
+═══════════════════════════════════════════ */
+
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ── CUSTOM CURSOR ── */
