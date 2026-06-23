@@ -85,7 +85,6 @@ body:has(button:hover) #cursor-ring{
 }
 
 /* ══════════════════════════════
-   AJUSTES SOLICITADOS
    NAV
 ══════════════════════════════ */
 nav{
@@ -141,12 +140,6 @@ nav{
 .nav-toggle.open span:nth-child(2){opacity:0}
 .nav-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
 
-/* Cursor normal del navegador */
-html,
-body,
-a,
-button {
-  cursor: auto !important;
 /* ══════════════════════════════
    HERO
 ══════════════════════════════ */
@@ -217,10 +210,6 @@ button {
   opacity:0;animation:fadeUp .7s .65s forwards;position:relative;z-index:1;
 }
 
-/* Ocultar cursor personalizado */
-#cursor,
-#cursor-ring {
-  display: none !important;
 /* ── Buttons ── */
 .btn-primary{
   font-family:var(--ff-display);font-size:.75rem;font-weight:700;
@@ -241,9 +230,6 @@ button {
 .btn-ghost:hover{border-color:var(--violet);color:var(--violet);box-shadow:0 0 20px rgba(191,95,255,.2)}
 .btn-ghost .play{color:var(--green);font-size:.55rem}
 
-/* Más espacio para las imágenes */
-.exp-circuit-img {
-  margin-top: 24px;
 /* ── Hero right panel ── */
 .hero-right{position:relative;display:flex;justify-content:center;align-items:center}
 .hero-img-frame{
@@ -276,7 +262,6 @@ button {
 #particle-canvas{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.55}
 
 /* ══════════════════════════════
-   SECCIÓN SIMULADORES
    TICKER
 ══════════════════════════════ */
 .ticker-wrapper{overflow:hidden;border-top:1px solid #111;border-bottom:1px solid #111;padding:.55rem 0;background:var(--dark)}
@@ -290,11 +275,6 @@ button {
 .ticker-item .vdot{color:var(--violet);font-size:.45rem}
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-#simuladores-showcase {
-  background: var(--dark);
-  border-top: 1px solid #111;
-  border-bottom: 1px solid #111;
-  text-align: center;
 /* ══════════════════════════════
    SECTIONS COMMON
 ══════════════════════════════ */
@@ -315,8 +295,6 @@ section{padding:7rem 3rem}
 .t-violet{color:var(--violet)}
 .t-outline{-webkit-text-stroke:1.5px var(--white);color:transparent}
 
-#simuladores-showcase .sec-sub {
-  margin: 0 auto;
 /* ══════════════════════════════
    EXPERIENCIAS — Columnas verticales
 ══════════════════════════════ */
@@ -390,19 +368,6 @@ section{padding:7rem 3rem}
 }
 .exp-circuit:hover .exp-tag{border-color:var(--violet);color:var(--violet);box-shadow:0 0 8px rgba(191,95,255,.2)}
 
-.sim-showcase-media {
-  margin-top: 3rem;
-  min-height: 500px;
-  border: 1px solid rgba(0,255,136,.15);
-  background: #0d0d0d;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--ff-mono);
-  color: var(--green);
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  overflow: hidden;
 /* BUG FIX: .media-strip y .media-ph no tenían estilos en el CSS original,
    haciendo que la tira de fotos bajo Experiencias fuera invisible/sin formato. */
 .media-strip{
@@ -416,11 +381,6 @@ section{padding:7rem 3rem}
   border:1px solid #141414;
 }
 
-.sim-showcase-media img,
-.sim-showcase-media video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 /* ══════════════════════════════
    PROGRAMAS
 ══════════════════════════════ */
@@ -504,10 +464,6 @@ section{padding:7rem 3rem}
 .tech-ph-col{display:flex;flex-direction:column;gap:1px}
 .tech-ph-sm{flex:1;background:var(--dark);border:1px solid #141414;display:flex;align-items:center;justify-content:center;font-family:var(--ff-mono);font-size:.5rem;color:#1e1e1e;text-align:center;padding:.5rem}
 
-/* Responsive */
-@media (max-width: 768px) {
-  .sim-showcase-media {
-    min-height: 280px;
 /* ══════════════════════════════
    ACADEMIA
 ══════════════════════════════ */
@@ -686,8 +642,6 @@ footer{
   .nav-cta{display:none}
   .nav-toggle{display:flex}
 
-  .exp-circuit-img {
-    margin-top: 40px;
   #hero{padding:56px 1.5rem 0;min-height:auto}
   .hero-telemetry-bar{display:none}
   .hero-grid{
