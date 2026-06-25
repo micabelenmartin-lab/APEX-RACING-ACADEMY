@@ -147,38 +147,33 @@
 
 <!-- ═══════ EXPERIENCIAS ═══════ -->
 <section id="experiencias">
-  <div class="exp-header">
-    <div>
-      <div class="eyebrow reveal">Experiencias</div>
+  <div class="exp-header exp-header-centered">
+    <div class="eyebrow reveal" style="justify-content:center">Experiencias</div>
 
-      <!-- ── NUEVO HEADING ANIMADO ── -->
-      <div class="exp-headline-wrap reveal d1" aria-label="Elige tu circuito">
-        <div class="exp-type-line" id="exp-headline-line">
-          <span class="exp-letter" data-delay="80">E</span>
-          <span class="exp-letter" data-delay="120">L</span>
-          <span class="exp-letter" data-delay="160">I</span>
-          <span class="exp-letter" data-delay="200">G</span>
-          <span class="exp-letter" data-delay="240">E</span>
-          <span class="exp-letter exp-gap" aria-hidden="true"> </span>
-          <span class="exp-letter" data-delay="300">T</span>
-          <span class="exp-letter" data-delay="340">U</span>
-          <span class="exp-letter exp-gap" aria-hidden="true"> </span>
-          <span class="exp-letter" data-delay="400">C</span>
-          <span class="exp-letter" data-delay="440">I</span>
-          <span class="exp-letter" data-delay="480">R</span>
-          <span class="exp-letter" data-delay="520">C</span>
-          <span class="exp-letter" data-delay="560">U</span>
-          <span class="exp-letter" data-delay="600">I</span>
-          <span class="exp-letter" data-delay="640">T</span>
-          <span class="exp-letter" data-delay="680">O</span>
-        </div>
+    <!-- ── NUEVO HEADING ANIMADO ── -->
+    <div class="exp-headline-wrap reveal d1" aria-label="Elige tu circuito">
+      <div class="exp-type-line" id="exp-headline-line">
+        <span class="exp-letter" data-delay="80">E</span>
+        <span class="exp-letter" data-delay="120">L</span>
+        <span class="exp-letter" data-delay="160">I</span>
+        <span class="exp-letter" data-delay="200">G</span>
+        <span class="exp-letter" data-delay="240">E</span>
+        <span class="exp-letter exp-gap" aria-hidden="true"> </span>
+        <span class="exp-letter" data-delay="300">T</span>
+        <span class="exp-letter" data-delay="340">U</span>
+        <span class="exp-letter exp-gap" aria-hidden="true"> </span>
+        <span class="exp-letter" data-delay="400">C</span>
+        <span class="exp-letter" data-delay="440">I</span>
+        <span class="exp-letter" data-delay="480">R</span>
+        <span class="exp-letter" data-delay="520">C</span>
+        <span class="exp-letter" data-delay="560">U</span>
+        <span class="exp-letter" data-delay="600">I</span>
+        <span class="exp-letter" data-delay="640">T</span>
+        <span class="exp-letter" data-delay="680">O</span>
       </div>
-      <!-- ── FIN HEADING ANIMADO ── -->
-
     </div>
-    <p class="sec-sub reveal d2">
-      Tres mundos de velocidad. Un solo lugar donde perfeccionarlos. Cada modalidad tiene su propia curva de aprendizaje — y su propia adrenalina.
-    </p>
+    <!-- ── FIN HEADING ANIMADO ── -->
+
   </div>
 
   <div class="exp-circuits reveal d1">
@@ -478,11 +473,11 @@
   function fitExpHeadline(){
     var line = document.getElementById('exp-headline-line');
     if(!line) return;
-    var wrap = line.parentElement;
-    var w = wrap.offsetWidth;
+    var section = document.getElementById('experiencias');
+    var w = section ? section.offsetWidth : line.parentElement.offsetWidth;
     var fs = 10;
     line.style.fontSize = fs + 'px';
-    while(line.scrollWidth <= w && fs < 600){
+    while(line.scrollWidth <= w && fs < 800){
       fs += 2;
       line.style.fontSize = fs + 'px';
     }
