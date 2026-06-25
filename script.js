@@ -312,11 +312,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const lensInner = document.getElementById('sim-lens-inner');
     if (!lensInner) return;
 
-    const N             = 36;     // más puntos = contorno más orgánico, menos "poligonal"
+    const N             = 9;      // pocos puntos + curva suave = lóbulos líquidos, no un círculo
     const BASE_R        = 30;     // mancha chica, tipo landonorris.com
-    const NOISE_A       = 9;      // variación sutil del borde, sin picos agresivos
-    const SPEED         = 0.00045;// respiración del blob un poco más viva al ser más chico
-    const LERP_FOLLOW   = 0.16;   // sigue al cursor más rápido y ajustado (menos "delay" de gota pesada)
+    const NOISE_A        = 13;    // variación más marcada del borde para que "respire" como líquido
+    const SPEED         = 0.00045;// respiración del blob
+    const LERP_FOLLOW   = 0.16;   // sigue al cursor ajustado
 
     const seeds = Array.from({ length: N }, () => Math.random() * 1000);
     let targetX = 0, targetY = 0, cx = 0, cy = 0, rafId = null;
@@ -335,8 +335,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function buildClipPath(x, y, t) {
-      const W = wrap.offsetWidth;
-      const H = wrap.offsetHeight;
       const pts = [];
       for (let i = 0; i < N; i++) {
         const baseAngle  = (i / N) * Math.PI * 2 - Math.PI / 2;
@@ -345,9 +343,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const r  = BASE_R + dropNoise(t, seeds[i]) * NOISE_A;
         const px = x + Math.cos(angle) * r;
         const py = y + Math.sin(angle) * r;
-        pts.push(`${(px / W * 100).toFixed(3)}% ${(py / H * 100).toFixed(3)}%`);
+        pts.push([px, py]);
       }
-      return `polygon(${pts.join(', ')})`;
+      return `path('${catmullRomPath(pts)}')`;
+    }
+
+    // Convierte una serie de puntos (loop cerrado) en una curva suave Catmull-Rom → Bézier.
+    // Esto es lo que hace que el blob se vea como una gota líquida en vez de un polígono recto.
+    function catmullRomPath(pts) {
+      const n = pts.length;
+      let d = `M ${pts[0][0].toFixed(2)} ${pts[0][1].toFixed(2)} `;
+      for (let i = 0; i < n; i++) {
+        const p0 = pts[(i - 1 + n) % n];
+        const p1 = pts[i];
+        const p2 = pts[(i + 1) % n];
+        const p3 = pts[(i + 2) % n];
+        const cp1x = p1[0] + (p2[0] - p0[0]) / 6;
+        const cp1y = p1[1] + (p2[1] - p0[1]) / 6;
+        const cp2x = p2[0] - (p3[0] - p1[0]) / 6;
+        const cp2y = p2[1] - (p3[1] - p1[1]) / 6;
+        d += `C ${cp1x.toFixed(2)} ${cp1y.toFixed(2)}, ${cp2x.toFixed(2)} ${cp2y.toFixed(2)}, ${p2[0].toFixed(2)} ${p2[1].toFixed(2)} `;
+      }
+      return d + 'Z';
     }
 
     function loop(ts) {
