@@ -878,3 +878,161 @@ footer{
     transform: none !important;
   }
 }
+
+/* ══════════════════════════════
+   SIMULADOR — Reveal con lupa
+══════════════════════════════ */
+#simulador {
+  background: var(--black);
+  border-top: 1px solid #111;
+  padding: 7rem 0 0;
+}
+
+.sim-header {
+  text-align: center;
+  padding: 0 3rem;
+  margin-bottom: 4rem;
+}
+
+.sim-reveal-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  cursor: none; /* ocultamos el cursor por defecto dentro */
+  user-select: none;
+  /* borde sutil arriba/abajo */
+  border-top: 1px solid #111;
+  border-bottom: 1px solid #111;
+}
+
+/* Imagen base — siempre visible */
+.sim-base-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: cover;
+  filter: brightness(.75) saturate(.6);
+  transition: filter .4s ease;
+  pointer-events: none;
+}
+
+.sim-reveal-wrap:hover .sim-base-img {
+  filter: brightness(.55) saturate(.5);
+}
+
+/* ── Lupa ── */
+.sim-lens {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity .3s ease;
+  /* borde neón */
+  box-shadow:
+    0 0 0 1.5px rgba(0, 255, 136, .55),
+    0 0 30px rgba(0, 255, 136, .18),
+    inset 0 0 0 1.5px rgba(0, 255, 136, .18);
+  overflow: hidden;
+  z-index: 10;
+  will-change: transform, opacity;
+}
+
+.sim-reveal-wrap:hover .sim-lens {
+  opacity: 1;
+}
+
+/* Imagen de la lupa — foto6 posicionada dinámicamente por JS */
+.sim-lens-inner {
+  position: absolute;
+  inset: 0;
+  background-image: url('foto6.png');
+  background-repeat: no-repeat;
+  background-size: auto; /* se calcula por JS */
+}
+
+/* ── Scanline dentro de la lupa ── */
+.sim-lens::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,.06) 0px, rgba(0,0,0,.06) 1px,
+    transparent 1px, transparent 3px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Texto hint ── */
+.sim-overlay-text {
+  position: absolute;
+  bottom: 2rem;
+  right: 2.5rem;
+  z-index: 5;
+  pointer-events: none;
+  transition: opacity .4s;
+}
+
+.sim-reveal-wrap:hover .sim-overlay-text {
+  opacity: 0;
+}
+
+.sim-hint {
+  font-family: var(--ff-mono);
+  font-size: .58rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(0, 255, 136, .5);
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.sim-hint::after {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: rgba(0,255,136,.4);
+  display: inline-block;
+}
+
+/* ── Cursor personalizado dentro del área ── */
+.sim-cursor {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px rgba(0,255,136,.8);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  opacity: 0;
+  transition: opacity .25s;
+  will-change: transform;
+}
+
+.sim-reveal-wrap:hover .sim-cursor {
+  opacity: 1;
+}
+
+/* ── Mobile: sin lupa, imagen a color normal ── */
+@media (max-width: 768px) {
+  #simulador { padding: 5rem 0 0; }
+  .sim-header { padding: 0 1.5rem; margin-bottom: 2.5rem; }
+  .sim-lens { display: none; }
+  .sim-reveal-wrap { cursor: default; }
+  .sim-reveal-wrap:hover .sim-base-img {
+    filter: brightness(.75) saturate(.6);
+  }
+  .sim-overlay-text { display: none; }
+  .sim-base-img { max-height: 55vw; }
+}
