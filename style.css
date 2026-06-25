@@ -251,6 +251,31 @@ nav{
   object-fit:cover;
   z-index:0;
 }
+
+/* NUEVO: video de fondo en loop — más discreto que una foto en primer plano.
+   Va detrás de los brackets y el HUD, con opacidad reducida y un overlay
+   oscuro encima para que se sienta "de fondo" y no como protagonista. */
+.hero-video-real{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:0;
+  opacity:.45;
+  filter:saturate(.8) brightness(.85);
+}
+.hero-video-overlay{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:linear-gradient(
+    180deg,
+    rgba(5,5,5,.55) 0%,
+    rgba(5,5,5,.25) 40%,
+    rgba(5,5,5,.65) 100%
+  );
+}
 .hdo{position:absolute;top:1rem;left:1rem;right:1rem;display:flex;flex-direction:column;gap:.5rem;pointer-events:none;z-index:2}
 .hdo-row{display:flex;justify-content:space-between;font-family:var(--ff-mono);font-size:.55rem;color:var(--muted)}
 .hdo-val{color:var(--green)}
