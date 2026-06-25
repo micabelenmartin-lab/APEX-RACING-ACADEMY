@@ -880,7 +880,7 @@ footer{
 }
 
 /* ══════════════════════════════
-   SIMULADOR — Reveal con lupa
+   SIMULADOR — Reveal orgánico (sin círculo)
 ══════════════════════════════ */
 #simulador {
   background: var(--black);
@@ -898,9 +898,8 @@ footer{
   position: relative;
   width: 100%;
   overflow: hidden;
-  cursor: none; /* ocultamos el cursor por defecto dentro */
+  cursor: none;
   user-select: none;
-  /* borde sutil arriba/abajo */
   border-top: 1px solid #111;
   border-bottom: 1px solid #111;
 }
@@ -912,63 +911,38 @@ footer{
   height: auto;
   max-height: 80vh;
   object-fit: cover;
-  filter: brightness(.75) saturate(.6);
-  transition: filter .4s ease;
+  filter: brightness(.72) saturate(.5);
+  transition: filter .5s ease;
   pointer-events: none;
 }
 
 .sim-reveal-wrap:hover .sim-base-img {
-  filter: brightness(.55) saturate(.5);
+  filter: brightness(.45) saturate(.35);
 }
 
-/* ── Lupa ── */
+/* ── Capa de foto6 con clip-path SVG orgánico ── */
 .sim-lens {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 260px;
-  height: 260px;
-  border-radius: 50%;
+  inset: 0;
   pointer-events: none;
   opacity: 0;
-  transform: translate(-50%, -50%);
-  transition: opacity .3s ease;
-  /* borde neón */
-  box-shadow:
-    0 0 0 1.5px rgba(0, 255, 136, .55),
-    0 0 30px rgba(0, 255, 136, .18),
-    inset 0 0 0 1.5px rgba(0, 255, 136, .18);
-  overflow: hidden;
+  transition: opacity .35s ease;
   z-index: 10;
-  will-change: transform, opacity;
+  will-change: opacity;
 }
 
 .sim-reveal-wrap:hover .sim-lens {
   opacity: 1;
 }
 
-/* Imagen de la lupa — foto6 posicionada dinámicamente por JS */
+/* foto6 cubre todo el wrap, clippeada por el SVG */
 .sim-lens-inner {
   position: absolute;
   inset: 0;
   background-image: url('foto6.png');
   background-repeat: no-repeat;
-  background-size: auto; /* se calcula por JS */
-}
-
-/* ── Scanline dentro de la lupa ── */
-.sim-lens::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0,0,0,.06) 0px, rgba(0,0,0,.06) 1px,
-    transparent 1px, transparent 3px
-  );
-  pointer-events: none;
-  z-index: 1;
+  background-size: 100% 100%;
+  /* clip-path se actualiza por JS con una forma orgánica */
 }
 
 /* ── Texto hint ── */
@@ -1004,34 +978,14 @@ footer{
   display: inline-block;
 }
 
-/* ── Cursor personalizado dentro del área ── */
-.sim-cursor {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 10px rgba(0,255,136,.8);
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 20;
-  opacity: 0;
-  transition: opacity .25s;
-  will-change: transform;
-}
-
-.sim-reveal-wrap:hover .sim-cursor {
-  opacity: 1;
-}
-
-/* ── Mobile: sin lupa, imagen a color normal ── */
+/* ── Mobile: sin efecto ── */
 @media (max-width: 768px) {
   #simulador { padding: 5rem 0 0; }
   .sim-header { padding: 0 1.5rem; margin-bottom: 2.5rem; }
   .sim-lens { display: none; }
   .sim-reveal-wrap { cursor: default; }
   .sim-reveal-wrap:hover .sim-base-img {
-    filter: brightness(.75) saturate(.6);
+    filter: brightness(.72) saturate(.5);
   }
   .sim-overlay-text { display: none; }
   .sim-base-img { max-height: 55vw; }
