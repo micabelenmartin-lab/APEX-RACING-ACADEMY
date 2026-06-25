@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
 
   /* ── NAV ACTIVE LINK ── */
-  const secs = document.querySelectorAll('section[id]');
+  const secs  = document.querySelectorAll('section[id]');
   const links = document.querySelectorAll('.nav-links a');
   const navIo = new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -135,15 +135,15 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ── PROG CARD MAGNETIC TILT ── */
   document.querySelectorAll('.prog-card').forEach(card => {
     card.addEventListener('mousemove', e => {
-      const r = card.getBoundingClientRect();
-      const cx = r.left + r.width / 2;
+      const r  = card.getBoundingClientRect();
+      const cx = r.left + r.width  / 2;
       const cy = r.top  + r.height / 2;
-      const dx = (e.clientX - cx) / (r.width / 2);
+      const dx = (e.clientX - cx) / (r.width  / 2);
       const dy = (e.clientY - cy) / (r.height / 2);
       card.style.transform = `perspective(600px) rotateY(${dx * 4}deg) rotateX(${-dy * 3}deg) translateY(-4px)`;
     });
     card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
+      card.style.transform  = '';
       card.style.transition = 'transform .5s ease';
     });
   });
@@ -220,10 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!track) return;
 
     const items = Array.from(track.children);
-    let current = 0;
-    let startX = 0;
-    let isDragging = false;
-    let dragOffset = 0;
+    let current = 0, startX = 0, isDragging = false, dragOffset = 0;
 
     if (dotsContainer) {
       items.forEach((_, i) => {
@@ -250,52 +247,45 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     track.addEventListener('touchstart', e => {
-      startX = e.touches[0].clientX;
-      isDragging = true;
+      startX = e.touches[0].clientX; isDragging = true;
       track.style.transition = 'none';
     }, { passive: true });
 
     track.addEventListener('touchmove', e => {
       if (!isDragging) return;
       dragOffset = e.touches[0].clientX - startX;
-      const base = current * 100;
-      track.style.transform = `translateX(calc(-${base}% - ${current}px + ${dragOffset}px))`;
+      track.style.transform = `translateX(calc(-${current * 100}% - ${current}px + ${dragOffset}px))`;
     }, { passive: true });
 
     track.addEventListener('touchend', () => {
       isDragging = false;
-      if (dragOffset < -50)      goTo(current + 1);
-      else if (dragOffset > 50)  goTo(current - 1);
+      if      (dragOffset < -50) goTo(current + 1);
+      else if (dragOffset >  50) goTo(current - 1);
       else                       goTo(current);
       dragOffset = 0;
     });
 
     track.addEventListener('mousedown', e => {
-      startX = e.clientX;
-      isDragging = true;
-      track.style.transition = 'none';
-      track.style.cursor = 'grabbing';
+      startX = e.clientX; isDragging = true;
+      track.style.transition = 'none'; track.style.cursor = 'grabbing';
     });
     window.addEventListener('mousemove', e => {
       if (!isDragging) return;
       dragOffset = e.clientX - startX;
-      const base = current * 100;
-      track.style.transform = `translateX(calc(-${base}% - ${current}px + ${dragOffset}px))`;
+      track.style.transform = `translateX(calc(-${current * 100}% - ${current}px + ${dragOffset}px))`;
     });
     window.addEventListener('mouseup', () => {
       if (!isDragging) return;
-      isDragging = false;
-      track.style.cursor = '';
-      if (dragOffset < -50)      goTo(current + 1);
-      else if (dragOffset > 50)  goTo(current - 1);
+      isDragging = false; track.style.cursor = '';
+      if      (dragOffset < -50) goTo(current + 1);
+      else if (dragOffset >  50) goTo(current - 1);
       else                       goTo(current);
       dragOffset = 0;
     });
   }
 
   function setupCarousels() {
-    const isMobile = window.innerWidth <= 768;
-
+    const isMobile  = window.innerWidth <= 768;
     const expTrack  = document.querySelector('.exp-circuits');
     const expDots   = document.querySelector('.exp-carousel-dots');
     const progTrack = document.querySelector('.prog-cards');
@@ -309,82 +299,90 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       expTrack  && expTrack.classList.remove('carousel-track');
       progTrack && progTrack.classList.remove('carousel-track');
-      [expTrack, progTrack].forEach(t => {
-        if (t) { t.style.transform = ''; t.style.transition = ''; }
-      });
-      [expDots, progDots].forEach(d => { if (d) d.innerHTML = ''; });
+      [expTrack, progTrack].forEach(t => { if (t) { t.style.transform = ''; t.style.transition = ''; } });
+      [expDots,  progDots ].forEach(d => { if (d) d.innerHTML = ''; });
     }
   }
 
   setupCarousels();
-
   let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(setupCarousels, 200);
-  });
+  window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(setupCarousels, 200); });
 
-  /* ── SIMULADOR REVEAL ORGÁNICO — efecto agua ── */
+  /* ══════════════════════════════
+     SIMULADOR — GOTA DE AGUA
+     Forma: blob multi-lóbulo que late y se deforma como mercurio/agua.
+     Tamaño: ~65px de radio base (mitad del anterior de 130px).
+     Movimiento: lag suave (lerp 0.04) + oscilación independiente por punto.
+  ══════════════════════════════ */
   (function () {
     const wrap      = document.getElementById('sim-wrap');
     if (!wrap) return;
-
     const lensInner = document.getElementById('sim-lens-inner');
     if (!lensInner) return;
 
-    // ── Blob acuático: más puntos, radio menor, ruido suave y lento ──
-    const N       = 14;         // más puntos → contorno más suave y orgánico
-    const BASE_R  = 130;        // más chico que antes (era 200)
-    const NOISE_A = 38;         // amplitud de ondulación reducida (era 60)
-    const NOISE_S = 0.00045;    // velocidad muy lenta → efecto marejada
+    /* ── Parámetros de la gota ── */
+    const N        = 20;        // puntos del polígono → contorno muy suave
+    const BASE_R   = 65;        // radio base en px  (mitad de 130)
+    const NOISE_A  = 22;        // amplitud de deformación — pequeña para que no pierda forma de gota
+    const SPEED    = 0.00028;   // velocidad de animación — lenta, "líquida"
+    /* Tensión superficial: qué tan rápido el blob
+       "atrapa" al cursor. Valor bajo = rezaga mucho = efecto mercurio */
+    const LERP_FOLLOW = 0.038;
 
-    // Semillas aleatorias: cada punto oscila de forma independiente
-    const seeds = Array.from({length: N}, () => Math.random() * 1000);
+    /* Semillas únicas por punto */
+    const seeds = Array.from({ length: N }, () => Math.random() * 1000);
 
-    let targetX = 0, targetY = 0;
-    let cx = 0, cy = 0;
-    let rafId = null;
+    /* Estado */
+    let targetX = 0, targetY = 0, cx = 0, cy = 0, rafId = null;
 
     function lerp(a, b, t) { return a + (b - a) * t; }
 
-    // Ruido multi-frecuencia: varias ondas superpuestas → textura acuática
-    function noise(t, seed) {
+    /*
+      Ruido de gota de agua:
+      - Frecuencia baja dominante  → forma redondeada estable
+      - Frecuencia media           → ondulación suave en el borde
+      - Frecuencia alta muy tenue  → micro-vibraciones de tensión superficial
+      - Pulso global (sin seed)    → "respira" como una gota viva
+    */
+    function dropNoise(t, seed) {
+      const pulse = Math.sin(t * 0.9) * 0.08;          // respiración global
       return (
-        Math.sin(t * 1.1  + seed)        * 0.40 +  // onda principal
-        Math.sin(t * 2.3  + seed * 1.6)  * 0.25 +  // armónico medio
-        Math.sin(t * 0.5  + seed * 0.8)  * 0.20 +  // onda lenta
-        Math.sin(t * 3.7  + seed * 2.1)  * 0.10 +  // detalle fino
-        Math.sin(t * 0.18 + seed * 0.3)  * 0.05    // deriva muy lenta → "marejada"
+        Math.sin(t * 0.7  + seed)        * 0.45 +      // onda base lenta
+        Math.sin(t * 1.8  + seed * 1.4)  * 0.28 +      // ondulación media
+        Math.sin(t * 3.2  + seed * 2.2)  * 0.14 +      // detalle fino
+        Math.sin(t * 5.5  + seed * 3.1)  * 0.05 +      // micro-vibración
+        pulse
       );
     }
 
     function buildClipPath(x, y, t) {
-      const W = wrap.offsetWidth;
-      const H = wrap.offsetHeight;
+      const W   = wrap.offsetWidth;
+      const H   = wrap.offsetHeight;
       const pts = [];
+
       for (let i = 0; i < N; i++) {
-        const angle = (i / N) * Math.PI * 2 - Math.PI / 2;
-        const r = BASE_R + noise(t, seeds[i]) * NOISE_A;
+        /* Distribuir ángulos con leve perturbación → evita simetría perfecta */
+        const baseAngle = (i / N) * Math.PI * 2 - Math.PI / 2;
+        const angleJitter = dropNoise(t * 0.3, seeds[i] + 500) * 0.08; // jitter angular sutil
+        const angle = baseAngle + angleJitter;
+
+        const r  = BASE_R + dropNoise(t, seeds[i]) * NOISE_A;
         const px = x + Math.cos(angle) * r;
         const py = y + Math.sin(angle) * r;
-        pts.push(`${(px / W * 100).toFixed(2)}% ${(py / H * 100).toFixed(2)}%`);
+        pts.push(`${(px / W * 100).toFixed(3)}% ${(py / H * 100).toFixed(3)}%`);
       }
       return `polygon(${pts.join(', ')})`;
     }
 
     function loop(ts) {
-      const t = ts * NOISE_S;
-
-      // Seguimiento más suave del cursor → sensación líquida (era 0.085)
-      cx = lerp(cx, targetX, 0.055);
-      cy = lerp(cy, targetY, 0.055);
-
+      const t = ts * SPEED;
+      cx = lerp(cx, targetX, LERP_FOLLOW);
+      cy = lerp(cy, targetY, LERP_FOLLOW);
       lensInner.style.clipPath = buildClipPath(cx, cy, t);
-
       rafId = requestAnimationFrame(loop);
     }
 
-    wrap.addEventListener('mouseenter', (e) => {
+    wrap.addEventListener('mouseenter', e => {
       const rect = wrap.getBoundingClientRect();
       targetX = cx = e.clientX - rect.left;
       targetY = cy = e.clientY - rect.top;
@@ -395,11 +393,12 @@ document.addEventListener('DOMContentLoaded', () => {
       cancelAnimationFrame(rafId);
     });
 
-    wrap.addEventListener('mousemove', (e) => {
+    wrap.addEventListener('mousemove', e => {
       const rect = wrap.getBoundingClientRect();
       targetX = e.clientX - rect.left;
       targetY = e.clientY - rect.top;
     });
+
   })();
 
 });
