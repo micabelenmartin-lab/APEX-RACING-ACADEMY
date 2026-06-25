@@ -312,11 +312,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const lensInner = document.getElementById('sim-lens-inner');
     if (!lensInner) return;
 
-    const N             = 20;
-    const BASE_R        = 65;
-    const NOISE_A       = 22;
-    const SPEED         = 0.00028;
-    const LERP_FOLLOW   = 0.038;
+    const N             = 36;     // más puntos = contorno más orgánico, menos "poligonal"
+    const BASE_R        = 30;     // mancha chica, tipo landonorris.com
+    const NOISE_A       = 9;      // variación sutil del borde, sin picos agresivos
+    const SPEED         = 0.00045;// respiración del blob un poco más viva al ser más chico
+    const LERP_FOLLOW   = 0.16;   // sigue al cursor más rápido y ajustado (menos "delay" de gota pesada)
 
     const seeds = Array.from({ length: N }, () => Math.random() * 1000);
     let targetX = 0, targetY = 0, cx = 0, cy = 0, rafId = null;
