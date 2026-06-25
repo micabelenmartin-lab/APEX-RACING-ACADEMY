@@ -809,3 +809,72 @@ footer{
   .btn-primary,.btn-ghost{width:100%;text-align:center;justify-content:center}
   .pilots-strip{grid-template-columns:repeat(2,1fr)}
 }
+
+/* ══════════════════════════════
+   CARRUSEL — Circuitos y Programas (mobile)
+══════════════════════════════ */
+
+/* Track en modo carrusel (clase agregada por JS) */
+.carousel-track {
+  display: flex !important;
+  flex-direction: row !important;
+  overflow: visible !important;
+  background: transparent !important;
+  gap: 0 !important;
+  will-change: transform;
+  cursor: grab;
+  user-select: none;
+}
+.carousel-track:active { cursor: grabbing; }
+
+/* Cada hijo ocupa el 100% del contenedor */
+.carousel-track > * {
+  flex: 0 0 100% !important;
+  width: 100% !important;
+  background: var(--black) !important;
+  margin-right: 1px;
+}
+
+/* Dots de navegación */
+.exp-carousel-dots,
+.prog-carousel-dots {
+  display: none;
+  justify-content: center;
+  gap: .6rem;
+  margin-top: 1.5rem;
+}
+
+.carousel-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: none;
+  background: var(--muted2);
+  padding: 0;
+  cursor: pointer;
+  transition: background .25s, transform .25s, box-shadow .25s;
+}
+.carousel-dot.active {
+  background: var(--green);
+  transform: scale(1.4);
+  box-shadow: 0 0 8px rgba(0,255,136,.55);
+}
+
+@media (max-width: 768px) {
+  /* Clip para ocultar slides adyacentes */
+  #experiencias .exp-circuits,
+  #programas .prog-cards {
+    overflow: hidden;
+  }
+
+  /* Mostrar dots */
+  .exp-carousel-dots,
+  .prog-carousel-dots {
+    display: flex;
+  }
+
+  /* Sin tilt en carrusel */
+  .carousel-track .prog-card:hover {
+    transform: none !important;
+  }
+}
