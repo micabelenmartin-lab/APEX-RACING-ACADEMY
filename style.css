@@ -821,9 +821,33 @@ footer{
 @media(max-width:768px){
   #simulador{padding:5rem 0 0}
   .sim-header{padding:0 1.5rem;margin-bottom:2.5rem}
-  .sim-lens{display:none}
   .sim-reveal-wrap{cursor:default}
-  .sim-reveal-wrap:hover .sim-base-img{filter:brightness(.72) saturate(.5)}
   .sim-overlay-text{display:none}
   .sim-base-img{max-height:55vw}
+
+  /* ── Auto-loop glitch entre foto5 / foto6 (mobile) ──
+     No hay cursor para activar el "lens", así que en mobile
+     las dos fotos se alternan solas en loop con un glitch. */
+  .sim-base-img{filter:brightness(.72) saturate(.5)}
+  .sim-lens{
+    display:block;
+    transition:none;     /* el cambio lo maneja el glitch, no un fade */
+    opacity:0;
+  }
+  .sim-lens.sim-active{opacity:1}
+
+  .sim-reveal-wrap.sim-glitching .sim-base-img,
+  .sim-reveal-wrap.sim-glitching .sim-lens-inner{
+    animation:simGlitchFx .4s steps(3) both;
+  }
+}
+
+@keyframes simGlitchFx{
+  0%  {transform:translate(0,0);                 filter:brightness(.72) saturate(.5);}
+  12% {transform:translate(-3%,1%) scaleX(1.01);  filter:brightness(1.3) saturate(2) hue-rotate(8deg);}
+  28% {transform:translate(2%,-1%);               filter:brightness(.5) contrast(1.4);}
+  44% {transform:translate(-2%,0%);               filter:brightness(1.1) saturate(1.6);}
+  60% {transform:translate(2%,1%);                filter:brightness(.6) contrast(1.2) hue-rotate(-6deg);}
+  78% {transform:translate(-1%,0%);               filter:brightness(1.05);}
+  100%{transform:translate(0,0);                  filter:brightness(.72) saturate(.5);}
 }
