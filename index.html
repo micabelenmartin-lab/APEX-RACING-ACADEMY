@@ -474,7 +474,10 @@
     var line = document.getElementById('exp-headline-line');
     if(!line) return;
     var section = document.getElementById('experiencias');
-    var w = section ? section.offsetWidth : line.parentElement.offsetWidth;
+    var style = section ? window.getComputedStyle(section) : null;
+    var padL = style ? parseFloat(style.paddingLeft) : 48;
+    var padR = style ? parseFloat(style.paddingRight) : 48;
+    var w = (section ? section.offsetWidth : line.parentElement.offsetWidth) - padL - padR;
     var fs = 10;
     line.style.fontSize = fs + 'px';
     while(line.scrollWidth <= w && fs < 800){
