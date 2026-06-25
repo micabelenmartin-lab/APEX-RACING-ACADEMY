@@ -31,6 +31,46 @@ body{
   font-family:var(--ff-body);font-size:16px;line-height:1.6;
   overflow-x:hidden;
 }
+body.no-scroll{overflow:hidden}
+
+/* ── LOADER ── */
+#loader{
+  position:fixed;inset:0;z-index:99999;
+  background:var(--black);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;
+  transition:opacity .7s ease, transform .7s ease;
+}
+#loader.loader-out{
+  opacity:0;
+  transform:translateY(-8px);
+  pointer-events:none;
+}
+.loader-logo{
+  font-family:var(--ff-display);font-weight:900;font-style:italic;
+  font-size:clamp(3.5rem,10vw,7rem);
+  letter-spacing:.06em;color:var(--white);
+  display:flex;align-items:center;
+  animation:loaderPulse 1.8s ease-in-out infinite;
+}
+.loader-dot{
+  color:var(--green);
+  text-shadow:0 0 30px rgba(0,255,136,.6);
+}
+@keyframes loaderPulse{
+  0%,100%{opacity:1}
+  50%{opacity:.5}
+}
+.loader-bar-wrap{
+  width:160px;height:2px;
+  background:rgba(255,255,255,.08);
+  overflow:hidden;
+}
+.loader-bar{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--green),var(--violet));
+  transition:width .15s ease;
+  box-shadow:0 0 8px rgba(0,255,136,.4);
+}
 a{color:inherit;text-decoration:none}
 button{cursor:pointer}
 img{max-width:100%;height:auto;display:block}
