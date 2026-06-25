@@ -39,8 +39,6 @@ img{max-width:100%;height:auto;display:block}
 ::-webkit-scrollbar-thumb{background:var(--green)}
 
 /* ── CURSOR ── */
-/* BUG FIX: #cursor no tenía estilos. El JS lo mueve con left/top
-   pero sin position:fixed y sin dimensiones era invisible. */
 #cursor{
   position:fixed;width:6px;height:6px;border-radius:50%;
   background:var(--green);z-index:9999;pointer-events:none;
@@ -74,9 +72,7 @@ body:has(button:hover) #cursor-ring{
   );
 }
 
-/* ── SCROLL PROGRESS ──
-   BUG FIX: estaba duplicado en <style> inline del HTML y acá.
-   Se eliminó el bloque inline del HTML y se deja sólo este. */
+/* ── SCROLL PROGRESS ── */
 #scroll-bar{
   position:fixed;top:56px;left:0;height:2px;width:0%;
   background:linear-gradient(90deg,var(--green),var(--violet));
@@ -166,8 +162,6 @@ nav{
   flex:1;padding-top:90px;align-items:center;gap:4rem;
   position:relative;z-index:1;
 }
-/* BUG FIX: .hero-left no tenía estilos — se agrega para que el contenido
-   del lado izquierdo del grid se comporte correctamente. */
 .hero-left{
   display:flex;flex-direction:column;justify-content:center;
 }
@@ -247,6 +241,16 @@ nav{
   content:'';position:absolute;inset:0;
   background:repeating-linear-gradient(0deg,transparent,transparent 48px,rgba(0,255,136,.025) 48px,rgba(0,255,136,.025) 49px);
 }
+/* NUEVO: imagen real del piloto, posicionada como fondo dentro del recuadro,
+   detrás de brackets, overlay HUD y SVG decorativo */
+.hero-img-real{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:0;
+}
 .hdo{position:absolute;top:1rem;left:1rem;right:1rem;display:flex;flex-direction:column;gap:.5rem;pointer-events:none;z-index:2}
 .hdo-row{display:flex;justify-content:space-between;font-family:var(--ff-mono);font-size:.55rem;color:var(--muted)}
 .hdo-val{color:var(--green)}
@@ -303,7 +307,6 @@ section{padding:7rem 3rem}
   display:grid;grid-template-columns:1fr 1fr;gap:4rem;
   align-items:end;margin-bottom:4rem;
 }
-/* Grid 3 columnas verticales tipo card */
 .exp-circuits{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -316,7 +319,6 @@ section{padding:7rem 3rem}
   border-bottom:3px solid transparent;
   transition:border-color .4s;
 }
-/* Zona de imagen superior — ocupa ~60% */
 .exp-circuit-img{
   flex:0 0 60%;
   background:#0d0d0d;
@@ -331,7 +333,6 @@ section{padding:7rem 3rem}
   background:linear-gradient(to bottom,rgba(0,0,0,.1) 0%,rgba(5,5,5,.85) 100%);
 }
 .exp-circuit:hover .exp-circuit-img{transform:scale(1.03)}
-/* Contenido inferior */
 .exp-circuit-body{
   flex:1;display:flex;flex-direction:column;justify-content:flex-end;
   padding:2rem 1.8rem 2rem;
@@ -368,8 +369,6 @@ section{padding:7rem 3rem}
 }
 .exp-circuit:hover .exp-tag{border-color:var(--violet);color:var(--violet);box-shadow:0 0 8px rgba(191,95,255,.2)}
 
-/* BUG FIX: .media-strip y .media-ph no tenían estilos en el CSS original,
-   haciendo que la tira de fotos bajo Experiencias fuera invisible/sin formato. */
 .media-strip{
   display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
   background:#111;margin-top:1px;
@@ -469,8 +468,6 @@ section{padding:7rem 3rem}
 ══════════════════════════════ */
 #academia{background:var(--black);border-top:1px solid #111}
 .academy-inner{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
-/* BUG FIX: .academy-left no tenía estilos, el contenido izquierdo de la
-   academia no tenía ningún layout definido. */
 .academy-left{
   display:flex;flex-direction:column;
 }
@@ -504,9 +501,6 @@ section{padding:7rem 3rem}
 
 /* ══════════════════════════════
    TESTIMONIOS / PILOTOS
-   BUG FIX: toda esta sección carecía de estilos en el CSS original.
-   Los elementos existían en el HTML pero eran completamente invisibles
-   o sin formato alguno.
 ══════════════════════════════ */
 #pilotos{background:var(--dark);border-top:1px solid #111}
 .testi-grid{
@@ -539,7 +533,6 @@ section{padding:7rem 3rem}
 .testi-name{font-family:var(--ff-display);font-weight:700;font-size:.85rem;letter-spacing:.04em;text-transform:uppercase}
 .testi-role{font-family:var(--ff-mono);font-size:.5rem;color:var(--muted);letter-spacing:.1em;margin-top:.2rem}
 
-/* BUG FIX: .pilots-strip y .pilot-ph no tenían estilos en el CSS original. */
 .pilots-strip{
   display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
   background:#111;margin-top:1px;
@@ -602,8 +595,6 @@ footer{
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
-/* BUG FIX: @keyframes logoGlitch estaba duplicado (en <style> inline del HTML
-   y acá). Se eliminó el bloque inline y se deja sólo este. */
 @keyframes logoGlitch{
   0%  {transform:translate(0,0);  color:var(--green)}
   25% {transform:translate(-3px,0);color:var(--violet)}
@@ -655,7 +646,6 @@ footer{
 
   section{padding:4rem 1.5rem}
 
-  /* Experiencias: 1 columna en móvil */
   .exp-header{grid-template-columns:1fr;gap:1.5rem}
   .exp-circuits{grid-template-columns:1fr}
   .exp-circuit{min-height:400px}
