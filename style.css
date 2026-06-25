@@ -393,6 +393,7 @@ section{padding:7rem 3rem}
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:1px;background:#111;
+  margin-bottom:4rem;
 }
 .exp-circuit{
   display:flex;flex-direction:column;
