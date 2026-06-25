@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
       navToggle.classList.toggle('open', isOpen);
       navToggle.setAttribute('aria-expanded', isOpen);
     });
-
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         navLinks.classList.remove('open');
@@ -77,13 +76,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (morphEl) {
     setInterval(() => {
       morphIdx = (morphIdx + 1) % morphWords.length;
-      morphEl.style.opacity = '0';
+      morphEl.style.opacity   = '0';
       morphEl.style.transform = 'translateY(-8px)';
       morphEl.style.transition = 'opacity .25s ease, transform .25s ease';
       setTimeout(() => {
-        morphEl.textContent = morphWords[morphIdx];
-        morphEl.style.opacity = '1';
-        morphEl.style.transform = 'translateY(0)';
+        morphEl.textContent      = morphWords[morphIdx];
+        morphEl.style.opacity    = '1';
+        morphEl.style.transform  = 'translateY(0)';
       }, 280);
     }, 3200);
   }
@@ -182,7 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const len = finalText.length;
     let frame = 0;
     const totalFrames = Math.ceil(duration / 32);
-
     const interval = setInterval(() => {
       let out = '';
       for (let i = 0; i < len; i++) {
@@ -194,10 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       el.textContent = out;
       frame++;
-      if (frame >= totalFrames) {
-        el.textContent = finalText;
-        clearInterval(interval);
-      }
+      if (frame >= totalFrames) { el.textContent = finalText; clearInterval(interval); }
     }, 32);
   }
 
@@ -218,7 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
   ══════════════════════════════ */
   function initCarousel(track, dotsContainer) {
     if (!track) return;
-
     const items = Array.from(track.children);
     let current = 0, startX = 0, isDragging = false, dragOffset = 0;
 
@@ -250,13 +244,11 @@ document.addEventListener('DOMContentLoaded', () => {
       startX = e.touches[0].clientX; isDragging = true;
       track.style.transition = 'none';
     }, { passive: true });
-
     track.addEventListener('touchmove', e => {
       if (!isDragging) return;
       dragOffset = e.touches[0].clientX - startX;
       track.style.transform = `translateX(calc(-${current * 100}% - ${current}px + ${dragOffset}px))`;
     }, { passive: true });
-
     track.addEventListener('touchend', () => {
       isDragging = false;
       if      (dragOffset < -50) goTo(current + 1);
@@ -306,13 +298,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setupCarousels();
   let resizeTimer;
-  window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(setupCarousels, 200); });
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(setupCarousels, 200);
+  });
 
   /* ══════════════════════════════
      SIMULADOR — GOTA DE AGUA
-     Forma: blob multi-lóbulo que late y se deforma como mercurio/agua.
-     Tamaño: ~65px de radio base (mitad del anterior de 130px).
-     Movimiento: lag suave (lerp 0.04) + oscilación independiente por punto.
   ══════════════════════════════ */
   (function () {
     const wrap      = document.getElementById('sim-wrap');
@@ -320,52 +312,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const lensInner = document.getElementById('sim-lens-inner');
     if (!lensInner) return;
 
-    /* ── Parámetros de la gota ── */
-    const N        = 20;        // puntos del polígono → contorno muy suave
-    const BASE_R   = 65;        // radio base en px  (mitad de 130)
-    const NOISE_A  = 22;        // amplitud de deformación — pequeña para que no pierda forma de gota
-    const SPEED    = 0.00028;   // velocidad de animación — lenta, "líquida"
-    /* Tensión superficial: qué tan rápido el blob
-       "atrapa" al cursor. Valor bajo = rezaga mucho = efecto mercurio */
-    const LERP_FOLLOW = 0.038;
+    const N             = 20;
+    const BASE_R        = 65;
+    const NOISE_A       = 22;
+    const SPEED         = 0.00028;
+    const LERP_FOLLOW   = 0.038;
 
-    /* Semillas únicas por punto */
     const seeds = Array.from({ length: N }, () => Math.random() * 1000);
-
-    /* Estado */
     let targetX = 0, targetY = 0, cx = 0, cy = 0, rafId = null;
 
     function lerp(a, b, t) { return a + (b - a) * t; }
 
-    /*
-      Ruido de gota de agua:
-      - Frecuencia baja dominante  → forma redondeada estable
-      - Frecuencia media           → ondulación suave en el borde
-      - Frecuencia alta muy tenue  → micro-vibraciones de tensión superficial
-      - Pulso global (sin seed)    → "respira" como una gota viva
-    */
     function dropNoise(t, seed) {
-      const pulse = Math.sin(t * 0.9) * 0.08;          // respiración global
+      const pulse = Math.sin(t * 0.9) * 0.08;
       return (
-        Math.sin(t * 0.7  + seed)        * 0.45 +      // onda base lenta
-        Math.sin(t * 1.8  + seed * 1.4)  * 0.28 +      // ondulación media
-        Math.sin(t * 3.2  + seed * 2.2)  * 0.14 +      // detalle fino
-        Math.sin(t * 5.5  + seed * 3.1)  * 0.05 +      // micro-vibración
+        Math.sin(t * 0.7  + seed)       * 0.45 +
+        Math.sin(t * 1.8  + seed * 1.4) * 0.28 +
+        Math.sin(t * 3.2  + seed * 2.2) * 0.14 +
+        Math.sin(t * 5.5  + seed * 3.1) * 0.05 +
         pulse
       );
     }
 
     function buildClipPath(x, y, t) {
-      const W   = wrap.offsetWidth;
-      const H   = wrap.offsetHeight;
+      const W = wrap.offsetWidth;
+      const H = wrap.offsetHeight;
       const pts = [];
-
       for (let i = 0; i < N; i++) {
-        /* Distribuir ángulos con leve perturbación → evita simetría perfecta */
-        const baseAngle = (i / N) * Math.PI * 2 - Math.PI / 2;
-        const angleJitter = dropNoise(t * 0.3, seeds[i] + 500) * 0.08; // jitter angular sutil
+        const baseAngle  = (i / N) * Math.PI * 2 - Math.PI / 2;
+        const angleJitter = dropNoise(t * 0.3, seeds[i] + 500) * 0.08;
         const angle = baseAngle + angleJitter;
-
         const r  = BASE_R + dropNoise(t, seeds[i]) * NOISE_A;
         const px = x + Math.cos(angle) * r;
         const py = y + Math.sin(angle) * r;
@@ -388,17 +364,12 @@ document.addEventListener('DOMContentLoaded', () => {
       targetY = cy = e.clientY - rect.top;
       rafId = requestAnimationFrame(loop);
     });
-
-    wrap.addEventListener('mouseleave', () => {
-      cancelAnimationFrame(rafId);
-    });
-
+    wrap.addEventListener('mouseleave', () => cancelAnimationFrame(rafId));
     wrap.addEventListener('mousemove', e => {
       const rect = wrap.getBoundingClientRect();
       targetX = e.clientX - rect.left;
       targetY = e.clientY - rect.top;
     });
-
   })();
 
 });
