@@ -32,7 +32,26 @@ document.addEventListener('DOMContentLoaded', () => {
     ring.style.opacity   = '1';
   });
 
-  
+  /* ── HAMBURGER MENU ── */
+  const navToggle = document.getElementById('nav-toggle');
+  const navLinks  = document.getElementById('nav-links');
+
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.classList.toggle('open', isOpen);
+      navToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Cerrar menú al hacer click en un link
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 
   /* ── TELEMETRY LIVE VALUES ── */
   const rpmEl   = document.getElementById('tel-rpm');
@@ -130,9 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ── NUMBER COUNTERS (hero) ── */
-  // Removed stats bar per request — counters kept for potential re-use
-
   /* ── SCROLL PROGRESS BAR ── */
   const bar = document.getElementById('scroll-bar');
   if (bar) {
@@ -186,7 +202,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 32);
   }
 
-  // Trigger scramble when CTA enters view
   const ctaTitle = document.querySelector('.cta-main-text');
   if (ctaTitle) {
     let triggered = false;
@@ -198,5 +213,126 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: .5 });
     ctaIo.observe(ctaTitle);
   }
+
+  /* ══════════════════════════════
+     CARRUSEL GENÉRICO
+     Funciona para .exp-circuits y .prog-cards en mobile
+  ══════════════════════════════ */
+  function initCarousel(track, dotsContainer) {
+    if (!track) return;
+
+    const items = Array.from(track.children);
+    let current = 0;
+    let startX = 0;
+    let isDragging = false;
+    let dragOffset = 0;
+
+    // Crear dots
+    if (dotsContainer) {
+      items.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', `Ir al slide ${i + 1}`);
+        dot.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    function updateDots() {
+      if (!dotsContainer) return;
+      dotsContainer.querySelectorAll('.carousel-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    function goTo(index) {
+      current = Math.max(0, Math.min(index, items.length - 1));
+      track.style.transition = 'transform .4s cubic-bezier(.25,.8,.25,1)';
+      track.style.transform  = `translateX(calc(-${current * 100}% - ${current}px))`;
+      updateDots();
+    }
+
+    // Touch / drag
+    track.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+      track.style.transition = 'none';
+    }, { passive: true });
+
+    track.addEventListener('touchmove', e => {
+      if (!isDragging) return;
+      dragOffset = e.touches[0].clientX - startX;
+      const base = current * 100;
+      track.style.transform = `translateX(calc(-${base}% - ${current}px + ${dragOffset}px))`;
+    }, { passive: true });
+
+    track.addEventListener('touchend', () => {
+      isDragging = false;
+      if (dragOffset < -50)      goTo(current + 1);
+      else if (dragOffset > 50)  goTo(current - 1);
+      else                       goTo(current);
+      dragOffset = 0;
+    });
+
+    // Mouse drag (desktop fallback)
+    track.addEventListener('mousedown', e => {
+      startX = e.clientX;
+      isDragging = true;
+      track.style.transition = 'none';
+      track.style.cursor = 'grabbing';
+    });
+    window.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      dragOffset = e.clientX - startX;
+      const base = current * 100;
+      track.style.transform = `translateX(calc(-${base}% - ${current}px + ${dragOffset}px))`;
+    });
+    window.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      track.style.cursor = '';
+      if (dragOffset < -50)      goTo(current + 1);
+      else if (dragOffset > 50)  goTo(current - 1);
+      else                       goTo(current);
+      dragOffset = 0;
+    });
+  }
+
+  /* Activar carruseles solo en mobile */
+  function setupCarousels() {
+    const isMobile = window.innerWidth <= 768;
+
+    /* — Circuitos — */
+    const expTrack = document.querySelector('.exp-circuits');
+    const expDots  = document.querySelector('.exp-carousel-dots');
+
+    /* — Programas — */
+    const progTrack = document.querySelector('.prog-cards');
+    const progDots  = document.querySelector('.prog-carousel-dots');
+
+    if (isMobile) {
+      expTrack  && expTrack.classList.add('carousel-track');
+      progTrack && progTrack.classList.add('carousel-track');
+      initCarousel(expTrack,  expDots);
+      initCarousel(progTrack, progDots);
+    } else {
+      expTrack  && expTrack.classList.remove('carousel-track');
+      progTrack && progTrack.classList.remove('carousel-track');
+      // Reset posición
+      [expTrack, progTrack].forEach(t => {
+        if (t) { t.style.transform = ''; t.style.transition = ''; }
+      });
+      // Limpiar dots
+      [expDots, progDots].forEach(d => { if (d) d.innerHTML = ''; });
+    }
+  }
+
+  setupCarousels();
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(setupCarousels, 200);
+  });
 
 });
