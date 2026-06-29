@@ -848,66 +848,48 @@ footer{
 /* ══════════════════════════════
    SIMULADOR — Reveal orgánico
 ══════════════════════════════ */
-#simulador{background:var(--black);border-top:1px solid #111;padding:7rem 0 0}
+#simulador{background:var(--white);border-top:1px solid #ddd;padding:7rem 0 0}
 .sim-header{text-align:center;padding:0 3rem;margin-bottom:4rem}
+/* Invertimos colores del eyebrow y letras para fondo blanco */
+#simulador .eyebrow{color:var(--violet)}
+#simulador .exp-letter{color:var(--black)}
+#simulador .exp-letter.exp-tu{color:transparent;-webkit-text-stroke:1.5px var(--black)}
+#simulador .exp-letter:not(.exp-gap):hover{color:var(--violet);-webkit-text-stroke:none;text-shadow:0 0 50px rgba(191,95,255,.4)}
+#simulador .exp-letter.exp-tu:hover{color:transparent;-webkit-text-stroke:1.5px var(--violet);text-shadow:0 0 50px rgba(191,95,255,.4)}
 .sim-reveal-wrap{
   position:relative;width:100%;overflow:hidden;
-  cursor:none;user-select:none;
-  border-top:1px solid #111;border-bottom:1px solid #111;
+  cursor:pointer;user-select:none;
+  border-top:1px solid #ddd;border-bottom:1px solid #ddd;
+  background:var(--white);
 }
 .sim-base-img{
   display:block;width:100%;height:auto;max-height:80vh;object-fit:cover;
-  filter:brightness(.72) saturate(.5);transition:filter .5s ease;pointer-events:none;
+  transition:opacity .4s ease;pointer-events:none;
 }
-.sim-reveal-wrap:hover .sim-base-img{filter:brightness(.45) saturate(.35)}
-.sim-lens{
-  position:absolute;inset:0;pointer-events:none;
-  opacity:1;z-index:10;will-change:opacity;
+.sim-base-img.sim-hidden{opacity:0;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.sim-alt-img{
+  display:block;width:100%;height:auto;max-height:80vh;object-fit:cover;
+  transition:opacity .4s ease;pointer-events:none;
+  opacity:0;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
 }
-.sim-lens-inner{
-  position:absolute;inset:0;
-  background-image:url('foto6.png');
-  background-repeat:no-repeat;background-size:100% 100%;
-}
+.sim-alt-img.sim-visible{opacity:1}
+.sim-base-img.sim-hidden{opacity:0}
+.sim-lens{display:none}
 .sim-overlay-text{
   position:absolute;bottom:2rem;right:2.5rem;
   z-index:5;pointer-events:none;transition:opacity .4s;
 }
-.sim-reveal-wrap:hover .sim-overlay-text{opacity:0}
 .sim-hint{
   font-family:var(--ff-mono);font-size:.58rem;letter-spacing:.2em;
-  text-transform:uppercase;color:rgba(0,255,136,.5);
+  text-transform:uppercase;color:rgba(191,95,255,.7);
   display:flex;align-items:center;gap:.5rem;
 }
-.sim-hint::after{content:'';width:20px;height:1px;background:rgba(0,255,136,.4);display:inline-block}
+.sim-hint::after{content:'';width:20px;height:1px;background:rgba(191,95,255,.5);display:inline-block}
 
 @media(max-width:768px){
   #simulador{padding:5rem 0 0}
   .sim-header{padding:0 1.5rem;margin-bottom:2.5rem}
-  .sim-reveal-wrap{cursor:default}
-  .sim-overlay-text{display:none}
+  .sim-reveal-wrap{cursor:pointer}
   .sim-base-img{max-height:55vw}
-
-  .sim-base-img{filter:brightness(.72) saturate(.5)}
-  .sim-lens{
-    display:block;
-    transition:none;
-    opacity:0;
-  }
-  .sim-lens.sim-active{opacity:1}
-
-  .sim-reveal-wrap.sim-glitching .sim-base-img,
-  .sim-reveal-wrap.sim-glitching .sim-lens-inner{
-    animation:simGlitchFx .4s steps(3) both;
-  }
-}
-
-@keyframes simGlitchFx{
-  0%  {transform:translate(0,0);                 filter:brightness(.72) saturate(.5);}
-  12% {transform:translate(-3%,1%) scaleX(1.01);  filter:brightness(1.3) saturate(2) hue-rotate(8deg);}
-  28% {transform:translate(2%,-1%);               filter:brightness(.5) contrast(1.4);}
-  44% {transform:translate(-2%,0%);               filter:brightness(1.1) saturate(1.6);}
-  60% {transform:translate(2%,1%);                filter:brightness(.6) contrast(1.2) hue-rotate(-6deg);}
-  78% {transform:translate(-1%,0%);               filter:brightness(1.05);}
-  100%{transform:translate(0,0);                  filter:brightness(.72) saturate(.5);}
+  .sim-alt-img{max-height:55vw}
 }
