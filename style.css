@@ -507,7 +507,7 @@ section{padding:7rem 3rem}
 #programas{background:var(--dark);border-top:1px solid #111;position:relative;}
 #programas::before{
   content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 80% 60% at 50% 50%, rgba(255,255,255,.04) 0%, transparent 70%);
+  background:rgba(255,255,255,.07);
   z-index:0;
 }
 #programas > *{position:relative;z-index:1;}
