@@ -233,7 +233,7 @@ nav{
   98%{clip-path:none;transform:translate(0,0)}
 }
 .hero-body{
-  font-size:.95rem;color:#707070;line-height:1.8;
+  font-size:1.1rem;color:#707070;line-height:1.8;
   max-width:440px;margin-bottom:2.5rem;font-weight:300;
   opacity:0;animation:fadeUp .7s .5s forwards;position:relative;z-index:1;
 }
