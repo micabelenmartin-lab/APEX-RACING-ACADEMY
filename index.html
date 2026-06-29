@@ -345,13 +345,11 @@
     </div>
   </div>
 
-  <div class="sim-reveal-wrap reveal d2" id="sim-wrap">
-    <img src="foto5.png" alt="Simulador APEX" class="sim-base-img" draggable="false">
-    <div class="sim-lens" id="sim-lens" aria-hidden="true">
-      <div class="sim-lens-inner" id="sim-lens-inner"></div>
-    </div>
+  <div class="sim-reveal-wrap reveal d2" id="sim-wrap" role="button" tabindex="0" aria-label="Alternar vista del simulador">
+    <img src="foto5.png" alt="Simulador APEX — vista exterior" class="sim-base-img" id="sim-img-base" draggable="false">
+    <img src="foto6.png" alt="Simulador APEX — vista interior" class="sim-alt-img" id="sim-img-alt" draggable="false">
     <div class="sim-overlay-text" aria-hidden="true">
-      <span class="sim-hint">// PASÁ EL CURSOR</span>
+      <span class="sim-hint">// HACÉ CLICK</span>
     </div>
   </div>
 </section>
@@ -490,6 +488,35 @@
 </footer>
 
 <script src="script.js"></script>
+
+<!-- ═══════ SCRIPT: SIMULADOR — TOGGLE CLICK ═══════ -->
+<script>
+(function(){
+  var wrap    = document.getElementById('sim-wrap');
+  var imgBase = document.getElementById('sim-img-base');
+  var imgAlt  = document.getElementById('sim-img-alt');
+  var hint    = wrap ? wrap.querySelector('.sim-hint') : null;
+  if(!wrap || !imgBase || !imgAlt) return;
+
+  var showingAlt = false;
+
+  function toggle(){
+    showingAlt = !showingAlt;
+    if(showingAlt){
+      imgAlt.classList.add('sim-visible');
+      imgBase.classList.add('sim-hidden');
+    } else {
+      imgAlt.classList.remove('sim-visible');
+      imgBase.classList.remove('sim-hidden');
+    }
+  }
+
+  wrap.addEventListener('click', toggle);
+  wrap.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){{ e.preventDefault(); toggle(); }}
+  });
+})();
+</script>
 
 <!-- ═══════ SCRIPT: LOADER ═══════ -->
 <script>
