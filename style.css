@@ -466,19 +466,19 @@ section{padding:7rem 3rem}
 .exp-circuit:hover .exp-circuit-body::before{opacity:1}
 .exp-circuit:hover{border-bottom-color:var(--green)}
 .exp-num{
-  font-family:var(--ff-display);font-weight:900;font-size:3.2rem;
+  font-family:var(--ff-display);font-weight:900;font-size:3.8rem;
   color:rgba(255,255,255,.08);line-height:1;margin-bottom:.4rem;
   transition:color .3s;position:relative;z-index:1;
 }
 .exp-circuit:hover .exp-num{color:rgba(255,255,255,.18)}
 .exp-name{
-  font-family:var(--ff-display);font-weight:800;font-size:1.2rem;
+  font-family:var(--ff-display);font-weight:800;font-size:1.45rem;
   text-transform:uppercase;letter-spacing:.05em;
   transition:color .3s;position:relative;z-index:1;
 }
 .exp-circuit:hover .exp-name{color:var(--green);text-shadow:0 0 20px rgba(0,255,136,.3)}
 .exp-desc{
-  font-size:.78rem;color:#888;margin-top:.5rem;font-weight:300;line-height:1.6;
+  font-size:.92rem;color:#888;margin-top:.5rem;font-weight:300;line-height:1.6;
   position:relative;z-index:1;
 }
 .exp-tag{
