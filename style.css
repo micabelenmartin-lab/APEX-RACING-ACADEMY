@@ -516,6 +516,7 @@ section{padding:7rem 3rem}
 .prog-card:hover{transform:translateY(-4px)}
 .prog-card.featured{border-top-color:var(--green);box-shadow:0 -6px 30px rgba(0,255,136,.07)}
 .prog-card.elite-card{border-top-color:var(--violet);box-shadow:0 -6px 30px rgba(191,95,255,.07)}
+.prog-card.entry-card{border-top-color:var(--white);box-shadow:0 -6px 30px rgba(242,242,242,.07)}
 .prog-glow{
   position:absolute;bottom:-60px;left:50%;transform:translateX(-50%);
   width:200px;height:80px;border-radius:50%;
@@ -523,6 +524,7 @@ section{padding:7rem 3rem}
 }
 .prog-card.featured .prog-glow{background:var(--green-glow)}
 .prog-card.elite-card .prog-glow{background:var(--violet-glow)}
+.prog-card.entry-card .prog-glow{background:rgba(242,242,242,.12)}
 .prog-card:hover .prog-glow{opacity:1}
 .prog-badge{
   font-family:var(--ff-mono);font-size:.5rem;letter-spacing:.15em;
@@ -531,6 +533,7 @@ section{padding:7rem 3rem}
 .b-default{background:#111;color:var(--muted)}
 .b-featured{background:rgba(0,255,136,.1);color:var(--green);border:1px solid rgba(0,255,136,.2)}
 .b-elite{background:rgba(191,95,255,.1);color:var(--violet);border:1px solid rgba(191,95,255,.2)}
+.b-entry{background:rgba(242,242,242,.08);color:var(--white);border:1px solid rgba(242,242,242,.2)}
 .prog-name{font-family:var(--ff-display);font-weight:900;font-size:2.8rem;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.3rem}
 .prog-tagline{font-size:.78rem;color:var(--muted);margin-bottom:2rem;font-weight:300}
 .prog-divider{border:none;border-top:1px solid #181818;margin-bottom:2rem}
@@ -553,6 +556,8 @@ section{padding:7rem 3rem}
 .cta-featured:hover{background:#1affa0;box-shadow:0 0 40px rgba(0,255,136,.4)}
 .cta-elite{border-color:var(--violet);color:var(--violet)}
 .cta-elite:hover{background:rgba(191,95,255,.1);box-shadow:0 0 20px rgba(191,95,255,.2)}
+.cta-entry{border-color:var(--white);color:var(--white)}
+.cta-entry:hover{background:rgba(242,242,242,.08);box-shadow:0 0 20px rgba(242,242,242,.15)}
 
 /* ══════════════════════════════
    TECNOLOGIA
