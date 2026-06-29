@@ -360,7 +360,6 @@ section{padding:7rem 3rem}
 }
 .exp-header-centered .eyebrow{justify-content:center}
 
-/* Wrapper: arranca oculto y desplazado, sube al hacer scroll */
 .exp-headline-wrap{
   width:100%;
   overflow:hidden;
@@ -385,7 +384,6 @@ section{padding:7rem 3rem}
   white-space:nowrap;
 }
 
-/* Letras siempre visibles — el efecto lo maneja el wrapper */
 .exp-letter{
   font-family:var(--ff-display);
   font-weight:900;
@@ -422,7 +420,6 @@ section{padding:7rem 3rem}
   text-shadow:0 0 50px rgba(0,255,136,.5);
 }
 
-/* clase legacy — ya no hace nada */
 .exp-letter.exp-letter-animate{}
 
 /* ══════════════════════════════
@@ -437,11 +434,13 @@ section{padding:7rem 3rem}
   display:grid;grid-template-columns:repeat(3,1fr);
   gap:1px;background:#111;margin-bottom:4rem;
 }
+/* ── CAMBIO: resplandor violeta en las tarjetas de circuito ── */
 .exp-circuit{
   display:flex;flex-direction:column;
   min-height:520px;
   background:var(--black);position:relative;overflow:hidden;
   border-bottom:3px solid transparent;transition:border-color .4s;
+  box-shadow:0 0 32px rgba(191,95,255,.13), 0 0 80px rgba(191,95,255,.06);
 }
 .exp-circuit-img{
   flex:0 0 60%;background:#0d0d0d;
@@ -844,13 +843,10 @@ footer{
   .sim-overlay-text{display:none}
   .sim-base-img{max-height:55vw}
 
-  /* ── Auto-loop glitch entre foto5 / foto6 (mobile) ──
-     No hay cursor para activar el "lens", así que en mobile
-     las dos fotos se alternan solas en loop con un glitch. */
   .sim-base-img{filter:brightness(.72) saturate(.5)}
   .sim-lens{
     display:block;
-    transition:none;     /* el cambio lo maneja el glitch, no un fade */
+    transition:none;
     opacity:0;
   }
   .sim-lens.sim-active{opacity:1}
