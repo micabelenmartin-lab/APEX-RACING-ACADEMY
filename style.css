@@ -697,7 +697,24 @@ section{padding:7rem 3rem}
 /* ══════════════════════════════
    ACADEMIA
 ══════════════════════════════ */
-#academia{background:var(--black);border-top:1px solid #111}
+#academia{background:var(--green);border-top:1px solid #111}
+#academia .eyebrow{color:var(--black)}
+#academia .eyebrow::before{color:rgba(0,0,0,.4)}
+#academia .sec-title{color:var(--black)}
+#academia .t-green{color:var(--black)}
+#academia .sec-sub{color:rgba(0,0,0,.7);font-size:1.05rem}
+#academia .t-violet{color:var(--black);font-weight:600}
+#academia .year-badge{border-color:rgba(0,0,0,.3);color:var(--black);box-shadow:none}
+#academia .year-badge .yr{color:var(--black)}
+#academia .pipeline-box{border-color:rgba(0,0,0,.2);background:rgba(0,0,0,.08)}
+#academia .pipeline-box::before{background:var(--green);color:var(--black)}
+#academia .pipeline-step{border-bottom-color:rgba(0,0,0,.12)}
+#academia .p-icon{border-color:rgba(0,0,0,.25);color:var(--black)}
+#academia .pipeline-step:hover .p-icon{border-color:var(--black);box-shadow:0 0 10px rgba(0,0,0,.15)}
+#academia .p-title{color:var(--black)}
+#academia .p-desc{color:rgba(0,0,0,.6)}
+#academia .p-final .p-icon{border-color:var(--black);color:var(--black)}
+#academia .p-final .p-title{color:var(--black)}
 .academy-inner{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
 .academy-left{display:flex;flex-direction:column}
 .year-badge{
