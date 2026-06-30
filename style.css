@@ -600,9 +600,42 @@ section{padding:7rem 3rem}
 
 /* ══════════════════════════════
    TECNOLOGIA
+   — fondo foto9.png baja opacidad
+   — subtítulo más grande
+   — imágenes reales en tech-media
 ══════════════════════════════ */
-#tecnologia{background:var(--black);border-top:1px solid #111}
-#tecnologia .prog-header .sec-sub{color:#666}
+#tecnologia{
+  background:var(--black);
+  border-top:1px solid #111;
+  position:relative;
+  overflow:hidden;
+}
+#tecnologia::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image:url('foto9.png');
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  opacity:.08;
+  pointer-events:none;
+  z-index:0;
+}
+#tecnologia > *{position:relative;z-index:1;}
+
+/* Subtítulo de tecnología: 2 puntos más grande que .sec-sub base (.9rem → 1.1rem) */
+#tecnologia .sec-sub{
+  font-size:1.1rem;
+  color:#666;
+}
+
+#tecnologia .prog-header .sec-sub{
+  font-size:1.1rem;
+  max-width:100%;
+  color:#666;
+}
+
 .tech-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#111}
 .tech-item{
   background:var(--black);padding:3rem;
@@ -621,10 +654,27 @@ section{padding:7rem 3rem}
 .tech-desc{font-size:.8rem;color:#5a5a5a;font-weight:300;line-height:1.72;margin-bottom:1rem}
 .tech-tag{font-family:var(--ff-mono);font-size:.52rem;letter-spacing:.15em;text-transform:uppercase;color:var(--violet);display:flex;align-items:center;gap:.4rem}
 .tech-tag::before{content:'→';color:var(--green)}
+
+/* ── tech-media con imágenes reales ── */
 .tech-media{display:grid;grid-template-columns:2fr 1fr;gap:1px;background:#111;margin-top:1px}
-.tech-ph-main{aspect-ratio:16/6;background:var(--dark);border:1px solid #141414;display:flex;align-items:center;justify-content:center;font-family:var(--ff-mono);font-size:.6rem;color:#222;letter-spacing:.08em}
+.tech-ph-main{
+  aspect-ratio:16/6;
+  background:var(--dark);
+  border:1px solid #141414;
+  overflow:hidden;
+  display:block;
+  padding:0;
+}
 .tech-ph-col{display:flex;flex-direction:column;gap:1px}
-.tech-ph-sm{flex:1;background:var(--dark);border:1px solid #141414;display:flex;align-items:center;justify-content:center;font-family:var(--ff-mono);font-size:.5rem;color:#1e1e1e;text-align:center;padding:.5rem}
+.tech-ph-sm{
+  flex:1;
+  background:var(--dark);
+  border:1px solid #141414;
+  overflow:hidden;
+  display:block;
+  padding:0;
+  min-height:0;
+}
 
 /* ══════════════════════════════
    ACADEMIA
