@@ -1,26 +1,1012 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Programa PRO | APEX</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* Estilos específicos para la página de detalle */
-        .detalle-container { padding: 120px 3rem 7rem; max-width: 900px; margin: 0 auto; }
-        .back-link { color: var(--green); margin-bottom: 2rem; display: inline-block; }
-        .detalle-title { font-family: var(--ff-display); font-size: 4rem; color: var(--white); text-transform: uppercase; margin-bottom: 2rem; }
-        .detalle-content { color: #888; line-height: 1.8; font-size: 1.1rem; }
-        .cta-big { margin-top: 3rem; display: inline-block; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programa | APEX Sim Racing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700;1,900&family=Barlow:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+
+/* ══════════════════════════════
+   DETALLE — BASE
+══════════════════════════════ */
+.det-page{
+  min-height:100vh;
+  background:var(--black);
+  padding-top:80px;
+  overflow-x:hidden;
+}
+
+/* Barra de color del nivel — color seteado por JS */
+.det-level-bar{
+  width:100%;
+  height:3px;
+}
+
+/* ══════════════════════════════
+   HEADER
+══════════════════════════════ */
+.det-header{
+  padding:4rem 3rem 3rem;
+  border-bottom:1px solid #111;
+  position:relative;
+  overflow:hidden;
+}
+/* Watermark del nombre del programa — seteado por JS */
+.det-header::before{
+  content:attr(data-prog-name);
+  position:absolute;
+  right:-1rem;
+  top:50%;
+  transform:translateY(-50%);
+  font-family:var(--ff-display);
+  font-weight:900;
+  font-style:italic;
+  font-size:clamp(7rem,18vw,18rem);
+  color:transparent;
+  pointer-events:none;
+  user-select:none;
+  line-height:1;
+  letter-spacing:-.03em;
+  /* color del stroke seteado por JS via var */
+  -webkit-text-stroke:1px var(--prog-stroke, rgba(255,255,255,.04));
+}
+
+.det-back{
+  font-family:var(--ff-mono);
+  font-size:.58rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--muted);
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  margin-bottom:2.5rem;
+  transition:color .2s;
+}
+.det-back:hover{ color:var(--prog-accent, var(--green)) }
+.det-back::before{ content:'←'; color:var(--prog-accent, var(--green)) }
+
+.det-eyebrow{
+  font-family:var(--ff-mono);
+  font-size:.6rem;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  color:var(--prog-accent, var(--green));
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  margin-bottom:1rem;
+}
+.det-eyebrow::before{ content:'//'; color:var(--violet) }
+
+.det-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:.6rem;
+  font-family:var(--ff-mono);
+  font-size:.5rem;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  padding:.3rem .9rem;
+  margin-bottom:1.5rem;
+  border:1px solid var(--prog-badge-border, rgba(255,255,255,.2));
+  background:var(--prog-badge-bg, rgba(255,255,255,.06));
+  color:var(--prog-accent, var(--white));
+}
+.det-badge-dot{
+  width:6px;
+  height:6px;
+  display:inline-block;
+  transform:skewX(-12deg);
+  background:var(--prog-accent, var(--white));
+  box-shadow:0 0 6px var(--prog-glow, rgba(255,255,255,.3));
+}
+
+.det-title{
+  font-family:var(--ff-display);
+  font-weight:900;
+  font-style:italic;
+  font-size:clamp(4rem,9vw,9rem);
+  text-transform:uppercase;
+  letter-spacing:-.02em;
+  line-height:.85;
+  color:var(--prog-accent, var(--white));
+  text-shadow:0 0 60px var(--prog-glow, rgba(255,255,255,.1));
+  margin-bottom:1.5rem;
+  display:flex;
+  align-items:baseline;
+  gap:1.5rem;
+  flex-wrap:wrap;
+}
+
+.det-popular{
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  font-family:var(--ff-mono);
+  font-size:.48rem;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--green);
+  border:1px solid rgba(0,255,136,.3);
+  padding:.25rem .7rem;
+  font-style:normal;
+}
+.det-popular::before{
+  content:'';
+  width:5px;
+  height:5px;
+  background:var(--green);
+  border-radius:50%;
+  display:inline-block;
+  animation:blink 1.2s infinite;
+}
+
+.det-tagline{
+  font-size:1.05rem;
+  color:#666;
+  font-weight:300;
+  max-width:560px;
+  line-height:1.75;
+}
+
+/* Precio */
+.det-price-block{
+  display:flex;
+  align-items:flex-end;
+  gap:1rem;
+  margin-top:2.5rem;
+  padding-top:2.5rem;
+  border-top:1px solid #161616;
+}
+.det-price{
+  font-family:var(--ff-display);
+  font-weight:900;
+  font-size:clamp(3.5rem,7vw,6rem);
+  color:var(--white);
+  line-height:1;
+}
+.det-price-meta{
+  display:flex;
+  flex-direction:column;
+  gap:.2rem;
+  padding-bottom:.4rem;
+}
+.det-price-period{
+  font-family:var(--ff-mono);
+  font-size:.6rem;
+  letter-spacing:.12em;
+  color:var(--muted);
+  text-transform:uppercase;
+}
+.det-price-note{
+  font-family:var(--ff-mono);
+  font-size:.52rem;
+  letter-spacing:.1em;
+  color:var(--prog-accent-dim, rgba(255,255,255,.15));
+  text-transform:uppercase;
+}
+
+/* CTAs */
+.det-cta-row{
+  display:flex;
+  align-items:center;
+  gap:1.2rem;
+  margin-top:2rem;
+  flex-wrap:wrap;
+}
+.det-cta-note{
+  font-family:var(--ff-mono);
+  font-size:.52rem;
+  letter-spacing:.12em;
+  color:var(--muted);
+  text-transform:uppercase;
+  margin-top:1rem;
+}
+
+/* CTA violeta para ELITE */
+.btn-elite{
+  font-family:var(--ff-display);
+  font-size:.75rem;
+  font-weight:700;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  background:transparent;
+  color:var(--violet);
+  padding:.75rem 2.2rem;
+  display:inline-block;
+  border:1px solid var(--violet);
+  transition:all .25s;
+  box-shadow:0 0 16px rgba(191,95,255,.15);
+  clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);
+}
+.btn-elite:hover{
+  background:rgba(191,95,255,.12);
+  box-shadow:0 0 30px rgba(191,95,255,.35);
+  transform:translateX(3px);
+}
+
+/* ══════════════════════════════
+   BODY — grid 2 columnas
+══════════════════════════════ */
+.det-body{
+  display:grid;
+  grid-template-columns:1fr 380px;
+  gap:1px;
+  background:#111;
+  border-bottom:1px solid #111;
+}
+.det-main{
+  padding:4rem 3rem;
+  background:var(--black);
+}
+.det-aside{
+  padding:3rem 2.5rem;
+  background:#080808;
+  border-left:1px solid #111;
+}
+
+/* ══════════════════════════════
+   SECCIONES
+══════════════════════════════ */
+.det-section{ margin-bottom:4rem }
+.det-section:last-child{ margin-bottom:0 }
+
+.det-section-label{
+  font-family:var(--ff-mono);
+  font-size:.55rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--prog-accent, var(--green));
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  margin-bottom:1.8rem;
+}
+.det-section-label::before{ content:'//'; color:var(--violet) }
+
+.det-section-title{
+  font-family:var(--ff-display);
+  font-weight:800;
+  font-size:1.6rem;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  color:var(--white);
+  margin-bottom:1.2rem;
+}
+
+/* ══════════════════════════════
+   TIMELINE
+══════════════════════════════ */
+.det-timeline{
+  display:flex;
+  flex-direction:column;
+  position:relative;
+}
+.det-timeline::before{
+  content:'';
+  position:absolute;
+  left:18px;
+  top:0;
+  bottom:0;
+  width:1px;
+  background:linear-gradient(to bottom, var(--prog-accent, var(--green)), var(--violet), transparent);
+}
+.det-tl-item{
+  display:grid;
+  grid-template-columns:40px 1fr;
+  gap:1.5rem;
+  padding:1.5rem 0;
+  border-bottom:1px solid #0f0f0f;
+}
+.det-tl-item:last-child{ border-bottom:none }
+.det-tl-num{
+  width:36px;
+  height:36px;
+  border:1px solid #1e1e1e;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:var(--ff-mono);
+  font-size:.55rem;
+  color:var(--prog-accent, var(--green));
+  background:var(--black);
+  position:relative;
+  z-index:1;
+  flex-shrink:0;
+  transition:all .3s;
+}
+.det-tl-item:hover .det-tl-num{
+  border-color:var(--prog-accent, var(--green));
+  box-shadow:0 0 12px var(--prog-glow, rgba(0,255,136,.2));
+}
+.det-tl-week{
+  font-family:var(--ff-mono);
+  font-size:.5rem;
+  letter-spacing:.15em;
+  color:var(--muted);
+  text-transform:uppercase;
+  margin-bottom:.4rem;
+}
+.det-tl-name{
+  font-family:var(--ff-display);
+  font-weight:700;
+  font-size:1rem;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  color:var(--white);
+  margin-bottom:.4rem;
+}
+.det-tl-desc{
+  font-size:.82rem;
+  color:#555;
+  font-weight:300;
+  line-height:1.6;
+}
+
+/* ══════════════════════════════
+   REQUISITOS
+══════════════════════════════ */
+.det-req-item{
+  display:flex;
+  align-items:flex-start;
+  gap:.8rem;
+  font-size:.88rem;
+  color:#666;
+  font-weight:300;
+  line-height:1.5;
+  padding:.55rem 0;
+  border-bottom:1px solid #0f0f0f;
+}
+.det-req-item:last-child{ border-bottom:none }
+.det-req-icon{
+  color:var(--prog-accent, var(--green));
+  font-size:.6rem;
+  flex-shrink:0;
+  margin-top:.2rem;
+  font-family:var(--ff-mono);
+}
+
+.det-req-note{
+  margin-top:2rem;
+  padding:1.5rem;
+  border:1px solid var(--prog-border-subtle, #141414);
+  background:var(--prog-bg-subtle, #080808);
+}
+.det-req-note-label{
+  font-family:var(--ff-mono);
+  font-size:.5rem;
+  letter-spacing:.2em;
+  color:var(--prog-accent, var(--green));
+  text-transform:uppercase;
+  margin-bottom:.8rem;
+}
+.det-req-note p{
+  font-size:.85rem;
+  color:#555;
+  font-weight:300;
+  line-height:1.7;
+}
+
+/* ══════════════════════════════
+   ASIDE
+══════════════════════════════ */
+.det-includes-title{
+  font-family:var(--ff-display);
+  font-weight:800;
+  font-size:1rem;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:var(--white);
+  margin-bottom:1.5rem;
+  padding-bottom:1rem;
+  border-bottom:1px solid #161616;
+}
+.det-include-item{
+  display:flex;
+  align-items:flex-start;
+  gap:.8rem;
+  padding:.85rem 0;
+  border-bottom:1px solid #0f0f0f;
+  font-size:.85rem;
+  color:#777;
+  font-weight:300;
+  line-height:1.5;
+}
+.det-include-item:last-child{ border-bottom:none }
+.det-include-arrow{
+  color:var(--prog-accent, var(--green));
+  font-size:.6rem;
+  flex-shrink:0;
+  margin-top:.2rem;
+  font-family:var(--ff-mono);
+}
+
+/* Barras de nivel */
+.det-level-wrap{
+  margin-top:2rem;
+  padding-top:2rem;
+  border-top:1px solid #161616;
+}
+.det-level-label{
+  font-family:var(--ff-mono);
+  font-size:.5rem;
+  letter-spacing:.18em;
+  color:var(--muted);
+  text-transform:uppercase;
+  margin-bottom:.8rem;
+}
+.det-bars{ display:flex; gap:5px }
+.det-bar{
+  width:10px;
+  height:26px;
+  transform:skewX(-16deg);
+}
+.det-bar.on{
+  background:var(--prog-accent, var(--white));
+  box-shadow:0 0 6px var(--prog-glow, rgba(255,255,255,.3));
+}
+.det-bar.off{ background:var(--prog-bar-off, rgba(255,255,255,.08)) }
+
+/* Precio en aside */
+.det-aside-price{
+  margin-top:2.5rem;
+  padding-top:2rem;
+  border-top:1px solid #161616;
+}
+.det-aside-price-num{
+  font-family:var(--ff-display);
+  font-weight:900;
+  font-size:3rem;
+  color:var(--white);
+  line-height:1;
+}
+.det-aside-price-period{
+  font-family:var(--ff-mono);
+  font-size:.55rem;
+  letter-spacing:.12em;
+  color:var(--muted);
+  text-transform:uppercase;
+  margin-top:.4rem;
+}
+
+/* Otros programas en aside */
+.det-other-programs{
+  margin-top:2.5rem;
+  padding-top:2rem;
+  border-top:1px solid #161616;
+}
+.det-other-label{
+  font-family:var(--ff-mono);
+  font-size:.5rem;
+  letter-spacing:.18em;
+  color:var(--muted);
+  text-transform:uppercase;
+  margin-bottom:1rem;
+}
+.det-other-link{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:.8rem 0;
+  border-bottom:1px solid #0f0f0f;
+  font-family:var(--ff-display);
+  font-size:.9rem;
+  font-weight:700;
+  text-transform:uppercase;
+  color:#3a3a3a;
+  letter-spacing:.05em;
+  transition:color .2s;
+}
+.det-other-link:last-child{ border-bottom:none }
+.det-other-link:hover{ color:var(--white) }
+.det-other-link-price{
+  font-family:var(--ff-mono);
+  font-size:.55rem;
+}
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+.det-footer{
+  padding:3rem;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:1rem;
+  border-top:1px solid #111;
+}
+.det-footer-logo{
+  font-family:var(--ff-display);
+  font-weight:900;
+  font-size:1.2rem;
+  letter-spacing:.08em;
+  color:var(--green);
+  text-shadow:0 0 16px rgba(0,255,136,.3);
+}
+.det-footer-nav{
+  display:flex;
+  gap:1.5rem;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.det-footer-nav span{
+  font-family:var(--ff-mono);
+  font-size:.5rem;
+  letter-spacing:.12em;
+  color:var(--muted);
+  text-transform:uppercase;
+}
+.det-footer-nav a{
+  font-family:var(--ff-mono);
+  font-size:.55rem;
+  letter-spacing:.12em;
+  color:var(--muted);
+  text-transform:uppercase;
+  transition:color .2s;
+}
+.det-footer-nav a:hover{ color:var(--white) }
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media(max-width:900px){
+  .det-body{ grid-template-columns:1fr }
+  .det-aside{ border-left:none; border-top:1px solid #111 }
+  .det-header{ padding:3rem 2rem 2.5rem }
+  .det-main{ padding:3rem 2rem }
+  .det-aside{ padding:2.5rem 2rem }
+  .det-footer{ padding:2rem }
+}
+@media(max-width:480px){
+  .det-header,.det-main,.det-aside{ padding:2.5rem 1.5rem }
+  .det-footer{ padding:1.5rem }
+  .det-cta-row{ flex-direction:column; align-items:flex-start }
+  .btn-primary,.btn-ghost,.btn-elite{ width:100%; text-align:center; justify-content:center; display:block }
+  .det-title{ font-size:clamp(3.5rem,16vw,6rem) }
+}
+</style>
 </head>
 <body>
-    <div class="detalle-container">
-        <a href="index.html#programas" class="back-link">← Volver al inicio</a>
-        <h1 class="detalle-title" id="titulo-programa">Programa PRO</h1>
-        <div class="detalle-content" id="contenido-programa">
-            <p>Cargando información del programa...</p>
-        </div>
-        <a href="mailto:info@apexsimracing.com" class="btn-primary cta-big">Reservar Mi Lugar</a>
+
+<!-- CURSOR -->
+<div id="cursor" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<!-- SCANLINES -->
+<div class="scanlines" aria-hidden="true"></div>
+
+<!-- ═══════ NAV ═══════ -->
+<nav>
+  <div class="nav-logo">APEX<span class="dot">.</span></div>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html#experiencias">Experiencias</a></li>
+    <li><a href="index.html#programas">Programas</a></li>
+    <li><a href="index.html#tecnologia">Simuladores</a></li>
+    <li><a href="index.html#academia">Academia</a></li>
+    <li><a href="index.html#cta">Contacto</a></li>
+  </ul>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <button class="nav-cta" onclick="window.location.href='mailto:info@apexsimracing.com'">
+    Inscribirme
+  </button>
+</nav>
+
+<div class="det-page" id="det-page">
+
+  <!-- Barra de nivel — coloreada por JS -->
+  <div class="det-level-bar" id="det-level-bar"></div>
+
+  <!-- ── HEADER ── -->
+  <div class="det-header" id="det-header">
+    <a href="index.html#programas" class="det-back">Volver a programas</a>
+    <div class="det-eyebrow">Programas de Pilotos</div>
+    <div class="det-badge" id="det-badge">
+      <span class="det-badge-dot"></span>
+      <span id="det-badge-text"></span>
     </div>
+    <h1 class="det-title" id="det-title"></h1>
+    <p class="det-tagline" id="det-tagline"></p>
+
+    <div class="det-price-block">
+      <div class="det-price" id="det-price"></div>
+      <div class="det-price-meta">
+        <div class="det-price-period" id="det-price-period"></div>
+        <div class="det-price-note" id="det-price-note"></div>
+      </div>
+    </div>
+
+    <div class="det-cta-row" id="det-cta-row"></div>
+    <p class="det-cta-note">Cupos limitados · Respuesta en menos de 24 hs</p>
+  </div>
+
+  <!-- ── BODY ── -->
+  <div class="det-body">
+    <div class="det-main" id="det-main"></div>
+    <div class="det-aside" id="det-aside"></div>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <div class="det-footer">
+    <a href="index.html" class="det-footer-logo">APEX.</a>
+    <div class="det-footer-nav" id="det-footer-nav"></div>
+  </div>
+
+</div>
+
+<script>
+/* ══════════════════════════════
+   DATA — contenido de cada programa
+══════════════════════════════ */
+const PROGRAMAS = {
+
+  entry: {
+    nombre:      'ENTRY',
+    badge:       'NIVEL 01 · ENTRY',
+    popular:     false,
+    tagline:     'El punto de partida para pilotos que empiezan a tomarse en serio el sim. Fundamentos sólidos, herramientas reales, primer contacto con la mentalidad de competición.',
+    precio:      '$290',
+    precioPer:   '/ programa completo',
+    precioNota:  'Pago único · Sin costos adicionales',
+    emailSub:    'Inscripción Programa ENTRY',
+    ctaClass:    'btn-primary',
+    accent:      '#f2f2f2',
+    glow:        'rgba(242,242,242,.2)',
+    stroke:      'rgba(242,242,242,.04)',
+    badgeBg:     'rgba(242,242,242,.06)',
+    badgeBorder: 'rgba(242,242,242,.2)',
+    accentDim:   'rgba(242,242,242,.12)',
+    barOff:      'rgba(242,242,242,.08)',
+    borderSubtle:'#141414',
+    bgSubtle:    '#080808',
+    barCount:    2,
+    timeline: [
+      { num:'01', week:'Sesión 1 · 90 min', name:'Setup y Primera Vuelta',   desc:'Configuración de hardware (volante, pedales, posición de manejo). Primera toma de contacto con el simulador y registro de tiempos base. Identificación de áreas de mejora inmediata.' },
+      { num:'02', week:'Sesión 2 · 90 min', name:'Fundamentos de Trazada',   desc:'Teoría y práctica de los puntos de frenada, apex y salida de curva. Introducción a la telemetría: cómo leer los datos básicos de velocidad y throttle.' },
+      { num:'03', week:'Sesión 3 · 90 min', name:'Consistencia y Ritmo',     desc:'Trabajo específico en sectores débiles detectados en sesiones anteriores. Primeros ejercicios de consistencia: 10 vueltas dentro del mismo rango de tiempo.' },
+      { num:'04', week:'Sesión 4 · 90 min', name:'Cierre y Evaluación',      desc:'Sesión de ataque: búsqueda de mejor tiempo personal. Comparación de telemetría inicio vs. fin del programa. Entrega de informe de evolución con recomendaciones y próximos pasos.' },
+    ],
+    timelineTitle: '4 SESIONES · PROGRAMA COMPLETO',
+    requisitos: [
+      'Sos nuevo en el sim racing o llevás poco tiempo practicando de forma autodidacta',
+      'Querés entender cómo funciona la telemetría y qué información realmente importa',
+      'Buscás una base técnica sólida antes de pasar a competir o subir de nivel',
+      'Tenés acceso a hardware básico (volante + pedales) o vas a usar el nuestro',
+      'Podés comprometer al menos 4 sesiones en un período de 3 a 6 semanas',
+    ],
+    reqNota: 'No se necesita experiencia previa en sim racing ni en automovilismo. Solo ganas de aprender y mejorar. El hardware puede ser el tuyo o el de APEX — lo coordinamos antes de la primera sesión.',
+    includes: [
+      '4 sesiones de 90 minutos en simuladores APEX con hardware de nivel profesional',
+      'Introducción guiada a herramientas de telemetría y análisis de vueltas',
+      'Setup inicial de volante y pedales adaptado a tu estilo de manejo',
+      'Seguimiento sesión a sesión con feedback específico de cada vuelta',
+      'Informe de evolución al cierre con métricas y recomendaciones personalizadas',
+      'Acceso a la comunidad APEX y agenda de próximos eventos',
+    ],
+    otros: [
+      { key:'pro',   label:'PRO',   precio:'$590', accentColor:'var(--green)' },
+      { key:'elite', label:'ELITE', precio:'$990', accentColor:'var(--violet)' },
+    ],
+  },
+
+  pro: {
+    nombre:      'PRO',
+    badge:       'NIVEL 02 · PRO',
+    popular:     true,
+    tagline:     'El programa central de APEX. Diseñado para pilotos que quieren dejar de mejorar por intuición y empezar a mejorar por datos. Ocho sesiones intensivas con metodología de pilotos profesionales.',
+    precio:      '$590',
+    precioPer:   '/ programa completo',
+    precioNota:  'Pago único · Sin costos adicionales',
+    emailSub:    'Inscripción Programa PRO',
+    ctaClass:    'btn-primary',
+    accent:      '#00ff88',
+    glow:        'rgba(0,255,136,.25)',
+    stroke:      'rgba(0,255,136,.04)',
+    badgeBg:     'rgba(0,255,136,.08)',
+    badgeBorder: 'rgba(0,255,136,.2)',
+    accentDim:   'rgba(0,255,136,.2)',
+    barOff:      'rgba(0,255,136,.1)',
+    borderSubtle:'rgba(0,255,136,.08)',
+    bgSubtle:    'rgba(0,255,136,.02)',
+    barCount:    4,
+    timeline: [
+      { num:'01', week:'Sesión 1 · 2 hs', name:'Diagnóstico y Baseline',        desc:'Evaluación completa del nivel actual: tiempos por sector, errores recurrentes, estilo de manejo. Definición de objetivos medibles para el programa. Setup personalizado de hardware.' },
+      { num:'02', week:'Sesión 2 · 2 hs', name:'Telemetría Aplicada',           desc:'Lectura avanzada de datos: comparativa de sectores, curvas de throttle y freno, trazadas superpuestas. Primeras correcciones basadas en datos, no en sensaciones.' },
+      { num:'03', week:'Sesión 3 · 2 hs', name:'Frenada y Brake Bias',          desc:'Técnica de frenada con pedales de carga celda. Ajuste de brake bias según circuito y condiciones. Práctica de late braking y trail braking progresivo.' },
+      { num:'04', week:'Sesión 4 · 2 hs', name:'Comparativa con Datos de F1',   desc:'Análisis lado a lado de tu telemetría vs. datos de referencia de pilotos profesionales. Identificación de los 3 décimas que más se pueden ganar y cómo atacarlos.' },
+      { num:'05', week:'Sesión 5 · 2 hs', name:'Psicología del Piloto',         desc:'Gestión del error, mentalidad bajo presión, rutinas pre-sesión. Trabajo con el coach en identificación de patrones mentales que limitan el rendimiento.' },
+      { num:'06', week:'Sesión 6 · 2 hs', name:'Race Craft Básico',             desc:'Gestión de neumáticos a lo largo de un stint. Estrategia de carrera simple: inicio, mid-race y final. Primeros ejercicios de posicionamiento en pista.' },
+      { num:'07', week:'Sesión 7 · 2 hs', name:'Simulación de Carrera',         desc:'Carrera completa con adversarios en condiciones dinámicas. Aplicación de todo lo trabajado en el programa bajo presión real de competición.' },
+      { num:'08', week:'Sesión 8 · 2 hs', name:'Cierre y Plan de Continuidad',  desc:'Comparación completa inicio vs. fin. Métricas de mejora. Presentación del plan de entrenamiento individual para los próximos 60 días y acceso prioritario a eventos APEX.' },
+    ],
+    timelineTitle: '8 SESIONES · PROGRAMA COMPLETO',
+    requisitos: [
+      'Ya tenés experiencia básica en sim racing y querés llevar tu nivel al siguiente escalón',
+      'Querés competir en campeonatos online o internos de APEX con chances reales',
+      'Entendés que mejorar sin datos tiene un techo bajo y buscás metodología real',
+      'Podés comprometer 8 sesiones en un período de 6 a 10 semanas',
+      'Estás dispuesto a trabajar la parte mental del rendimiento, no solo la técnica',
+    ],
+    reqNota: 'Se recomienda haber completado el programa ENTRY o tener experiencia equivalente. No es excluyente — en la primera sesión evaluamos tu nivel y ajustamos el punto de partida si hace falta.',
+    includes: [
+      '8 sesiones de 2 horas con coach dedicado en simuladores APEX',
+      'Análisis comparativo de telemetría por sectores con datos de referencia de F1',
+      'Módulo de psicología del piloto y gestión mental de carrera',
+      'Acceso prioritario a eventos y campeonatos internos de APEX',
+      'Plan de entrenamiento individual para los 60 días post-programa',
+      'Informe de evolución completo con métricas de mejora por sesión',
+    ],
+    otros: [
+      { key:'entry', label:'ENTRY', precio:'$290', accentColor:'#3a3a3a' },
+      { key:'elite', label:'ELITE', precio:'$990', accentColor:'var(--violet)' },
+    ],
+  },
+
+  elite: {
+    nombre:      'ELITE',
+    badge:       'NIVEL 03 · ELITE',
+    popular:     false,
+    tagline:     'El nivel máximo de APEX. Acceso ilimitado, coach personal ex-piloto profesional, telemetría avanzada y un programa de preparación física específica para pilotos. Para los que no tienen techo.',
+    precio:      '$990',
+    precioPer:   '/ mes',
+    precioNota:  'Renovación mensual · Cancelá cuando querás',
+    emailSub:    'Inscripción Programa ELITE',
+    ctaClass:    'btn-elite',
+    accent:      '#bf5fff',
+    glow:        'rgba(191,95,255,.25)',
+    stroke:      'rgba(191,95,255,.04)',
+    badgeBg:     'rgba(191,95,255,.08)',
+    badgeBorder: 'rgba(191,95,255,.2)',
+    accentDim:   'rgba(191,95,255,.2)',
+    barOff:      'rgba(191,95,255,.1)',
+    borderSubtle:'rgba(191,95,255,.1)',
+    bgSubtle:    'rgba(191,95,255,.02)',
+    barCount:    5,
+    timeline: [
+      { num:'S1', week:'Semana 1 · Diagnóstico profundo',  name:'Evaluación Integral',        desc:'Diagnóstico completo: telemetría, video onboard, estilo de manejo y evaluación física inicial. Diseño del plan de entrenamiento personalizado para los 30 días. Primera sesión con el coach ex-piloto.' },
+      { num:'S2', week:'Semana 2 · Técnica intensiva',     name:'Perfeccionamiento por Sectores', desc:'Trabajo sector a sector con análisis de video onboard diario. Comparativa avanzada de telemetría con pilotos de referencia. Ajuste fino de setup técnico según datos reales.' },
+      { num:'S3', week:'Semana 3 · Race craft avanzado',   name:'Carrera y Competición',      desc:'Simulaciones de carrera completa con estrategia de neumáticos y pit stops. Gestión de situaciones de tráfico y duelos. Preparación mental específica para la presión de competición.' },
+      { num:'S4', week:'Semana 4 · Peak performance',      name:'Pico de Rendimiento',        desc:'Últimas sesiones de ataque al mejor tiempo personal. Preparación para evento o campeonato real. Cierre del mes con informe completo de evolución, métricas y plan de continuidad personalizado.' },
+      { num:'+',  week:'Durante todo el mes',              name:'Preparación Física',         desc:'Programa de nutrición y acondicionamiento físico específico para pilotos: neck, core, reacción y resistencia. Trabajo coordinado entre coach técnico y preparador físico.' },
+    ],
+    timelineTitle: '30 DÍAS DE ACCESO ILIMITADO',
+    requisitos: [
+      'Estás completamente comprometido con llevar tu rendimiento al máximo nivel posible',
+      'Querés ser evaluado para el pipeline de F3 de APEX en 2027 y necesitás las métricas',
+      'Competís o querés competir en categorías reales y usás el sim como herramienta de entrenamiento',
+      'Entendés que el rendimiento en el sim también depende del estado físico y mental',
+      'Podés dedicar tiempo real al entrenamiento durante el mes — esto no es una suscripción pasiva',
+    ],
+    reqNota: 'Los pilotos ELITE son los primeros considerados para el pipeline de Fórmula 3 que APEX está cerrando para 2027. Las métricas del mes son parte de tu expediente de evaluación. No es marketing — es el proceso real.',
+    reqNotaLabel: '// Acceso al F3 Pipeline',
+    includes: [
+      'Acceso ilimitado por 30 días a todos los simuladores APEX',
+      'Coach personal ex-piloto profesional: sesiones ilimitadas durante el mes',
+      'Telemetría avanzada con análisis de video onboard sesión a sesión',
+      'Programa de nutrición y preparación física específica para pilotos',
+      'Evaluación para el pipeline de Fórmula 3 (Academy 2027)',
+      'Informe mensual completo con métricas de rendimiento y plan de continuidad',
+    ],
+    otros: [
+      { key:'entry', label:'ENTRY', precio:'$290', accentColor:'#3a3a3a' },
+      { key:'pro',   label:'PRO',   precio:'$590', accentColor:'var(--green)' },
+    ],
+  },
+};
+
+/* ══════════════════════════════
+   RENDER
+══════════════════════════════ */
+(function(){
+  // Leer parámetro de URL
+  const params = new URLSearchParams(window.location.search);
+  const key    = (params.get('prog') || 'pro').toLowerCase();
+  const p      = PROGRAMAS[key] || PROGRAMAS['pro'];
+
+  // Actualizar título de la pestaña
+  document.title = 'Programa ' + p.nombre + ' | APEX Sim Racing';
+
+  // CSS custom properties para theming dinámico
+  const root = document.documentElement;
+  root.style.setProperty('--prog-accent',        p.accent);
+  root.style.setProperty('--prog-glow',          p.glow);
+  root.style.setProperty('--prog-stroke',        p.stroke);
+  root.style.setProperty('--prog-badge-bg',      p.badgeBg);
+  root.style.setProperty('--prog-badge-border',  p.badgeBorder);
+  root.style.setProperty('--prog-accent-dim',    p.accentDim);
+  root.style.setProperty('--prog-bar-off',       p.barOff);
+  root.style.setProperty('--prog-border-subtle', p.borderSubtle);
+  root.style.setProperty('--prog-bg-subtle',     p.bgSubtle);
+
+  // Barra de nivel
+  const bar = document.getElementById('det-level-bar');
+  bar.style.background = p.accent;
+  bar.style.boxShadow  = '0 0 18px ' + p.glow;
+
+  // Watermark
+  document.getElementById('det-header').setAttribute('data-prog-name', p.nombre);
+
+  // Badge
+  document.getElementById('det-badge-text').textContent = p.badge;
+
+  // Título + popular badge
+  const titleEl = document.getElementById('det-title');
+  titleEl.textContent = p.nombre;
+  if(p.popular){
+    const pop = document.createElement('span');
+    pop.className   = 'det-popular';
+    pop.textContent = 'MÁS POPULAR';
+    titleEl.appendChild(pop);
+  }
+
+  // Tagline
+  document.getElementById('det-tagline').textContent = p.tagline;
+
+  // Precio
+  document.getElementById('det-price').textContent        = p.precio;
+  document.getElementById('det-price-period').textContent = p.precioPer;
+  document.getElementById('det-price-note').textContent   = p.precioNota;
+
+  // CTA row
+  const ctaRow  = document.getElementById('det-cta-row');
+  const ctaLink = document.createElement('a');
+  ctaLink.href      = 'mailto:info@apexsimracing.com?subject=' + encodeURIComponent(p.emailSub);
+  ctaLink.className = p.ctaClass;
+  ctaLink.textContent = 'Reservar Mi Lugar →';
+  const ghostLink = document.createElement('a');
+  ghostLink.href      = 'index.html#programas';
+  ghostLink.className = 'btn-ghost';
+  ghostLink.textContent = 'Ver todos los programas';
+  ctaRow.appendChild(ctaLink);
+  ctaRow.appendChild(ghostLink);
+
+  /* ── MAIN ── */
+  const main = document.getElementById('det-main');
+
+  // Timeline
+  let tlHTML = `
+    <div class="det-section">
+      <div class="det-section-label">Cronograma</div>
+      <div class="det-section-title">${p.timelineTitle}</div>
+      <div class="det-timeline">
+  `;
+  p.timeline.forEach(item => {
+    tlHTML += `
+      <div class="det-tl-item">
+        <div class="det-tl-num">${item.num}</div>
+        <div>
+          <div class="det-tl-week">${item.week}</div>
+          <div class="det-tl-name">${item.name}</div>
+          <div class="det-tl-desc">${item.desc}</div>
+        </div>
+      </div>
+    `;
+  });
+  tlHTML += `</div></div>`;
+
+  // Requisitos
+  let reqHTML = `
+    <div class="det-section">
+      <div class="det-section-label">A quién va dirigido</div>
+      <div class="det-section-title">ESTE PROGRAMA ES PARA VOS SI...</div>
+  `;
+  p.requisitos.forEach(r => {
+    reqHTML += `<div class="det-req-item"><span class="det-req-icon">→</span>${r}</div>`;
+  });
+  const notaLabel = p.reqNotaLabel || '// Requisito previo';
+  reqHTML += `
+      <div class="det-req-note">
+        <div class="det-req-note-label">${notaLabel}</div>
+        <p>${p.reqNota}</p>
+      </div>
+    </div>
+  `;
+
+  main.innerHTML = tlHTML + reqHTML;
+
+  /* ── ASIDE ── */
+  const aside = document.getElementById('det-aside');
+
+  // Qué incluye
+  let incHTML = `<div class="det-includes-title">// QUÉ INCLUYE</div>`;
+  p.includes.forEach(i => {
+    incHTML += `<div class="det-include-item"><span class="det-include-arrow">→</span>${i}</div>`;
+  });
+
+  // Barras de nivel
+  let barsHTML = `
+    <div class="det-level-wrap">
+      <div class="det-level-label">Nivel de intensidad</div>
+      <div class="det-bars">
+  `;
+  for(let i = 0; i < 5; i++){
+    barsHTML += `<div class="det-bar ${i < p.barCount ? 'on' : 'off'}"></div>`;
+  }
+  barsHTML += `</div></div>`;
+
+  // Precio en aside + CTA
+  const asideCta = `
+    <div class="det-aside-price">
+      <div class="det-aside-price-num">${p.precio}</div>
+      <div class="det-aside-price-period">${p.precioPer}</div>
+      <a href="mailto:info@apexsimracing.com?subject=${encodeURIComponent(p.emailSub)}"
+         class="${p.ctaClass}"
+         style="margin-top:1.5rem;display:block;text-align:center">
+        Reservar Mi Lugar →
+      </a>
+      <p style="font-family:var(--ff-mono);font-size:.5rem;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-top:.8rem;text-align:center">
+        Cupos limitados
+      </p>
+    </div>
+  `;
+
+  // Otros programas
+  let othersHTML = `
+    <div class="det-other-programs">
+      <div class="det-other-label">// Otros programas</div>
+  `;
+  p.otros.forEach(o => {
+    othersHTML += `
+      <a href="detalle.html?prog=${o.key}" class="det-other-link">
+        ${o.label}
+        <span class="det-other-link-price" style="color:${o.accentColor}">${o.precio} →</span>
+      </a>
+    `;
+  });
+  othersHTML += `</div>`;
+
+  aside.innerHTML = incHTML + barsHTML + asideCta + othersHTML;
+
+  /* ── FOOTER NAV ── */
+  const footerNav = document.getElementById('det-footer-nav');
+  let fnHTML = `<span>Otros programas:</span>`;
+  p.otros.forEach(o => {
+    fnHTML += `<a href="detalle.html?prog=${o.key}">${o.label}</a>`;
+  });
+  fnHTML += `<a href="index.html#cta">Contacto</a>`;
+  footerNav.innerHTML = fnHTML;
+
+})();
+
+/* ══════════════════════════════
+   CURSOR + NAV
+══════════════════════════════ */
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursor-ring');
+let mx=0, my=0, rx=0, ry=0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx+'px'; cursor.style.top = my+'px';
+});
+(function loop(){
+  rx += (mx-rx)*.1; ry += (my-ry)*.1;
+  ring.style.left = rx+'px'; ring.style.top = ry+'px';
+  requestAnimationFrame(loop);
+})();
+document.addEventListener('mouseleave', () => { cursor.style.opacity='0'; ring.style.opacity='0'; });
+document.addEventListener('mouseenter', () => { cursor.style.opacity='1'; ring.style.opacity='1'; });
+
+const navToggle = document.getElementById('nav-toggle');
+const navLinks  = document.getElementById('nav-links');
+if(navToggle && navLinks){
+  navToggle.addEventListener('click', () => {
+    const o = navLinks.classList.toggle('open');
+    navToggle.classList.toggle('open', o);
+    navToggle.setAttribute('aria-expanded', o);
+  });
+  navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }));
+}
+</script>
+
 </body>
 </html>
