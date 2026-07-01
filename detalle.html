@@ -20,12 +20,6 @@
   overflow-x:hidden;
 }
 
-/* Barra de color del nivel — color seteado por JS */
-.det-level-bar{
-  width:100%;
-  height:3px;
-}
-
 /* ══════════════════════════════
    HEADER
 ══════════════════════════════ */
@@ -147,7 +141,8 @@
 
 .det-back{
   font-family:var(--ff-mono);
-  font-size:.78rem;
+  font-size:.85rem;
+  font-weight:700;
   letter-spacing:.2em;
   text-transform:uppercase;
   color:var(--violet);
@@ -162,7 +157,8 @@
 
 .det-eyebrow{
   font-family:var(--ff-mono);
-  font-size:.9rem;
+  font-size:1.1rem;
+  font-weight:700;
   letter-spacing:.25em;
   text-transform:uppercase;
   color:var(--violet);
@@ -178,7 +174,8 @@
   align-items:center;
   gap:.6rem;
   font-family:var(--ff-mono);
-  font-size:.72rem;
+  font-size:.88rem;
+  font-weight:700;
   letter-spacing:.15em;
   text-transform:uppercase;
   padding:.45rem 1.1rem;
@@ -195,7 +192,7 @@
   font-family:var(--ff-display);
   font-weight:900;
   font-style:italic;
-  font-size:clamp(3rem,6vw,7rem);
+  font-size:clamp(3.5rem,7vw,8rem);
   text-transform:uppercase;
   letter-spacing:-.02em;
   line-height:.9;
@@ -209,12 +206,12 @@
   font-family:var(--ff-display);
   font-weight:900;
   font-style:italic;
-  font-size:clamp(5rem,11vw,13rem);
+  font-size:clamp(6rem,13vw,15rem);
   text-transform:uppercase;
   letter-spacing:-.02em;
   line-height:.85;
   color:transparent;
-  -webkit-text-stroke:3px var(--violet);
+  -webkit-text-stroke:4px var(--violet);
   text-shadow:none;
   margin-bottom:2rem;
   display:flex;
@@ -226,8 +223,8 @@
 /* Botón de inscripción junto al título */
 .det-title-cta{
   font-family:var(--ff-display);
-  font-size:1rem;
-  font-weight:700;
+  font-size:1.15rem;
+  font-weight:800;
   letter-spacing:.15em;
   text-transform:uppercase;
   background:var(--violet);
@@ -253,7 +250,8 @@
   align-items:center;
   gap:.6rem;
   font-family:var(--ff-mono);
-  font-size:.62rem;           /* más grande */
+  font-size:.75rem;           /* más grande */
+  font-weight:700;
   letter-spacing:.15em;
   text-transform:uppercase;
   color:var(--black);         /* texto negro sobre fondo verde */
@@ -289,7 +287,7 @@
 .det-price{
   font-family:var(--ff-display);
   font-weight:900;
-  font-size:clamp(3.5rem,7vw,6rem);
+  font-size:clamp(4.2rem,8.5vw,7.5rem);
   color:var(--white);
   line-height:1;
 }
@@ -301,14 +299,16 @@
 }
 .det-price-period{
   font-family:var(--ff-mono);
-  font-size:.6rem;
+  font-size:.75rem;
+  font-weight:700;
   letter-spacing:.12em;
   color:var(--muted);
   text-transform:uppercase;
 }
 .det-price-note{
   font-family:var(--ff-mono);
-  font-size:.52rem;
+  font-size:.65rem;
+  font-weight:600;
   letter-spacing:.1em;
   color:var(--prog-accent-dim, rgba(255,255,255,.15));
   text-transform:uppercase;
@@ -324,7 +324,8 @@
 }
 .det-cta-note{
   font-family:var(--ff-mono);
-  font-size:.52rem;
+  font-size:.65rem;
+  font-weight:600;
   letter-spacing:.12em;
   color:var(--muted);
   text-transform:uppercase;
@@ -334,8 +335,8 @@
 /* CTA violeta para ELITE */
 .btn-elite{
   font-family:var(--ff-display);
-  font-size:.75rem;
-  font-weight:700;
+  font-size:.9rem;
+  font-weight:800;
   letter-spacing:.18em;
   text-transform:uppercase;
   background:transparent;
@@ -381,7 +382,8 @@
 
 .det-section-label{
   font-family:var(--ff-mono);
-  font-size:.55rem;
+  font-size:.7rem;
+  font-weight:700;
   letter-spacing:.22em;
   text-transform:uppercase;
   color:var(--prog-accent, var(--green));
@@ -394,8 +396,8 @@
 
 .det-section-title{
   font-family:var(--ff-display);
-  font-weight:800;
-  font-size:1.6rem;
+  font-weight:900;
+  font-size:2rem;
   text-transform:uppercase;
   letter-spacing:.04em;
   color:var(--white);
@@ -449,7 +451,8 @@
 }
 .det-tl-week{
   font-family:var(--ff-mono);
-  font-size:.5rem;
+  font-size:.65rem;
+  font-weight:700;
   letter-spacing:.15em;
   color:var(--muted);
   text-transform:uppercase;
@@ -457,17 +460,17 @@
 }
 .det-tl-name{
   font-family:var(--ff-display);
-  font-weight:700;
-  font-size:1rem;
+  font-weight:800;
+  font-size:1.3rem;
   text-transform:uppercase;
   letter-spacing:.05em;
   color:var(--white);
   margin-bottom:.4rem;
 }
 .det-tl-desc{
-  font-size:.82rem;
-  color:#555;
-  font-weight:300;
+  font-size:1rem;
+  color:#888;
+  font-weight:400;
   line-height:1.6;
 }
 
@@ -478,9 +481,9 @@
   display:flex;
   align-items:flex-start;
   gap:.8rem;
-  font-size:.88rem;
-  color:#666;
-  font-weight:300;
+  font-size:1.05rem;
+  color:#999;
+  font-weight:400;
   line-height:1.5;
   padding:.55rem 0;
   border-bottom:1px solid #0f0f0f;
@@ -502,16 +505,17 @@
 }
 .det-req-note-label{
   font-family:var(--ff-mono);
-  font-size:.5rem;
+  font-size:.65rem;
+  font-weight:700;
   letter-spacing:.2em;
   color:var(--prog-accent, var(--green));
   text-transform:uppercase;
   margin-bottom:.8rem;
 }
 .det-req-note p{
-  font-size:.85rem;
-  color:#555;
-  font-weight:300;
+  font-size:1rem;
+  color:#999;
+  font-weight:400;
   line-height:1.7;
 }
 
@@ -520,8 +524,8 @@
 ══════════════════════════════ */
 .det-includes-title{
   font-family:var(--ff-display);
-  font-weight:800;
-  font-size:1rem;
+  font-weight:900;
+  font-size:1.25rem;
   text-transform:uppercase;
   letter-spacing:.06em;
   color:var(--white);
@@ -535,9 +539,9 @@
   gap:.8rem;
   padding:.85rem 0;
   border-bottom:1px solid #0f0f0f;
-  font-size:.85rem;
-  color:#777;
-  font-weight:300;
+  font-size:1.02rem;
+  color:#aaa;
+  font-weight:400;
   line-height:1.5;
 }
 .det-include-item:last-child{ border-bottom:none }
@@ -557,7 +561,8 @@
 }
 .det-level-label{
   font-family:var(--ff-mono);
-  font-size:.5rem;
+  font-size:.65rem;
+  font-weight:700;
   letter-spacing:.18em;
   color:var(--muted);
   text-transform:uppercase;
@@ -584,13 +589,14 @@
 .det-aside-price-num{
   font-family:var(--ff-display);
   font-weight:900;
-  font-size:3rem;
+  font-size:3.6rem;
   color:var(--white);
   line-height:1;
 }
 .det-aside-price-period{
   font-family:var(--ff-mono);
-  font-size:.55rem;
+  font-size:.7rem;
+  font-weight:700;
   letter-spacing:.12em;
   color:var(--muted);
   text-transform:uppercase;
@@ -605,7 +611,8 @@
 }
 .det-other-label{
   font-family:var(--ff-mono);
-  font-size:.5rem;
+  font-size:.65rem;
+  font-weight:700;
   letter-spacing:.18em;
   color:var(--muted);
   text-transform:uppercase;
@@ -618,8 +625,8 @@
   padding:.8rem 0;
   border-bottom:1px solid #0f0f0f;
   font-family:var(--ff-display);
-  font-size:.9rem;
-  font-weight:700;
+  font-size:1.1rem;
+  font-weight:800;
   text-transform:uppercase;
   color:#3a3a3a;
   letter-spacing:.05em;
@@ -629,7 +636,8 @@
 .det-other-link:hover{ color:var(--white) }
 .det-other-link-price{
   font-family:var(--ff-mono);
-  font-size:.55rem;
+  font-size:.7rem;
+  font-weight:700;
 }
 
 /* ══════════════════════════════
@@ -660,14 +668,16 @@
 }
 .det-footer-nav span{
   font-family:var(--ff-mono);
-  font-size:.5rem;
+  font-size:.65rem;
+  font-weight:700;
   letter-spacing:.12em;
   color:var(--muted);
   text-transform:uppercase;
 }
 .det-footer-nav a{
   font-family:var(--ff-mono);
-  font-size:.55rem;
+  font-size:.7rem;
+  font-weight:700;
   letter-spacing:.12em;
   color:var(--muted);
   text-transform:uppercase;
@@ -858,6 +868,7 @@
   margin-top:.5rem;width:100%;
 }
 .det-form-submit:hover{ background:var(--violet-dim);box-shadow:0 0 36px rgba(191,95,255,.5) }
+.det-form-submit:disabled{ opacity:.6;cursor:not-allowed }
 .det-form-note{
   font-family:var(--ff-mono);font-size:.5rem;letter-spacing:.1em;
   color:var(--muted);text-transform:uppercase;text-align:center;
@@ -873,6 +884,22 @@
   .det-modal{ padding:2rem 1.5rem }
   .det-form-row{ grid-template-columns:1fr }
 }
+
+/* ══════════════════════════════
+   TEXTOS MÁS GRANDES Y BOLD (override local, no toca style.css)
+══════════════════════════════ */
+.det-page .btn-primary,
+.det-page .btn-ghost{
+  font-size:1rem !important;
+  font-weight:800 !important;
+  letter-spacing:.14em !important;
+}
+.det-modal-title{ font-size:2.8rem; }
+.det-modal-eyebrow{ font-size:.7rem; font-weight:700; }
+.det-modal-sub{ font-size:.68rem; font-weight:600; }
+.det-field label{ font-size:.6rem; font-weight:700; }
+.det-form-note{ font-size:.58rem; font-weight:600; }
+.det-form-success-sub{ font-size:.7rem; font-weight:600; }
 </style>
 </head>
 <body>
@@ -902,9 +929,6 @@
 </nav>
 
 <div class="det-page" id="det-page">
-
-  <!-- Barra de nivel — coloreada por JS -->
-  <div class="det-level-bar" id="det-level-bar"></div>
 
   <!-- ── HEADER ── -->
   <div class="det-header" id="det-header">
@@ -1048,6 +1072,9 @@
         <label for="f-msg">¿Algo que quieras contarnos? (opcional)</label>
         <textarea id="f-msg" name="mensaje" rows="3" placeholder="Objetivos, preguntas, disponibilidad horaria…"></textarea>
       </div>
+      <input type="hidden" name="_subject" id="f-subject" value="Nueva inscripción APEX">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
       <button type="submit" class="det-form-submit">Enviar Inscripción →</button>
       <p class="det-form-note">Respuesta en menos de 24 hs · Cupos limitados</p>
     </form>
@@ -1222,6 +1249,59 @@ const PROGRAMAS = {
 };
 
 /* ══════════════════════════════
+   MODAL DE INSCRIPCIÓN — abrir/cerrar/enviar
+══════════════════════════════ */
+const detModalOverlay = document.getElementById('det-modal-overlay');
+const detModalClose    = document.getElementById('det-modal-close');
+const detModalTitle    = document.getElementById('modal-prog-title');
+const detForm          = document.getElementById('det-form');
+const detFormSuccess   = document.getElementById('det-form-success');
+const detFormSubject   = document.getElementById('f-subject');
+
+function openDetModal(progName){
+  detModalTitle.textContent = 'Programa ' + progName;
+  detFormSubject.value = 'Nueva inscripción — Programa ' + progName + ' — APEX Sim Racing';
+  detForm.reset();
+  detForm.style.display = 'flex';
+  detFormSuccess.style.display = 'none';
+  detModalOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDetModal(){
+  detModalOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+detModalClose.addEventListener('click', closeDetModal);
+detModalOverlay.addEventListener('click', (e) => { if(e.target === detModalOverlay) closeDetModal(); });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeDetModal(); });
+
+detForm.addEventListener('submit', async function(e){
+  e.preventDefault();
+  const submitBtn = detForm.querySelector('.det-form-submit');
+  const originalText = submitBtn.textContent;
+  submitBtn.textContent = 'Enviando…';
+  submitBtn.disabled = true;
+
+  const formData = new FormData(detForm);
+
+  try{
+    const res = await fetch('https://formsubmit.co/ajax/micabelenmartin@gmail.com', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: formData,
+    });
+    if(!res.ok) throw new Error('Error de red');
+    detForm.style.display = 'none';
+    detFormSuccess.style.display = 'flex';
+  }catch(err){
+    alert('Hubo un problema al enviar el formulario. Por favor, escribinos directamente a micabelenmartin@gmail.com');
+  }finally{
+    submitBtn.textContent = originalText;
+    submitBtn.disabled = false;
+  }
+});
+
+/* ══════════════════════════════
    RENDER
 ══════════════════════════════ */
 (function(){
@@ -1245,11 +1325,6 @@ const PROGRAMAS = {
   root.style.setProperty('--prog-border-subtle', p.borderSubtle);
   root.style.setProperty('--prog-bg-subtle',     p.bgSubtle);
 
-  // Barra de nivel
-  const bar = document.getElementById('det-level-bar');
-  bar.style.background = p.accent;
-  bar.style.boxShadow  = '0 0 18px ' + p.glow;
-
   // Watermark
   document.getElementById('det-header').setAttribute('data-prog-name', p.nombre);
 
@@ -1259,7 +1334,7 @@ const PROGRAMAS = {
   // Eyebrow dinámico — "Programa PRO", "Programa ENTRY", etc.
   document.querySelector('.det-eyebrow').textContent = 'Programa ' + p.nombre;
 
-  // Título + popular badge
+  // Título + popular badge + botón de inscripción
   const titleEl = document.getElementById('det-title');
   titleEl.textContent = p.nombre;
   if(p.popular){
@@ -1268,6 +1343,12 @@ const PROGRAMAS = {
     pop.textContent = 'MÁS POPULAR';
     titleEl.appendChild(pop);
   }
+  const inscribirBtn = document.createElement('button');
+  inscribirBtn.type = 'button';
+  inscribirBtn.className = 'det-title-cta';
+  inscribirBtn.textContent = 'Inscribirme →';
+  inscribirBtn.addEventListener('click', () => openDetModal(p.nombre));
+  titleEl.appendChild(inscribirBtn);
 
   // Tagline
   document.getElementById('det-tagline').textContent = p.tagline;
@@ -1279,15 +1360,16 @@ const PROGRAMAS = {
 
   // CTA row
   const ctaRow  = document.getElementById('det-cta-row');
-  const ctaLink = document.createElement('a');
-  ctaLink.href      = 'mailto:info@apexsimracing.com?subject=' + encodeURIComponent(p.emailSub);
-  ctaLink.className = p.ctaClass;
-  ctaLink.textContent = 'Reservar Mi Lugar →';
+  const ctaBtn = document.createElement('button');
+  ctaBtn.type = 'button';
+  ctaBtn.className = p.ctaClass;
+  ctaBtn.textContent = 'Reservar Mi Lugar →';
+  ctaBtn.addEventListener('click', () => openDetModal(p.nombre));
   const ghostLink = document.createElement('a');
   ghostLink.href      = 'index.html#programas';
   ghostLink.className = 'btn-ghost';
   ghostLink.textContent = 'Ver todos los programas';
-  ctaRow.appendChild(ctaLink);
+  ctaRow.appendChild(ctaBtn);
   ctaRow.appendChild(ghostLink);
 
   /* ── MAIN ── */
@@ -1355,20 +1437,25 @@ const PROGRAMAS = {
   barsHTML += `</div></div>`;
 
   // Precio en aside + CTA
-  const asideCta = `
-    <div class="det-aside-price">
-      <div class="det-aside-price-num">${p.precio}</div>
-      <div class="det-aside-price-period">${p.precioPer}</div>
-      <a href="mailto:info@apexsimracing.com?subject=${encodeURIComponent(p.emailSub)}"
-         class="${p.ctaClass}"
-         style="margin-top:1.5rem;display:block;text-align:center">
-        Reservar Mi Lugar →
-      </a>
-      <p style="font-family:var(--ff-mono);font-size:.5rem;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-top:.8rem;text-align:center">
-        Cupos limitados
-      </p>
-    </div>
+  const asideCta = document.createElement('div');
+  asideCta.className = 'det-aside-price';
+  asideCta.innerHTML = `
+    <div class="det-aside-price-num">${p.precio}</div>
+    <div class="det-aside-price-period">${p.precioPer}</div>
+    <p style="font-family:var(--ff-mono);font-size:.5rem;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-top:.8rem;text-align:center">
+      Cupos limitados
+    </p>
   `;
+  const asideCtaBtn = document.createElement('button');
+  asideCtaBtn.type = 'button';
+  asideCtaBtn.className = p.ctaClass;
+  asideCtaBtn.style.marginTop = '1.5rem';
+  asideCtaBtn.style.display = 'block';
+  asideCtaBtn.style.width = '100%';
+  asideCtaBtn.style.textAlign = 'center';
+  asideCtaBtn.textContent = 'Reservar Mi Lugar →';
+  asideCtaBtn.addEventListener('click', () => openDetModal(p.nombre));
+  asideCta.insertBefore(asideCtaBtn, asideCta.querySelector('p'));
 
   // Otros programas
   let othersHTML = `
@@ -1385,7 +1472,9 @@ const PROGRAMAS = {
   });
   othersHTML += `</div>`;
 
-  aside.innerHTML = incHTML + barsHTML + asideCta + othersHTML;
+  aside.innerHTML = incHTML + barsHTML;
+  aside.appendChild(asideCta);
+  aside.insertAdjacentHTML('beforeend', othersHTML);
 
   /* ── FOOTER NAV ── */
   const footerNav = document.getElementById('det-footer-nav');
