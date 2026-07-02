@@ -219,7 +219,7 @@
 /* Fila título + precio, uno al lado del otro */
 .det-title-row{
   display:flex;
-  align-items:center;
+  align-items:flex-end;
   gap:2rem;
   flex-wrap:wrap;
   margin-bottom:2rem;
@@ -284,7 +284,7 @@
 .det-price{
   font-family:var(--ff-display);
   font-weight:900;
-  font-size:clamp(6rem,13vw,15rem);
+  font-size:clamp(4rem,9vw,10rem);
   color:var(--white);
   line-height:.85;
   flex-shrink:0;
@@ -454,51 +454,6 @@
   color:#888;
   font-weight:400;
   line-height:1.6;
-}
-
-/* ══════════════════════════════
-   REQUISITOS
-══════════════════════════════ */
-.det-req-item{
-  display:flex;
-  align-items:flex-start;
-  gap:.8rem;
-  font-size:1.05rem;
-  color:#999;
-  font-weight:400;
-  line-height:1.5;
-  padding:.55rem 0;
-  border-bottom:1px solid #0f0f0f;
-}
-.det-req-item:last-child{ border-bottom:none }
-.det-req-icon{
-  color:var(--prog-accent, var(--green));
-  font-size:.6rem;
-  flex-shrink:0;
-  margin-top:.2rem;
-  font-family:var(--ff-mono);
-}
-
-.det-req-note{
-  margin-top:2rem;
-  padding:1.5rem;
-  border:1px solid var(--prog-border-subtle, #141414);
-  background:var(--prog-bg-subtle, #080808);
-}
-.det-req-note-label{
-  font-family:var(--ff-mono);
-  font-size:.65rem;
-  font-weight:700;
-  letter-spacing:.2em;
-  color:var(--prog-accent, var(--green));
-  text-transform:uppercase;
-  margin-bottom:.8rem;
-}
-.det-req-note p{
-  font-size:1rem;
-  color:#999;
-  font-weight:400;
-  line-height:1.7;
 }
 
 /* ══════════════════════════════
@@ -1363,25 +1318,7 @@ detForm.addEventListener('submit', async function(e){
   });
   tlHTML += `</div></div>`;
 
-  // Requisitos
-  let reqHTML = `
-    <div class="det-section">
-      <div class="det-section-label">A quién va dirigido</div>
-      <div class="det-section-title">ESTE PROGRAMA ES PARA VOS SI...</div>
-  `;
-  p.requisitos.forEach(r => {
-    reqHTML += `<div class="det-req-item"><span class="det-req-icon">→</span>${r}</div>`;
-  });
-  const notaLabel = p.reqNotaLabel || '// Requisito previo';
-  reqHTML += `
-      <div class="det-req-note">
-        <div class="det-req-note-label">${notaLabel}</div>
-        <p>${p.reqNota}</p>
-      </div>
-    </div>
-  `;
-
-  main.innerHTML = tlHTML + reqHTML;
+  main.innerHTML = tlHTML;
 
   /* ── ASIDE ── */
   const aside = document.getElementById('det-aside');
