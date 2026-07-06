@@ -476,15 +476,32 @@ section{padding:7rem 3rem}
 }
 .exp-circuit:hover .exp-tag{border-color:var(--violet);color:var(--violet);box-shadow:0 0 8px rgba(191,95,255,.2)}
 
-.media-strip{
-  display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
-  background:#111;margin-top:1px;
+.media-slider{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/6;
+    overflow:hidden;
+    margin-top:1px;
+    border:1px solid #141414;
+    background:#111;
 }
-.media-ph{
-  aspect-ratio:16/6;background:var(--dark);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--ff-mono);font-size:.6rem;color:#222;letter-spacing:.08em;
-  border:1px solid #141414;
+
+.media-slide{
+    position:absolute;
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    opacity:0;
+
+    transition:opacity .8s ease;
+}
+
+.media-slide.active{
+    opacity:1;
 }
 
 /* ══════════════════════════════
