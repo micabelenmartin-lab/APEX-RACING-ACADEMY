@@ -970,7 +970,7 @@ footer{
   position:relative;width:100%;
   cursor:pointer;user-select:none;
   border-top:1px solid #111;border-bottom:1px solid #111;
-  background:var(--white);
+  background:var(--black);
   min-height:300px;
 }
 .sim-img-stack{
@@ -983,8 +983,8 @@ footer{
   display:block;
   width:100%;
   height:auto;
-  max-height:80vh;
-  object-fit:cover;
+  max-height:none;
+  object-fit:contain;
   pointer-events:none;
   transition:opacity .4s ease;
 }
@@ -993,6 +993,7 @@ footer{
   inset:0;
   width:100%;
   height:100%;
+  object-fit:contain;
   opacity:0;
 }
 .sim-alt-img.sim-visible{ opacity:1; }
@@ -1014,5 +1015,4 @@ footer{
   #simulador{padding:5rem 0 0}
   .sim-header{padding:0 1.5rem;margin-bottom:2.5rem}
   .sim-reveal-wrap{cursor:pointer}
-  .sim-base-img{max-height:55vw}
 }
