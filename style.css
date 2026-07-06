@@ -296,7 +296,7 @@ nav{
 .hero-bg-video{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;z-index:0;
-  opacity:.12;filter:saturate(.5) brightness(.6) blur(1px);
+  opacity:.3;filter:saturate(.6) brightness(.7) blur(1px);
 }
 .hero-bg-overlay{
   position:absolute;inset:0;z-index:0;
@@ -315,20 +315,6 @@ nav{
 .rpm-fill{width:100%;background:linear-gradient(to top,var(--green),var(--violet));border-radius:2px;animation:rpmPulse 1.8s ease-in-out infinite alternate}
 @keyframes rpmPulse{from{height:35%}to{height:88%}}
 #particle-canvas{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.55}
-
-/* ══════════════════════════════
-   TICKER
-══════════════════════════════ */
-.ticker-wrapper{overflow:hidden;border-top:1px solid #111;border-bottom:1px solid #111;padding:.55rem 0;background:var(--dark)}
-.ticker-inner{display:flex;width:max-content;animation:ticker 30s linear infinite}
-.ticker-item{
-  font-family:var(--ff-mono);font-size:.58rem;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--muted);
-  padding:0 2rem;white-space:nowrap;display:flex;align-items:center;gap:.8rem;
-}
-.ticker-item .dot{color:var(--green);font-size:.45rem}
-.ticker-item .vdot{color:var(--violet);font-size:.45rem}
-@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ══════════════════════════════
    SECTIONS COMMON
@@ -859,7 +845,6 @@ footer{
   .hero-headline{font-size:clamp(3.8rem,14vw,5.5rem)}
   .hero-body{font-size:.9rem}
 
-  .ticker-item{padding:0 1rem;font-size:.5rem}
   section{padding:4rem 1.5rem}
 
   .exp-header{grid-template-columns:1fr;gap:1.5rem}
