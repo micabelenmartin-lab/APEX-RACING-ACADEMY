@@ -760,15 +760,15 @@ section{padding:7rem 3rem}
    ACADEMIA
 ══════════════════════════════ */
 #academia{background:var(--green);border-top:1px solid #111}
-#academia .eyebrow{color:var(--black)}
+#academia .eyebrow{color:var(--black);font-weight:700}
 #academia .eyebrow::before{color:rgba(0,0,0,.4)}
 #academia .sec-title{color:var(--black)}
 #academia .t-green{color:var(--black)}
-#academia .sec-sub{color:var(--black);font-size:1.05rem}
+#academia .sec-sub{color:var(--black);font-size:1.05rem;font-weight:600}
 #academia .sec-sub span{color:var(--black);font-weight:inherit}
-#academia .t-violet{color:var(--black);font-weight:600}
-#academia .year-badge{border-color:rgba(0,0,0,.3);color:var(--black);box-shadow:none}
-#academia .year-badge .yr{color:var(--black)}
+#academia .t-violet{color:var(--black);font-weight:700}
+#academia .year-badge{border-color:rgba(0,0,0,.3);color:var(--black);box-shadow:none;font-weight:700}
+#academia .year-badge .yr{color:var(--black);font-weight:900}
 #academia .pipeline-box{border-color:var(--black);background:var(--black)}
 #academia .pipeline-box::before{background:var(--black);color:var(--green)}
 #academia .pipeline-step{border-bottom-color:rgba(255,255,255,.1)}
