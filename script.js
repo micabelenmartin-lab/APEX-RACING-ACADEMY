@@ -324,6 +324,14 @@ document.addEventListener('DOMContentLoaded', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(setupCarousels, 200);
   });
+
+  /* ── TECH CAROUSEL: una tarjeta grande a la vez, en todos los tamaños ── */
+  const techTrack = document.querySelector('.tech-track');
+  const techDots  = document.querySelector('.tech-carousel-dots');
+  if (techTrack && !techTrack.dataset.carouselInit) {
+    initCarousel(techTrack, techDots);
+    techTrack.dataset.carouselInit = 'true';
+  }
 /*═══════════════════════════════
       MEDIA SLIDER
 ═══════════════════════════════*/
