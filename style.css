@@ -929,7 +929,8 @@ footer{
   .exp-circuits{grid-template-columns:1fr}
   .exp-circuit{min-height:400px}
   .exp-circuit-img{flex:0 0 55%}
-  .exp-name{font-size:1.35rem}
+  .exp-name{font-size:1.7rem}
+  .exp-desc{font-size:.8rem}
   .media-strip{grid-template-columns:1fr}
 
   .prog-header{grid-template-columns:1fr;gap:1.5rem}
@@ -956,7 +957,7 @@ footer{
 @media(max-width:480px){
   .hero-headline{font-size:clamp(3.2rem,16vw,4.5rem)}
   .exp-circuits{grid-template-columns:1fr}
-  .exp-name{font-size:1.15rem}
+  .exp-desc{font-size:.76rem}
   .prog-cards{grid-template-columns:1fr}
   #cursor,#cursor-ring{display:none}
   .hero-actions{flex-direction:column;align-items:flex-start}
