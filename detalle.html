@@ -1006,8 +1006,7 @@ html{ scroll-behavior:smooth; }
         <p class="det-cta-note">Cupos limitados · Respuesta en menos de 24 hs</p>
         <nav class="det-quicknav" aria-label="Navegación rápida del programa">
           <a href="#det-sec-incluye"><span>01</span> Qué incluye</a>
-          <a href="#det-sec-requisitos"><span>02</span> ¿Es para vos?</a>
-          <a href="#det-sec-cronograma"><span>03</span> Cronograma</a>
+          <a href="#det-sec-cronograma"><span>02</span> Cronograma</a>
         </nav>
       </div>
     </div>
@@ -1412,9 +1411,9 @@ detForm.addEventListener('submit', async function(e){
   ctaRow.appendChild(ghostLink);
 
   /* ── MAIN ──
-     Orden de lectura: 1) qué incluye (qué compro) → 2) ¿es para vos? (¿me sirve?)
-     → 3) cronograma (¿cómo se hace, sesión a sesión?). Cada bloque tiene su
-     ancla para el quick-nav del header. */
+     Orden de lectura: 1) qué incluye (qué compro) → 2) cronograma (¿cómo se
+     hace, sesión a sesión?). Se sacó el checklist "¿Es para vos?", pero se
+     conserva la nota de recomendación de nivel como aclaración breve. */
   const main = document.getElementById('det-main');
 
   // 1) Qué incluye — primero lo concreto: qué recibís por tu dinero
@@ -1429,24 +1428,17 @@ detForm.addEventListener('submit', async function(e){
   });
   incMainHTML += `</ul></div>`;
 
-  // 2) Requisitos — "¿Es para vos?" (una vez que ya sabe qué incluye, se pregunta si le sirve)
+  // 2) Nota de nivel/recomendación — se mantiene solo esta aclaración, sin el checklist
   let reqHTML = `
-    <div class="det-section" id="det-sec-requisitos">
-      <div class="det-section-label">Paso 02 · ¿Es para vos?</div>
-      <div class="det-section-title">Este programa te sirve si…</div>
-      <ul class="det-req-list">
+    <div class="det-section">
+      <div class="det-req-nota">${p.reqNota}</div>
+    </div>
   `;
-  p.requisitos.forEach(r => {
-    reqHTML += `<li class="det-req-item">${r}</li>`;
-  });
-  reqHTML += `</ul>`;
-  reqHTML += `<div class="det-req-nota">${p.reqNota}</div>`;
-  reqHTML += `</div>`;
 
-  // 3) Cronograma — el plan concreto, una vez que el lector ya se identificó con el programa
+  // 3) Cronograma — el plan concreto
   let tlHTML = `
     <div class="det-section" id="det-sec-cronograma">
-      <div class="det-section-label">Paso 03 · Cronograma</div>
+      <div class="det-section-label">Paso 02 · Cronograma</div>
       <div class="det-section-title">${p.timelineTitle}</div>
       <div class="det-timeline">
   `;
