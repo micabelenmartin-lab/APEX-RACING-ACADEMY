@@ -391,19 +391,9 @@ section{padding:7rem 3rem}
   pointer-events:none;
 }
 
-.exp-letter:not(.exp-gap):hover{
-  color:var(--green);
-  text-shadow:0 0 50px rgba(0,255,136,.5);
-}
-
 .exp-letter.exp-tu{
   color:transparent;
   -webkit-text-stroke:1.5px var(--white);
-}
-.exp-letter.exp-tu:hover{
-  color:transparent;
-  -webkit-text-stroke:1.5px var(--green);
-  text-shadow:0 0 50px rgba(0,255,136,.5);
 }
 
 .exp-letter.exp-letter-animate{}
