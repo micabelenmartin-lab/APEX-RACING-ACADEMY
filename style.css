@@ -411,12 +411,61 @@ section{padding:7rem 3rem}
   gap:1px;background:#111;margin-bottom:4rem;
 }
 .exp-circuit{
-  display:flex;flex-direction:column;
-  min-height:520px;
-  background:var(--black);position:relative;overflow:hidden;
+  position:relative;
+  perspective:1400px;
+  background:var(--black);
   border-bottom:3px solid transparent;transition:border-color .4s;
   box-shadow:0 0 32px rgba(191,95,255,.13), 0 0 80px rgba(191,95,255,.06);
 }
+.exp-circuit:hover{border-bottom-color:var(--green)}
+
+/* ── FLIP CARD ── */
+.exp-circuit-inner{
+  position:relative;
+  width:100%;
+  min-height:520px;
+  transition:transform .65s cubic-bezier(.22,1,.36,1);
+  transform-style:preserve-3d;
+  cursor:pointer;
+}
+.exp-circuit.flipped .exp-circuit-inner{
+  transform:rotateY(180deg);
+}
+
+.exp-circuit-front,
+.exp-circuit-back{
+  position:absolute;
+  inset:0;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+.exp-circuit-front{
+  background:var(--black);
+}
+
+.exp-circuit-back{
+  transform:rotateY(180deg);
+  background:var(--black);
+  border:1px solid rgba(0,255,136,.15);
+  padding:2.2rem 1.8rem;
+  justify-content:center;
+}
+.exp-circuit-back .exp-num{
+  font-family:var(--ff-display);font-weight:900;font-size:3rem;
+  color:var(--green);opacity:.5;margin-bottom:.6rem;
+}
+.exp-circuit-back .exp-name{
+  font-family:var(--ff-display);font-weight:900;font-size:1.7rem;
+  text-transform:uppercase;margin-bottom:1rem;color:var(--white);
+}
+.exp-circuit-back .exp-desc{
+  font-size:.9rem;color:#999;font-weight:300;line-height:1.7;
+}
+
 .exp-circuit-img{
   flex:0 0 60%;background:#0d0d0d;
   background-size:cover;background-position:center;
@@ -439,7 +488,6 @@ section{padding:7rem 3rem}
   background:rgba(0,255,136,.03);opacity:0;transition:opacity .4s;
 }
 .exp-circuit:hover .exp-circuit-body::before{opacity:1}
-.exp-circuit:hover{border-bottom-color:var(--green)}
 .exp-num{
   font-family:var(--ff-display);font-weight:900;font-size:3.8rem;
   color:rgba(255,255,255,.08);line-height:1;margin-bottom:.4rem;
@@ -945,7 +993,7 @@ footer{
 
   .exp-header{grid-template-columns:1fr;gap:1.5rem}
   .exp-circuits{grid-template-columns:1fr}
-  .exp-circuit{min-height:400px}
+  .exp-circuit-inner{min-height:400px}
   .exp-circuit-img{flex:0 0 55%}
   .exp-name{font-size:1.7rem}
   .exp-desc{font-size:.8rem}
