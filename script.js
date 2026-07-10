@@ -153,6 +153,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /* ── FLIP CARDS: EXPERIENCIAS ── */
+  circuits.forEach(card => {
+    const flip = () => card.classList.toggle('flipped');
+
+    card.addEventListener('click', flip);
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        flip();
+      }
+    });
+  });
+
   /* ── PROG CARD MAGNETIC TILT ── */
   document.querySelectorAll('.prog-card').forEach(card => {
     card.addEventListener('mousemove', e => {
