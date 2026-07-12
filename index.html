@@ -533,20 +533,6 @@
 
 <script src="script.js"></script>
 
-<!-- ═══════ SCRIPT: FLIP CARDS EXPERIENCIAS ═══════ -->
-<script>
-(function(){
-  var cards = document.querySelectorAll('.exp-circuit');
-  cards.forEach(function(card){
-    function doFlip(){ card.classList.toggle('flipped'); }
-    card.addEventListener('click', doFlip);
-    card.addEventListener('keydown', function(e){
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); doFlip(); }
-    });
-  });
-})();
-</script>
-
 <!-- ═══════ SCRIPT: SIMULADOR — TOGGLE CLICK ═══════ -->
 <script>
 (function(){
