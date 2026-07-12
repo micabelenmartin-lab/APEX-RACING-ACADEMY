@@ -711,7 +711,7 @@ section{padding:7rem 3rem}
     margin-bottom:1.8rem;
 }
 .prog-header .sec-title{font-size:clamp(2rem,3.6vw,3.6rem)}
-.prog-header .sec-sub{font-size:.85rem;max-width:100%;color:var(--white)}
+.prog-header .sec-sub{font-size:1rem;max-width:100%;color:var(--white)}
 
 /* Grid con espacio real entre tarjetas (antes era gap:1px con fondo compartido) */
 .prog-cards{
