@@ -382,7 +382,7 @@ body{ overflow-x:hidden }
   body.bib-page .nav-links{
     flex:1 1 auto;min-width:0;
     display:flex;flex-wrap:nowrap;align-items:center;
-    gap:1.6rem;
+    gap:.6rem;
     overflow-x:auto;overflow-y:hidden;
     scrollbar-width:none;-ms-overflow-style:none;
     padding:0 1.25rem;
@@ -390,10 +390,13 @@ body{ overflow-x:hidden }
     -webkit-mask-image:linear-gradient(to right,transparent 0,#000 28px,#000 calc(100% - 28px),transparent 100%);
   }
   body.bib-page .nav-links::-webkit-scrollbar{ display:none }
-  body.bib-page .nav-links li{ flex:0 0 auto }
+  body.bib-page .nav-links li{ flex:0 0 auto;display:flex;align-items:center;gap:.6rem }
+  body.bib-page .nav-links li:not(:last-child)::after{
+    content:'/';color:rgba(255,255,255,.25);font-family:var(--ff-display);
+  }
   body.bib-page .nav-links a{
     white-space:nowrap;
-    font-size:.68rem;letter-spacing:.1em;
+    font-size:.66rem;letter-spacing:.06em;
   }
   body.bib-page .nav-cta{
     flex:0 0 auto;white-space:nowrap;
