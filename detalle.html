@@ -88,24 +88,64 @@ html{ scroll-behavior: smooth; }
 .btn-elite{font-family:var(--ff-display);font-size:.9rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;background:transparent;color:var(--violet);padding:.75rem 2.2rem;display:inline-block;border:1px solid var(--violet);transition:all .25s;box-shadow:0 0 16px rgba(191,95,255,.15);clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);}
 .btn-elite:hover{background:rgba(191,95,255,.12);box-shadow:0 0 30px rgba(191,95,255,.35);transform:translateY(-3px);}
 
-/* ══════════════════════════════ BODY — grid 2 columnas ══════════════════════════════ */
-.det-body{display:grid;grid-template-columns:1fr 380px;gap:1px;background:#111;border-bottom:1px solid #111;}
-.det-main{padding:4rem 3rem;background:var(--black);}
-.det-aside{padding:3rem 2.5rem;background:var(--violet);border-left:1px solid #111;position:sticky;top:96px;align-self:start;}
+/* ══════════════════════════════ VIDEO — sección sin título, ajustada al scroll ══════════════════════════════ */
+.det-video-section{display:flex;justify-content:center;align-items:center;padding:5rem 3rem;background:#050505;border-bottom:1px solid #111;}
+.det-video-wrap{position:relative;width:100%;max-width:1040px;height:min(70vh, 620px);background:#000;overflow:hidden;border:1px solid rgba(191,95,255,.18);box-shadow:0 0 70px rgba(191,95,255,.12);opacity:0;transform:scale(.96);transition:opacity .8s ease, transform .8s ease;}
+.det-video-wrap.in-view{ opacity:1; transform:scale(1); }
+.det-video{width:100%;height:100%;object-fit:cover;display:block;}
+.det-video-bracket{position:absolute;width:20px;height:20px;z-index:2;pointer-events:none;}
+.det-video-bracket.tl{ top:14px; left:14px; border-top:1.5px solid var(--prog-accent,var(--green)); border-left:1.5px solid var(--prog-accent,var(--green)); }
+.det-video-bracket.tr{ top:14px; right:14px; border-top:1.5px solid var(--prog-accent,var(--green)); border-right:1.5px solid var(--prog-accent,var(--green)); }
+.det-video-bracket.bl{ bottom:14px; left:14px; border-bottom:1.5px solid var(--violet); border-left:1.5px solid var(--violet); }
+.det-video-bracket.br{ bottom:14px; right:14px; border-bottom:1.5px solid var(--violet); border-right:1.5px solid var(--violet); }
+.det-video-mute{position:absolute;bottom:1.2rem;right:1.2rem;z-index:3;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(5,5,5,.6);backdrop-filter:blur(4px);color:var(--white);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s, transform .2s;}
+.det-video-mute:hover{border-color:var(--prog-accent, var(--green));transform:scale(1.08);}
+@media(max-width:900px){.det-video-section{ padding:3rem 1.5rem }.det-video-wrap{ height:min(56vh, 420px) }}
+@media(max-width:480px){.det-video-section{ padding:2rem 1.2rem }.det-video-wrap{ height:46vh }}
 
-/* ══════════════════════════════ SECCIONES ══════════════════════════════ */
-.det-section{ margin-bottom:4rem; scroll-margin-top:100px; }
+/* ══════════════════════════════ CRONOGRAMA — sección propia, sin sidebar ══════════════════════════════ */
+.det-cronograma-section{padding:5rem 3rem;background:var(--black);border-bottom:1px solid #111;max-width:1100px;margin:0 auto;}
+.det-cronograma-head{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:2rem;}
+.det-level-wrap{ text-align:right; }
+.det-level-label{font-family:var(--ff-mono);font-size:.65rem;font-weight:700;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-bottom:.7rem;}
+.det-bars{ display:flex; gap:5px; justify-content:flex-end; }
+.det-bar{width:10px;height:26px;transform:skewX(-16deg);}
+.det-bar.on{background:var(--prog-accent, var(--white));box-shadow:0 0 6px var(--prog-glow, rgba(255,255,255,.3));}
+.det-bar.off{ background:var(--prog-bar-off, rgba(255,255,255,.08)); }
+@media(max-width:700px){.det-cronograma-section{ padding:3.5rem 1.5rem }.det-cronograma-head{ flex-direction:column; align-items:flex-start; }.det-level-wrap{ text-align:left; }.det-bars{ justify-content:flex-start; }}
+
+/* ══════════════════════════════ CIERRE — luces de largada + reserva ══════════════════════════════ */
+.det-final-section{position:relative;padding:6rem 3rem 7rem;background:#030303;border-bottom:1px solid #111;display:flex;flex-direction:column;align-items:center;text-align:center;overflow:hidden;}
+.det-final-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%, var(--prog-glow, rgba(0,255,136,.14)) 0%, transparent 60%);pointer-events:none;}
+
+.det-final-lights{display:flex;gap:1.1rem;position:relative;z-index:1;margin-bottom:3rem;}
+.det-final-light{width:22px;height:22px;border-radius:50%;background:#1a0505;border:1px solid #2a0a0a;box-shadow:none;transition:background .25s ease, box-shadow .25s ease;}
+.det-final-light.on{background:#ff2b2b;box-shadow:0 0 18px 4px rgba(255,43,43,.75);}
+.det-final-light.off-go{background:var(--prog-accent, var(--green));box-shadow:0 0 22px 6px var(--prog-glow, rgba(0,255,136,.7));}
+
+.det-final-content{position:relative;z-index:1;opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+.det-final-content.revealed{ opacity:1; transform:translateY(0); }
+
+.det-final-eyebrow{font-family:var(--ff-mono);font-size:.85rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--violet);margin-bottom:1rem;}
+.det-final-eyebrow span{ color:var(--prog-accent, var(--green)); }
+.det-final-price{display:flex;align-items:baseline;justify-content:center;gap:.7rem;margin-bottom:2.2rem;flex-wrap:wrap;}
+.det-final-price-num{font-family:var(--ff-display);font-weight:900;font-size:clamp(3.5rem,8vw,6rem);color:var(--white);line-height:1;text-shadow:0 0 30px var(--prog-glow, rgba(0,255,136,.3));}
+.det-final-price-period{font-family:var(--ff-mono);font-size:.85rem;font-weight:700;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;}
+
+.det-final-cta{font-family:var(--ff-display);font-size:1.05rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;background:var(--prog-accent, var(--green));color:var(--black);padding:1rem 3rem;border:none;cursor:pointer;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);transition:all .25s;box-shadow:0 0 30px var(--prog-glow, rgba(0,255,136,.4));}
+.det-final-cta:hover{ transform:translateY(-3px) scale(1.02); box-shadow:0 0 46px var(--prog-glow, rgba(0,255,136,.6)); }
+.det-final-note{font-family:var(--ff-mono);font-size:.65rem;font-weight:600;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-top:1.2rem;}
+
+.det-final-others{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:3rem;padding-top:2rem;border-top:1px solid #1a1a1a;}
+.det-final-other-link{font-family:var(--ff-display);font-size:.95rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border:1px solid #222;padding:.6rem 1.4rem;transition:all .2s;display:flex;align-items:center;gap:.6rem;}
+.det-final-other-link:hover{ color:var(--white); border-color:var(--white); transform:translateY(-2px); }
+.det-final-other-link span{font-family:var(--ff-mono);font-size:.7rem;font-weight:700;}
+@media(max-width:600px){.det-final-section{ padding:4.5rem 1.5rem 5.5rem }.det-final-lights{ gap:.7rem }.det-final-light{ width:16px;height:16px }.det-final-others{ flex-direction:column; width:100%; max-width:280px }}
 
 .det-section-label{font-family:var(--ff-mono);font-size:.7rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--prog-accent, var(--green));display:flex;align-items:center;gap:.5rem;margin-bottom:1.8rem;}
 .det-section-label::before{ content:'//'; color:var(--violet); }
 
 .det-section-title{font-family:var(--ff-display);font-weight:900;font-size:2rem;text-transform:uppercase;letter-spacing:.04em;color:var(--white);margin-bottom:1.2rem;}
-
-/* ══════════════════════════════ REQUISITOS — "¿Es para vos?" ══════════════════════════════ */
-.det-req-list{list-style:none;display:flex;flex-direction:column;gap:1.1rem;margin-bottom:1.8rem;}
-.det-req-item{display:flex;align-items:flex-start;gap:1rem;font-size:1.02rem;color:var(--white);font-weight:400;line-height:1.55;}
-.det-req-item::before{content:'✓';font-family:var(--ff-mono);font-weight:700;font-size:.85rem;color:var(--prog-accent, var(--green));flex-shrink:0;margin-top:.15rem;}
-.det-req-nota{font-size:.92rem;color:#888;font-weight:400;line-height:1.75;padding:1.3rem 1.5rem;border-left:2px solid var(--prog-accent, var(--green));background:var(--prog-bg-subtle, rgba(0,255,136,.02));}
 
 /* ══════════════════════════════ QUÉ INCLUYE — sección dinámica, pantalla completa ══════════════════════════════ */
 .det-incluye-section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:6rem 3rem;background:var(--black);border-bottom:1px solid #111;text-align:center;scroll-margin-top:80px;position:relative;overflow:hidden;}
@@ -177,31 +217,6 @@ html{ scroll-behavior: smooth; }
 .det-tl-week{font-family:var(--ff-mono);font-size:.65rem;font-weight:700;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;margin-bottom:.4rem;}
 .det-tl-name{font-family:var(--ff-display);font-weight:800;font-size:1.3rem;text-transform:uppercase;letter-spacing:.05em;color:var(--white);margin-bottom:.4rem;}
 .det-tl-desc{font-size:1rem;color:#888;font-weight:400;line-height:1.6;}
-
-/* ══════════════════════════════ ASIDE ══════════════════════════════ */
-.det-includes-title{font-family:var(--ff-display);font-weight:600;font-size:1.25rem;text-transform:uppercase;letter-spacing:.06em;color:var(--white);margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.2);}
-.det-include-item{display:flex;align-items:flex-start;gap:.8rem;padding:.85rem 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:1.02rem;color:var(--white);font-weight:600;line-height:1.5;}
-.det-include-item .det-include-arrow{color:var(--prog-accent, var(--green));font-size:.6rem;flex-shrink:0;margin-top:.2rem;font-family:var(--ff-mono);}
-
-/* Barras de nivel */
-.det-level-wrap{margin-top:2rem;padding-top:2rem;border-top:1px solid #161616;}
-.det-level-label{font-family:var(--ff-mono);font-size:.65rem;font-weight:700;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-bottom:.8rem;}
-.det-bars{ display:flex; gap:5px; }
-.det-bar{width:10px;height:26px;transform:skewX(-16deg);}
-.det-bar.on{background:var(--prog-accent, var(--white));box-shadow:0 0 6px var(--prog-glow, rgba(255,255,255,.3));}
-.det-bar.off{ background:var(--prog-bar-off, rgba(255,255,255,.08)); }
-
-/* Precio en aside */
-.det-aside-price{margin-top:2.5rem;padding-top:2rem;border-top:1px solid #161616;}
-.det-aside-price-num{font-family:var(--ff-display);font-weight:900;font-size:3.6rem;color:var(--white);line-height:1;}
-.det-aside-price-period{font-family:var(--ff-mono);font-size:.7rem;font-weight:700;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-top:.4rem;}
-
-/* Otros programas en aside */
-.det-other-programs{margin-top:2.5rem;padding-top:2rem;border-top:1px solid #161616;}
-.det-other-label{font-family:var(--ff-mono);font-size:.65rem;font-weight:700;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-bottom:1rem;}
-.det-other-link{display:flex;justify-content:space-between;align-items:center;padding:.8rem 0;border-bottom:1px solid #0f0f0f;font-family:var(--ff-display);font-size:1.1rem;font-weight:800;text-transform:uppercase;color:#3a3a3a;letter-spacing:.05em;transition:color .2s;}
-.det-other-link:hover{ color:var(--white); }
-.det-other-link-price{font-family:var(--ff-mono);font-size:.7rem;font-weight:700;}
 
 /* ══════════════════════════════ FOOTER ══════════════════════════════ */
 .det-footer{padding:3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:1px solid #111;}
@@ -405,7 +420,7 @@ html{ scroll-behavior: smooth; }
   <!-- ── QUÉ INCLUYE ── -->
   <div class="det-incluye-section" id="det-sec-incluye">
     <div class="det-section-label det-incluye-eyebrow" id="det-incluye-eyebrow"></div>
-    <h2 class="det-incluye-title">No es una lista. Es un sistema.</h2>
+    <h2 class="det-incluye-title">No es una lista, es nuestro método.</h2>
     <p class="det-incluye-sub2">Recorré cada módulo del programa — tocá uno para ver en qué consiste y cuánto suma al sistema completo.</p>
     <div class="det-dash" id="det-dash">
       <div class="det-dash-nav" id="det-dash-nav"></div>
@@ -413,10 +428,52 @@ html{ scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- ── BODY ── -->
-  <div class="det-body">
-    <div class="det-main" id="det-main"></div>
-    <div class="det-aside" id="det-aside"></div>
+  <!-- ── VIDEO — sin título, ajustado al scroll ── -->
+  <div class="det-video-section" id="det-video-section">
+    <div class="det-video-wrap" id="det-video-wrap">
+      <video class="det-video" id="det-video" src="video2.mp4" autoplay muted loop playsinline></video>
+      <div class="det-video-bracket tl"></div>
+      <div class="det-video-bracket tr"></div>
+      <div class="det-video-bracket bl"></div>
+      <div class="det-video-bracket br"></div>
+      <button class="det-video-mute" id="det-video-mute" type="button" aria-label="Activar sonido">🔇</button>
+    </div>
+  </div>
+
+  <!-- ── CRONOGRAMA ── -->
+  <div class="det-cronograma-section" id="det-sec-cronograma">
+    <div class="det-cronograma-head">
+      <div>
+        <div class="det-section-label">Paso 02 · Cronograma</div>
+        <div class="det-section-title" id="det-cronograma-title"></div>
+      </div>
+      <div class="det-level-wrap" id="det-level-wrap">
+        <div class="det-level-label">Nivel de intensidad</div>
+        <div class="det-bars" id="det-bars"></div>
+      </div>
+    </div>
+    <div class="det-timeline" id="det-timeline"></div>
+  </div>
+
+  <!-- ── CIERRE — luces de largada + reserva ── -->
+  <div class="det-final-section" id="det-final-section">
+    <div class="det-final-lights" id="det-final-lights">
+      <span class="det-final-light"></span>
+      <span class="det-final-light"></span>
+      <span class="det-final-light"></span>
+      <span class="det-final-light"></span>
+      <span class="det-final-light"></span>
+    </div>
+    <div class="det-final-content" id="det-final-content">
+      <div class="det-final-eyebrow">Programa <span id="det-final-progname"></span></div>
+      <div class="det-final-price" id="det-final-price">
+        <span class="det-final-price-num" id="det-final-price-num">$0</span>
+        <span class="det-final-price-period" id="det-final-price-period"></span>
+      </div>
+      <button class="det-final-cta" id="det-final-cta" type="button">Reservar Mi Lugar →</button>
+      <p class="det-final-note">Cupos limitados · Respuesta en menos de 24 hs</p>
+      <div class="det-final-others" id="det-final-others"></div>
+    </div>
   </div>
 
   <!-- ── FOOTER ── -->
@@ -577,7 +634,7 @@ const PROGRAMAS = {
       'Podés comprometer 8 sesiones en un período de 6 a 10 semanas',
       'Estás dispuesto a trabajar la parte mental del rendimiento, no solo la técnica',
     ],
-    reqNota: 'Se recomienda haber completado el programa ENTRY o tener experiencia equivalente. No es excluyente — en la primera sesión evaluamos tu nivel y ajustamos el punto de partida si hace falta.',
+    reqNota: '',
     incluye: [
       { icon:'clock',   titulo:'8 sesiones con coach dedicado',   desc:'2 horas cada una, con el mismo coach durante todo el programa.' },
       { icon:'chart',   titulo:'Telemetría comparativa con F1',   desc:'Tu vuelta contra datos de referencia de pilotos profesionales, sector a sector.' },
@@ -801,8 +858,73 @@ function initDetDash(items){
 }
 
 /* ══════════════════════════════
-   RENDER
+   VIDEO — reveal al hacer scroll + mute toggle
 ══════════════════════════════ */
+(function(){
+  const wrap = document.getElementById('det-video-wrap');
+  const video = document.getElementById('det-video');
+  const muteBtn = document.getElementById('det-video-mute');
+  if(!wrap || !video || !muteBtn) return;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) wrap.classList.add('in-view');
+    });
+  }, { threshold: .3 });
+  io.observe(wrap);
+
+  muteBtn.addEventListener('click', () => {
+    video.muted = !video.muted;
+    muteBtn.textContent = video.muted ? '🔇' : '🔊';
+  });
+})();
+
+/* ══════════════════════════════
+   SECCIÓN FINAL — luces de largada + contador de precio
+══════════════════════════════ */
+function initDetFinal(precioStr){
+  const section = document.getElementById('det-final-section');
+  const lights  = Array.from(document.querySelectorAll('.det-final-light'));
+  const content = document.getElementById('det-final-content');
+  const priceEl = document.getElementById('det-final-price-num');
+  if(!section) return;
+
+  const targetNum = parseInt(precioStr.replace(/[^0-9]/g, ''), 10) || 0;
+  let played = false;
+
+  function animatePrice(){
+    const start = performance.now();
+    const dur = 1000;
+    function step(now){
+      const t = Math.min(1, (now - start) / dur);
+      const eased = 1 - Math.pow(1 - t, 3);
+      priceEl.textContent = '$' + Math.round(eased * targetNum);
+      if(t < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function playSequence(){
+    if(played) return;
+    played = true;
+    lights.forEach((light, i) => {
+      setTimeout(() => light.classList.add('on'), 300 + i * 350);
+    });
+    const allOnDelay = 300 + lights.length * 350;
+    setTimeout(() => {
+      lights.forEach(light => { light.classList.remove('on'); light.classList.add('off-go'); });
+      content.classList.add('revealed');
+      animatePrice();
+    }, allOnDelay + 500);
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if(entry.isIntersecting) playSequence(); });
+  }, { threshold: .4 });
+  io.observe(section);
+}
+
+
 (function(){
   const params = new URLSearchParams(window.location.search);
   const key    = (params.get('prog') || 'pro').toLowerCase();
@@ -850,20 +972,17 @@ function initDetDash(items){
   document.getElementById('det-incluye-eyebrow').textContent = 'Paso 01 · Qué incluye';
   initDetDash(p.incluye);
 
-  const main = document.getElementById('det-main');
+  document.getElementById('det-cronograma-title').textContent = p.timelineTitle;
 
-  let reqHTML = `
-    <div class="det-section">
-      <div class="det-req-nota">${p.reqNota}</div>
-    </div>
-  `;
+  const barsWrap = document.getElementById('det-bars');
+  let barsHTML = '';
+  for(let i = 0; i < 5; i++){
+    barsHTML += `<div class="det-bar ${i < p.barCount ? 'on' : 'off'}"></div>`;
+  }
+  barsWrap.innerHTML = barsHTML;
 
-  let tlHTML = `
-    <div class="det-section" id="det-sec-cronograma">
-      <div class="det-section-label">Paso 02 · Cronograma</div>
-      <div class="det-section-title">${p.timelineTitle}</div>
-      <div class="det-timeline">
-  `;
+  const tlWrap = document.getElementById('det-timeline');
+  let tlHTML = '';
   p.timeline.forEach(item => {
     tlHTML += `
       <div class="det-tl-item">
@@ -876,61 +995,25 @@ function initDetDash(items){
       </div>
     `;
   });
-  tlHTML += `</div></div>`;
+  tlWrap.innerHTML = tlHTML;
 
-  main.innerHTML = reqHTML + tlHTML;
+  /* ── Sección final: precio, CTA y otros programas ── */
+  document.getElementById('det-final-progname').textContent = p.nombre;
+  document.getElementById('det-final-price-period').textContent = p.precioPer;
+  document.getElementById('det-final-cta').addEventListener('click', () => openDetModal(p.nombre));
 
-  const aside = document.getElementById('det-aside');
-
-  let asideHeadHTML = `<div class="det-includes-title">// Resumen del programa</div>`;
-
-  let barsHTML = `
-    <div class="det-level-wrap" style="margin-top:0;padding-top:0;border-top:none">
-      <div class="det-level-label">Nivel de intensidad</div>
-      <div class="det-bars">
-  `;
-  for(let i = 0; i < 5; i++){
-    barsHTML += `<div class="det-bar ${i < p.barCount ? 'on' : 'off'}"></div>`;
-  }
-  barsHTML += `</div></div>`;
-
-  const asideCta = document.createElement('div');
-  asideCta.className = 'det-aside-price';
-  asideCta.innerHTML = `
-    <div class="det-aside-price-num">${p.precio}</div>
-    <div class="det-aside-price-period">${p.precioPer}</div>
-    <p style="font-family:var(--ff-mono);font-size:.5rem;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-top:.8rem;text-align:center">
-      Cupos limitados
-    </p>
-  `;
-  const asideCtaBtn = document.createElement('button');
-  asideCtaBtn.type = 'button';
-  asideCtaBtn.className = p.ctaClass;
-  asideCtaBtn.style.marginTop = '1.5rem';
-  asideCtaBtn.style.display = 'block';
-  asideCtaBtn.style.width = '100%';
-  asideCtaBtn.style.textAlign = 'center';
-  asideCtaBtn.textContent = 'Reservar Mi Lugar →';
-  asideCtaBtn.addEventListener('click', () => openDetModal(p.nombre));
-  asideCta.insertBefore(asideCtaBtn, asideCta.querySelector('p'));
-
-  let othersHTML = `
-    <div class="det-other-programs">
-      <div class="det-other-label">// Otros programas</div>
-  `;
+  const finalOthers = document.getElementById('det-final-others');
+  let finalOthersHTML = '';
   p.otros.forEach(o => {
-    othersHTML += `
-      <a href="detalle.html?prog=${o.key}" class="det-other-link">
-        ${o.label}
-        <span class="det-other-link-price" style="color:${o.accentColor}">${o.precio} →</span>
+    finalOthersHTML += `
+      <a href="detalle.html?prog=${o.key}" class="det-final-other-link">
+        ${o.label} <span style="color:${o.accentColor}">${o.precio}</span>
       </a>
     `;
   });
-  othersHTML += `</div>`;
+  finalOthers.innerHTML = finalOthersHTML;
 
-  aside.innerHTML = asideHeadHTML + barsHTML;
-  aside.appendChild(asideCta);
-  aside.insertAdjacentHTML('beforeend', othersHTML);
+  initDetFinal(p.precio);
 
   const footerNav = document.getElementById('det-footer-nav');
   let fnHTML = `<span>Otros programas:</span>`;
