@@ -1647,6 +1647,14 @@ a.footer-contact-line:hover{color:var(--white)}
   .prog-carousel-dots{display:flex}
   .carousel-arrow{display:flex}
   .carousel-track .prog-card:hover{transform:none !important}
+
+  /* Safari/iOS no oculta bien la cara trasera cuando el mismo elemento
+     tiene "overflow:hidden" junto con "backface-visibility:hidden";
+     eso hacía que la flipcard se viera "rota" (texto espejado encimado)
+     al girarla dentro del carrusel mobile. */
+  .exp-circuit-front,.exp-circuit-back,
+  .prog-front,.prog-back{overflow:visible}
+  .exp-circuit-inner,.prog-inner{-webkit-transform:translateZ(0);transform:translateZ(0)}
 }
 
 /* ══════════════════════════════
