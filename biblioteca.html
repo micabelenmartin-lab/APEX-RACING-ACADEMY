@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca de Diseño — APEX Sim Racing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700;1,900&family=Barlow:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="biblioteca.css">
+</head>
+<body class="no-scroll">
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">APEX<span class="loader-dot">.</span></div>
+  <div class="loader-bar-wrap" aria-hidden="true"><div class="loader-bar"></div></div>
+</div>
+
+<!-- CURSOR -->
+<div id="cursor" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+
+<!-- SCANLINES -->
+<div class="scanlines" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">APEX<span class="dot">.</span></div>
+  <ul class="nav-links" id="bib-nav-links">
+    <li><a href="#paleta">01 Paleta</a></li>
+    <li><a href="#tipografia">02 Tipografía</a></li>
+    <li><a href="#botones">03 Botones</a></li>
+    <li><a href="#superficies">04 Superficies</a></li>
+    <li><a href="#formularios">05 Formularios</a></li>
+    <li><a href="#badges">06 Badges</a></li>
+    <li><a href="#tarjetas">07 Tarjetas</a></li>
+    <li><a href="#interaccion">08 Tabs &amp; Acordeón</a></li>
+    <li><a href="#telemetria">09 Telemetría</a></li>
+    <li><a href="#motion">10 Motion</a></li>
+    <li><a href="#espaciado">11 Espaciado &amp; Forma</a></li>
+  </ul>
+  <button class="nav-toggle" id="bib-nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <a href="index.html" class="nav-cta">← Volver al sitio</a>
+</nav>
+
+<!-- HERO -->
+<header class="bib-hero">
+  <div class="bib-hero-tag">Sistema de diseño</div>
+  <h1 class="bib-hero-title">
+    <span class="hl-white">Biblioteca de</span><br>
+    <span class="hl-green">Componentes</span>
+  </h1>
+  <p class="bib-hero-sub">
+    Cada color, tipografía, botón e interacción reales de APEX, documentados en un solo lugar para construir con consistencia de punta a punta.
+  </p>
+  <div class="bib-hero-stats">
+    <div class="bib-hero-stat"><span class="bib-hero-stat-num">11</span><span class="bib-hero-stat-lbl">Secciones</span></div>
+    <div class="bib-hero-stat"><span class="bib-hero-stat-num">3</span><span class="bib-hero-stat-lbl">Familias tipográficas</span></div>
+    <div class="bib-hero-stat"><span class="bib-hero-stat-num">2</span><span class="bib-hero-stat-lbl">Colores de marca</span></div>
+  </div>
+</header>
+
+<!-- ═══════ 01 PALETA ═══════ -->
+<section class="bib-section" id="paleta">
+  <div class="bib-section-head">
+    <div class="bib-num">01 · Fundamentos</div>
+    <h2 class="sec-title">Paleta de color</h2>
+    <p class="sec-sub">Negro casi puro como base, verde neón para acento primario y violeta neón para acento secundario. Clic en cualquier swatch para copiar su hexadecimal.</p>
+  </div>
+
+  <div class="bib-swatch-group">
+    <div class="bib-swatch-group-title">Marca</div>
+    <div class="bib-swatches">
+      <button class="bib-swatch" data-hex="#00ff88" style="background:#00ff88">
+        <span class="bib-swatch-name">Verde</span><span class="bib-swatch-hex">#00FF88</span>
+      </button>
+      <button class="bib-swatch" data-hex="#00cc6a" style="background:#00cc6a">
+        <span class="bib-swatch-name">Verde dim</span><span class="bib-swatch-hex">#00CC6A</span>
+      </button>
+      <button class="bib-swatch" data-hex="#bf5fff" style="background:#bf5fff">
+        <span class="bib-swatch-name">Violeta</span><span class="bib-swatch-hex">#BF5FFF</span>
+      </button>
+      <button class="bib-swatch" data-hex="#8b2fc9" style="background:#8b2fc9">
+        <span class="bib-swatch-name">Violeta dim</span><span class="bib-swatch-hex">#8B2FC9</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="bib-swatch-group">
+    <div class="bib-swatch-group-title">Neutros &amp; superficie</div>
+    <div class="bib-swatches">
+      <button class="bib-swatch bib-swatch-dark" data-hex="#050505" style="background:#050505">
+        <span class="bib-swatch-name">Black</span><span class="bib-swatch-hex">#050505</span>
+      </button>
+      <button class="bib-swatch bib-swatch-dark" data-hex="#0a0a0a" style="background:#0a0a0a">
+        <span class="bib-swatch-name">Dark</span><span class="bib-swatch-hex">#0A0A0A</span>
+      </button>
+      <button class="bib-swatch bib-swatch-dark" data-hex="#0f0f0f" style="background:#0f0f0f">
+        <span class="bib-swatch-name">Surface</span><span class="bib-swatch-hex">#0F0F0F</span>
+      </button>
+      <button class="bib-swatch bib-swatch-dark" data-hex="#141414" style="background:#141414">
+        <span class="bib-swatch-name">Surface 2</span><span class="bib-swatch-hex">#141414</span>
+      </button>
+      <button class="bib-swatch" data-hex="#f2f2f2" style="background:#f2f2f2">
+        <span class="bib-swatch-name">White</span><span class="bib-swatch-hex">#F2F2F2</span>
+      </button>
+      <button class="bib-swatch bib-swatch-dark" data-hex="#4a4a4a" style="background:#4a4a4a">
+        <span class="bib-swatch-name">Muted</span><span class="bib-swatch-hex">#4A4A4A</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 02 TIPOGRAFÍA ═══════ -->
+<section class="bib-section" id="tipografia">
+  <div class="bib-section-head">
+    <div class="bib-num">02 · Fundamentos</div>
+    <h2 class="sec-title">Tipografía</h2>
+    <p class="sec-sub">Tres roles bien delimitados: display para impacto, mono para datos técnicos, body para lectura.</p>
+  </div>
+
+  <div class="bib-type-specimen">
+    <div class="bib-type-meta">Barlow Condensed · 900 italic — títulos hero</div>
+    <div class="bib-type-sample" style="font-family:var(--ff-display);font-weight:900;font-style:italic;font-size:clamp(2.2rem,6vw,4.5rem);text-transform:uppercase;">Corré para ganar</div>
+  </div>
+
+  <div class="bib-type-specimen">
+    <div class="bib-type-meta">Barlow Condensed · 700 — títulos de sección</div>
+    <div class="bib-type-sample sec-title" style="margin:0">Nuestros programas de pilotos</div>
+  </div>
+
+  <div class="bib-type-specimen">
+    <div class="bib-type-meta">Barlow · 300/400 — párrafos y descripciones</div>
+    <div class="bib-type-sample" style="font-family:var(--ff-body);font-weight:300;font-size:1.05rem;color:var(--white);max-width:560px;line-height:1.8">
+      Tecnología de pilotos reales. Metodología de élite. Resultados que se miden en el asfalto.
+    </div>
+  </div>
+
+  <div class="bib-type-specimen">
+    <div class="bib-type-meta">Share Tech Mono — datos técnicos, telemetría, labels</div>
+    <div class="bib-type-sample" style="font-family:var(--ff-mono);font-size:1.1rem;color:var(--green);letter-spacing:.08em">
+      RPM 10,842 · SECTOR S2 · GAP -0.342s
+    </div>
+  </div>
+
+  <div class="bib-scale">
+    <div class="bib-scale-row"><span class="bib-scale-label">Hero</span><span class="bib-scale-sample" style="font-family:var(--ff-display);font-weight:900;font-style:italic;font-size:2.6rem">Título hero</span></div>
+    <div class="bib-scale-row"><span class="bib-scale-label">Section</span><span class="bib-scale-sample" style="font-family:var(--ff-display);font-weight:700;font-size:2rem">Título de sección</span></div>
+    <div class="bib-scale-row"><span class="bib-scale-label">Panel</span><span class="bib-scale-sample" style="font-family:var(--ff-display);font-weight:700;font-size:1.4rem">Título de panel</span></div>
+    <div class="bib-scale-row"><span class="bib-scale-label">Label</span><span class="bib-scale-sample" style="font-family:var(--ff-mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase">Etiqueta de UI</span></div>
+    <div class="bib-scale-row"><span class="bib-scale-label">Micro</span><span class="bib-scale-sample" style="font-family:var(--ff-mono);font-size:.55rem;letter-spacing:.1em;color:var(--muted)">Dato técnico</span></div>
+  </div>
+</section>
+
+<!-- ═══════ 03 BOTONES ═══════ -->
+<section class="bib-section" id="botones">
+  <div class="bib-section-head">
+    <div class="bib-num">03 · Componentes</div>
+    <h2 class="sec-title">Botones</h2>
+    <p class="sec-sub">Primario con glow verde, ghost con borde, y las variantes reales usadas en programas y navegación. Todos son magnéticos: seguí el cursor sobre ellos.</p>
+  </div>
+
+  <div class="bib-demo-row">
+    <a href="#" class="btn-primary" onclick="return false">Reservar Mi Lugar</a>
+    <a href="#" class="btn-ghost" onclick="return false"><span class="play">▶</span> Ver en Acción</a>
+    <button class="nav-cta" onclick="return false">Inscribirme</button>
+  </div>
+
+  <div class="bib-demo-row">
+    <a href="#" class="prog-cta cta-entry prog-cta-lights" onclick="return false">Comenzar →</a>
+    <a href="#" class="prog-cta cta-featured prog-cta-lights" onclick="return false">Comenzar →</a>
+    <a href="#" class="prog-cta cta-elite prog-cta-lights" onclick="return false">Comenzar →</a>
+  </div>
+
+  <div class="bib-demo-row">
+    <button class="btn-primary" disabled style="opacity:.35;cursor:not-allowed">Deshabilitado</button>
+  </div>
+</section>
+
+<!-- ═══════ 04 SUPERFICIES ═══════ -->
+<section class="bib-section" id="superficies">
+  <div class="bib-section-head">
+    <div class="bib-num">04 · Componentes</div>
+    <h2 class="sec-title">Superficies</h2>
+    <p class="sec-sub">Los paneles heads-up-display y las tarjetas de telemetría son la base visual de casi todos los módulos de datos del sitio.</p>
+  </div>
+
+  <div class="bib-surface-grid">
+    <div class="bib-surface-card">
+      <div class="hero-telemetry-bar" style="position:static;transform:none;display:flex;flex-wrap:wrap;background:rgba(10,10,10,.6);border:1px solid rgba(255,255,255,.08);border-radius:6px">
+        <div class="tel-item"><span class="lbl">Status</span><span class="tel-dot"></span>LIVE SESSION</div>
+        <div class="tel-item"><span class="lbl">RPM</span>10,842</div>
+        <div class="tel-item"><span class="lbl">Sector</span>S2 · OPTIMAL</div>
+      </div>
+      <div class="bib-surface-label">.hero-telemetry-bar</div>
+    </div>
+
+    <div class="bib-surface-card">
+      <div class="bib-hdo-demo">
+        <div class="hdo" style="position:static">
+          <div class="hdo-row"><span>PILOT CAM</span><span class="hdo-val">REC</span></div>
+          <div class="hdo-row"><span>SPEED</span><span class="hdo-val" id="bib-hdo-speed">278 km/h</span></div>
+          <div class="hdo-row"><span>THROTTLE</span><span class="hdo-val violet">97%</span></div>
+        </div>
+      </div>
+      <div class="bib-surface-label">.hdo — heads-up display</div>
+    </div>
+
+    <div class="bib-surface-card">
+      <div class="bib-glass-demo">
+        <span class="bib-glass-demo-text">Pasá el mouse</span>
+      </div>
+      <div class="bib-surface-label">Superficie glass estándar</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 05 FORMULARIOS ═══════ -->
+<section class="bib-section" id="formularios">
+  <div class="bib-section-head">
+    <div class="bib-num">05 · Componentes</div>
+    <h2 class="sec-title">Formularios</h2>
+    <p class="sec-sub">Los mismos inputs reales del formulario de reserva, con estados de foco, error y éxito.</p>
+  </div>
+
+  <div class="bib-form-demo">
+    <div class="res-form-row">
+      <div class="res-field">
+        <label for="bib-nombre">Nombre</label>
+        <input type="text" id="bib-nombre" placeholder="Tu nombre">
+      </div>
+      <div class="res-field">
+        <label for="bib-email">Email</label>
+        <input type="email" id="bib-email" placeholder="tu@email.com">
+      </div>
+    </div>
+    <div class="res-field">
+      <label for="bib-programa">Programa</label>
+      <select id="bib-programa">
+        <option>Elite — Nivel 03</option>
+        <option>Pro — Nivel 02</option>
+        <option>Entry — Nivel 01</option>
+      </select>
+    </div>
+    <div class="res-field">
+      <label for="bib-msg">Mensaje</label>
+      <textarea id="bib-msg" rows="3" placeholder="Contanos tu objetivo"></textarea>
+    </div>
+
+    <div class="bib-form-states">
+      <div class="res-field">
+        <label>Estado — error</label>
+        <input type="text" value="email@incompleto" class="bib-input-error">
+        <span class="bib-field-msg bib-field-msg-error">Ingresá un email válido.</span>
+      </div>
+      <div class="res-field">
+        <label>Estado — éxito</label>
+        <input type="text" value="ok@apexsimracing.com" class="bib-input-success">
+        <span class="bib-field-msg bib-field-msg-success">¡Listo! Te contactamos en breve.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 06 BADGES ═══════ -->
+<section class="bib-section" id="badges">
+  <div class="bib-section-head">
+    <div class="bib-num">06 · Componentes</div>
+    <h2 class="sec-title">Badges &amp; etiquetas</h2>
+    <p class="sec-sub">Marcadores de estado y nivel usados en tarjetas de programa, experiencias y el popup de oferta.</p>
+  </div>
+
+  <div class="bib-badge-row">
+    <span class="eyebrow">Eyebrow de sección</span>
+    <span class="prog-badge b-entry">NIVEL 01</span>
+    <span class="prog-badge b-featured">NIVEL 02 · MÁS POPULAR</span>
+    <span class="prog-badge b-elite">NIVEL 03 · ELITE</span>
+    <span class="exp-back-tag">Precisión</span>
+    <span class="offer-badge" style="position:static">🏁 Oferta de Lanzamiento</span>
+  </div>
+</section>
+
+<!-- ═══════ 07 TARJETAS ═══════ -->
+<section class="bib-section" id="tarjetas">
+  <div class="bib-section-head">
+    <div class="bib-num">07 · Componentes</div>
+    <h2 class="sec-title">Tarjetas con flip</h2>
+    <p class="sec-sub">El mismo mecanismo de las tarjetas de experiencias y programas: clic para ver el detalle.</p>
+  </div>
+
+  <div class="bib-flip-demo" id="bib-flip-demo" role="button" tabindex="0" aria-label="Ver detalle de la tarjeta">
+    <div class="bib-flip-inner">
+      <div class="bib-flip-front">
+        <div class="bib-flip-num">01</div>
+        <div class="bib-flip-name">Módulo Demo</div>
+        <div class="bib-flip-hint"><span>⟳</span> Ver más</div>
+      </div>
+      <div class="bib-flip-back">
+        <div class="bib-flip-eyebrow">// Componente</div>
+        <div class="bib-flip-name">Módulo Demo</div>
+        <div class="bib-flip-desc">Este es el mismo patrón de flip 3D que usan las tarjetas de Experiencias y Programas en la home.</div>
+        <div class="bib-flip-footer"><span>Reutilizable</span><span>⟲ Volver</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 08 TABS & ACORDEÓN ═══════ -->
+<section class="bib-section" id="interaccion">
+  <div class="bib-section-head">
+    <div class="bib-num">08 · Interacción</div>
+    <h2 class="sec-title">Tabs &amp; acordeón</h2>
+    <p class="sec-sub">Componentes de navegación por contenido, con exclusividad simple.</p>
+  </div>
+
+  <div class="bib-tabs" id="bib-tabs">
+    <div class="bib-tabs-nav">
+      <button class="bib-tab-btn bib-tab-active" data-tab="0">01 Briefing</button>
+      <button class="bib-tab-btn" data-tab="1">02 Simulación</button>
+      <button class="bib-tab-btn" data-tab="2">03 Telemetría</button>
+      <button class="bib-tab-btn" data-tab="3">04 Debrief</button>
+    </div>
+    <div class="bib-tab-panel bib-tab-panel-active" data-panel="0">
+      <div class="bib-tab-time">18:00 — 18:15</div>
+      <div class="bib-tab-title">Briefing</div>
+      <p>Se define el objetivo de la sesión, el circuito a trabajar y la estrategia según el nivel de cada piloto.</p>
+    </div>
+    <div class="bib-tab-panel" data-panel="1">
+      <div class="bib-tab-time">18:15 — 19:00</div>
+      <div class="bib-tab-title">Simulación</div>
+      <p>Vueltas cronometradas en el simulador, con foco en la trazada y el frenado progresivo.</p>
+    </div>
+    <div class="bib-tab-panel" data-panel="2">
+      <div class="bib-tab-time">19:00 — 19:20</div>
+      <div class="bib-tab-title">Telemetría</div>
+      <p>Análisis comparativo de vueltas: velocidad, freno y acelerador, sector por sector.</p>
+    </div>
+    <div class="bib-tab-panel" data-panel="3">
+      <div class="bib-tab-time">19:20 — 19:30</div>
+      <div class="bib-tab-title">Debrief</div>
+      <p>Cierre con el coach: qué mejoró, qué falta y el objetivo para la próxima sesión.</p>
+    </div>
+  </div>
+
+  <div class="bib-accordion" id="bib-accordion">
+    <div class="bib-acc-item bib-acc-open">
+      <button class="bib-acc-trigger">¿Necesito experiencia previa?<span class="bib-acc-icon">+</span></button>
+      <div class="bib-acc-panel"><p>No. El programa Entry arranca desde cero, con una sesión de diagnóstico inicial.</p></div>
+    </div>
+    <div class="bib-acc-item">
+      <button class="bib-acc-trigger">¿Qué simuladores usan?<span class="bib-acc-icon">+</span></button>
+      <div class="bib-acc-panel"><p>Simuladores profesionales con volante direct drive, pedales de carga celda y movimiento de 6 ejes.</p></div>
+    </div>
+    <div class="bib-acc-item">
+      <button class="bib-acc-trigger">¿Puedo cambiar de programa?<span class="bib-acc-icon">+</span></button>
+      <div class="bib-acc-panel"><p>Sí, podés subir de nivel en cualquier momento evaluando tu progreso junto al coach.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 09 TELEMETRÍA ═══════ -->
+<section class="bib-section" id="telemetria">
+  <div class="bib-section-head">
+    <div class="bib-num">09 · Datos</div>
+    <h2 class="sec-title">Telemetría &amp; progreso</h2>
+    <p class="sec-sub">Elementos vivos que narran datos en tiempo real: barras de habilidad, gauge circular y la perilla de selección.</p>
+  </div>
+
+  <div class="bib-tele-grid">
+    <div class="bib-tele-card">
+      <div class="bib-tele-card-title">Barras de habilidad</div>
+      <div class="bib-skill"><span>Postura</span><div class="bib-skill-track"><div class="bib-skill-fill" style="width:92%"></div></div><b>92%</b></div>
+      <div class="bib-skill"><span>Control</span><div class="bib-skill-track"><div class="bib-skill-fill" style="width:81%;background:var(--violet)"></div></div><b>81%</b></div>
+      <div class="bib-skill"><span>Consistencia</span><div class="bib-skill-track"><div class="bib-skill-fill" style="width:68%"></div></div><b>68%</b></div>
+    </div>
+
+    <div class="bib-tele-card bib-tele-card-center">
+      <div class="bib-tele-card-title">Anillo de estadística</div>
+      <svg viewBox="0 0 120 120" class="bib-ring-svg">
+        <circle cx="60" cy="60" r="52" class="bib-ring-track"/>
+        <circle cx="60" cy="60" r="52" class="bib-ring-fill"/>
+        <text x="60" y="66" text-anchor="middle" class="bib-ring-num">86</text>
+      </svg>
+      <div class="bib-tele-card-sub">Racing IQ</div>
+    </div>
+
+    <div class="bib-tele-card">
+      <div class="bib-tele-card-title">Perilla reutilizada</div>
+      <p class="bib-tele-note">El mismo componente de selector arrastrable que ves en «Elige tu Circuito» — <a href="index.html#experiencias">verlo en la home →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 10 MOTION ═══════ -->
+<section class="bib-section" id="motion">
+  <div class="bib-section-head">
+    <div class="bib-num">10 · Interacción</div>
+    <h2 class="sec-title">Motion</h2>
+    <p class="sec-sub">Micro-interacciones reales del sitio: elevación al hover, pulso de hotspot y revelado al hacer scroll.</p>
+  </div>
+
+  <div class="bib-motion-grid">
+    <div class="bib-motion-card bib-hover-lift">
+      <div class="bib-motion-title">Hover lift</div>
+      <div class="bib-motion-sub">Pasá el mouse</div>
+    </div>
+    <div class="bib-motion-card">
+      <div class="bib-motion-title">Pulso hotspot</div>
+      <span class="bib-hotspot"><span class="bib-hotspot-dot"></span></span>
+    </div>
+    <div class="bib-motion-card bib-reveal-demo-wrap">
+      <div class="bib-motion-title">Revelado al scroll</div>
+      <div class="reveal bib-reveal-demo">Scrolleá hasta acá</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ 11 ESPACIADO & FORMA ═══════ -->
+<section class="bib-section" id="espaciado">
+  <div class="bib-section-head">
+    <div class="bib-num">11 · Layout</div>
+    <h2 class="sec-title">Espaciado &amp; forma</h2>
+    <p class="sec-sub">Escala de espaciado usada en gaps y paddings, y los radios reales que aparecen en botones, badges y superficies del sitio.</p>
+  </div>
+
+  <div class="bib-space-scale">
+    <div class="bib-space-row"><div class="bib-space-bar" style="width:8px"></div><span>8px</span><small>Gap entre íconos y micro-elementos</small></div>
+    <div class="bib-space-row"><div class="bib-space-bar" style="width:16px"></div><span>16px</span><small>Padding interno de badges</small></div>
+    <div class="bib-space-row"><div class="bib-space-bar" style="width:24px"></div><span>24px</span><small>Separación entre elementos de un grupo</small></div>
+    <div class="bib-space-row"><div class="bib-space-bar" style="width:32px"></div><span>32px</span><small>Padding de tarjetas</small></div>
+    <div class="bib-space-row"><div class="bib-space-bar" style="width:48px"></div><span>48px</span><small>Separación entre bloques</small></div>
+    <div class="bib-space-row"><div class="bib-space-bar" style="width:96px"></div><span>96px</span><small>Padding vertical de sección</small></div>
+  </div>
+
+  <div class="bib-shape-scale">
+    <div class="bib-shape-item"><div class="bib-shape-box" style="border-radius:2px"></div><b>2px</b><span>Barras finas, indicadores</span></div>
+    <div class="bib-shape-item"><div class="bib-shape-box" style="border-radius:6px"></div><b>6px</b><span>Cards, paneles HUD</span></div>
+    <div class="bib-shape-item"><div class="bib-shape-box" style="border-radius:999px"></div><b>999px</b><span>Pills, HUD de sesión</span></div>
+    <div class="bib-shape-item"><div class="bib-shape-box" style="border-radius:50%"></div><b>50%</b><span>Dots, avatares, hub de perilla</span></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bib-footer">
+  <div class="footer-logo">APEX<span class="dot">.</span></div>
+  <p class="footer-copy">⚡ Diseñado para rendir. Construido para ganar.</p>
+  <a href="index.html" class="btn-ghost">← Volver al sitio</a>
+</footer>
+
+<script src="biblioteca.js"></script>
+</body>
+</html>
