@@ -103,16 +103,38 @@ html{ scroll-behavior: smooth; }
 @media(max-width:900px){.det-video-section{ padding:3rem 1.5rem }.det-video-wrap{ height:min(56vh, 420px) }}
 @media(max-width:480px){.det-video-section{ padding:2rem 1.2rem }.det-video-wrap{ height:46vh }}
 
-/* ══════════════════════════════ CRONOGRAMA — sección propia, sin sidebar ══════════════════════════════ */
-.det-cronograma-section{padding:5rem 3rem;background:var(--black);border-bottom:1px solid #111;max-width:1100px;margin:0 auto;}
-.det-cronograma-head{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:2rem;}
-.det-level-wrap{ text-align:right; }
-.det-level-label{font-family:var(--ff-mono);font-size:.65rem;font-weight:700;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;margin-bottom:.7rem;}
-.det-bars{ display:flex; gap:5px; justify-content:flex-end; }
-.det-bar{width:10px;height:26px;transform:skewX(-16deg);}
-.det-bar.on{background:var(--prog-accent, var(--white));box-shadow:0 0 6px var(--prog-glow, rgba(255,255,255,.3));}
-.det-bar.off{ background:var(--prog-bar-off, rgba(255,255,255,.08)); }
-@media(max-width:700px){.det-cronograma-section{ padding:3.5rem 1.5rem }.det-cronograma-head{ flex-direction:column; align-items:flex-start; }.det-level-wrap{ text-align:left; }.det-bars{ justify-content:flex-start; }}
+/* ══════════════════════════════ RESULTADOS — pista animada + métricas ══════════════════════════════ */
+.det-resultados-section{padding:6rem 3rem 5rem;background:var(--black);border-bottom:1px solid #111;max-width:1100px;margin:0 auto;text-align:center;scroll-margin-top:80px;}
+.det-resultados-section .det-section-label{ justify-content:center; }
+.det-resultados-title{font-family:var(--ff-display);font-weight:900;font-style:italic;font-size:clamp(2.4rem,5vw,3.8rem);text-transform:uppercase;letter-spacing:-.01em;color:var(--white);margin:0 0 .8rem;}
+.det-resultados-sub{font-size:1.02rem;color:#888;max-width:640px;margin:0 auto 3.5rem;line-height:1.7;}
+
+/* ── pista SVG con auto y checkpoints ── */
+.det-track-wrap{position:relative;width:100%;max-width:980px;margin:0 auto 4rem;}
+.det-track-svg{width:100%;height:auto;display:block;overflow:visible;}
+.det-track-bg{fill:none;stroke:#161616;stroke-width:3;}
+.det-track-line{fill:none;stroke:var(--prog-accent, var(--green));stroke-width:3;stroke-linecap:round;filter:drop-shadow(0 0 6px var(--prog-glow, rgba(0,255,136,.5)));stroke-dasharray:1700;stroke-dashoffset:1700;transition:stroke-dashoffset 2.4s cubic-bezier(.16,.8,.3,1);}
+.det-track-wrap.in-view .det-track-line{ stroke-dashoffset:0; }
+.det-checkpoint{fill:#181818;stroke:#282828;stroke-width:1.5;}
+.det-track-wrap.in-view .det-checkpoint{animation:detCheckpointLight .5s ease forwards;}
+.det-track-car{fill:var(--white);opacity:0;filter:drop-shadow(0 0 8px var(--prog-glow, rgba(0,255,136,.8)));transition:opacity .5s ease .9s;}
+.det-track-wrap.in-view .det-track-car{ opacity:1; }
+@keyframes detCheckpointLight{ to{ fill:var(--prog-accent, var(--green)); stroke:var(--prog-accent, var(--green)); filter:drop-shadow(0 0 7px var(--prog-glow, rgba(0,255,136,.75))); } }
+
+/* ── grid de estadísticas ── */
+.det-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#141414;border:1px solid #1c1c1c;max-width:1100px;margin:0 auto;}
+.det-stat-card{background:#0d0d0d;padding:2.6rem 1.6rem;display:flex;flex-direction:column;align-items:center;text-align:center;gap:.7rem;opacity:0;transform:translateY(26px);transition:opacity .6s ease, transform .6s ease;}
+.det-stat-card.revealed{ opacity:1; transform:translateY(0); }
+.det-stat-num{font-family:var(--ff-display);font-weight:900;font-size:clamp(1.9rem,3vw,2.7rem);color:var(--prog-accent, var(--green));text-shadow:0 0 22px var(--prog-glow, rgba(0,255,136,.3));line-height:1;}
+.det-stat-label{font-size:.88rem;color:#999;line-height:1.55;}
+@media(max-width:900px){
+  .det-resultados-section{ padding:4.5rem 1.5rem 3.5rem }
+  .det-stats-grid{ grid-template-columns:repeat(2,1fr); }
+}
+@media(max-width:520px){
+  .det-stats-grid{ grid-template-columns:1fr; }
+  .det-stat-card{ padding:2rem 1.4rem; }
+}
 
 /* ══════════════════════════════ CIERRE — luces de largada + reserva ══════════════════════════════ */
 .det-final-section{position:relative;padding:6rem 3rem 7rem;background:#030303;border-bottom:1px solid #111;display:flex;flex-direction:column;align-items:center;text-align:center;overflow:hidden;}
@@ -207,16 +229,6 @@ html{ scroll-behavior: smooth; }
   .det-dash-panel{ padding:1.8rem; }
   .det-dash-title{ font-size:1.4rem; }
 }
-
-/* ══════════════════════════════ TIMELINE ══════════════════════════════ */
-.det-timeline{display:flex;flex-direction:column;position:relative;}
-.det-timeline::before{content:'';position:absolute;left:18px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom, var(--prog-accent, var(--green)), var(--violet), transparent);}
-.det-tl-item{display:grid;grid-template-columns:40px 1fr;gap:1.5rem;padding:1.5rem 0;border-bottom:1px solid #0f0f0f;}
-.det-tl-item .det-tl-num{width:36px;height:36px;border:1px solid #1e1e1e;display:flex;align-items:center;justify-content:center;font-family:var(--ff-mono);font-size:.55rem;color:var(--prog-accent, var(--green));background:var(--black);position:relative;z-index:1;flex-shrink:0;transition:all .3s;}
-.det-tl-item:hover .det-tl-num{border-color:var(--prog-accent, var(--green));box-shadow:0 0 12px var(--prog-glow, rgba(0,255,136,.2));}
-.det-tl-week{font-family:var(--ff-mono);font-size:.65rem;font-weight:700;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;margin-bottom:.4rem;}
-.det-tl-name{font-family:var(--ff-display);font-weight:800;font-size:1.3rem;text-transform:uppercase;letter-spacing:.05em;color:var(--white);margin-bottom:.4rem;}
-.det-tl-desc{font-size:1rem;color:#888;font-weight:400;line-height:1.6;}
 
 /* ══════════════════════════════ FOOTER ══════════════════════════════ */
 .det-footer{padding:3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:1px solid #111;}
@@ -363,7 +375,7 @@ html{ scroll-behavior: smooth; }
         <p class="det-cta-note">Cupos limitados · Respuesta en menos de 24 hs</p>
         <nav class="det-quicknav" aria-label="Navegación rápida del programa">
           <a href="#det-sec-incluye"><span>01</span> Qué incluye</a>
-          <a href="#det-sec-cronograma"><span>02</span> Cronograma</a>
+          <a href="#det-sec-resultados"><span>02</span> Resultados</a>
         </nav>
       </div>
     </div>
@@ -440,19 +452,27 @@ html{ scroll-behavior: smooth; }
     </div>
   </div>
 
-  <!-- ── CRONOGRAMA ── -->
-  <div class="det-cronograma-section" id="det-sec-cronograma">
-    <div class="det-cronograma-head">
-      <div>
-        <div class="det-section-label">Paso 02 · Cronograma</div>
-        <div class="det-section-title" id="det-cronograma-title"></div>
-      </div>
-      <div class="det-level-wrap" id="det-level-wrap">
-        <div class="det-level-label">Nivel de intensidad</div>
-        <div class="det-bars" id="det-bars"></div>
-      </div>
+  <!-- ── RESULTADOS — pista animada + métricas ── -->
+  <div class="det-resultados-section" id="det-sec-resultados">
+    <div class="det-section-label">Paso 02 · Resultados</div>
+    <h2 class="det-resultados-title" id="det-resultados-title"></h2>
+    <p class="det-resultados-sub" id="det-resultados-sub"></p>
+
+    <div class="det-track-wrap" id="det-track-wrap">
+      <svg class="det-track-svg" viewBox="0 0 1000 220" preserveAspectRatio="none" aria-hidden="true">
+        <path class="det-track-bg" d="M20,110 C120,20 280,20 380,90 C460,150 540,150 620,90 C700,30 840,30 900,90 C950,120 980,140 980,160"></path>
+        <path class="det-track-line" d="M20,110 C120,20 280,20 380,90 C460,150 540,150 620,90 C700,30 840,30 900,90 C950,120 980,140 980,160"></path>
+        <circle class="det-checkpoint" cx="150" cy="45" r="6" style="animation-delay:.3s"></circle>
+        <circle class="det-checkpoint" cx="500" cy="140" r="6" style="animation-delay:1.1s"></circle>
+        <circle class="det-checkpoint" cx="720" cy="45" r="6" style="animation-delay:1.9s"></circle>
+        <circle class="det-checkpoint" cx="900" cy="90" r="6" style="animation-delay:2.7s"></circle>
+        <circle class="det-track-car" r="7">
+          <animateMotion dur="6s" repeatCount="indefinite" rotate="auto" path="M20,110 C120,20 280,20 380,90 C460,150 540,150 620,90 C700,30 840,30 900,90 C950,120 980,140 980,160"></animateMotion>
+        </circle>
+      </svg>
     </div>
-    <div class="det-timeline" id="det-timeline"></div>
+
+    <div class="det-stats-grid" id="det-stats-grid"></div>
   </div>
 
   <!-- ── CIERRE — luces de largada + reserva ── -->
@@ -566,14 +586,14 @@ const PROGRAMAS = {
     barOff:      'rgba(242,242,242,.08)',
     borderSubtle:'#141414',
     bgSubtle:    '#080808',
-    barCount:    2,
-    timeline: [
-      { num:'01', week:'Sesión 1 · 90 min', name:'Setup y Primera Vuelta',   desc:'Configuración de hardware (volante, pedales, posición de manejo). Primera toma de contacto con el simulador y registro de tiempos base. Identificación de áreas de mejora inmediata.' },
-      { num:'02', week:'Sesión 2 · 90 min', name:'Fundamentos de Trazada',   desc:'Teoría y práctica de los puntos de frenada, apex y salida de curva. Introducción a la telemetría: cómo leer los datos básicos de velocidad y throttle.' },
-      { num:'03', week:'Sesión 3 · 90 min', name:'Consistencia y Ritmo',     desc:'Trabajo específico en sectores débiles detectados en sesiones anteriores. Primeros ejercicios de consistencia: 10 vueltas dentro del mismo rango de tiempo.' },
-      { num:'04', week:'Sesión 4 · 90 min', name:'Cierre y Evaluación',      desc:'Sesión de ataque: búsqueda de mejor tiempo personal. Comparación de telemetría inicio vs. fin del programa. Entrega de informe de evolución con recomendaciones y próximos pasos.' },
+    resultadosTitle: 'RESULTADOS QUE VAS A VER',
+    resultadosSub: 'Esto es lo que reportan los pilotos que completan el programa ENTRY, sesión a sesión.',
+    resultados: [
+      { num:'-0.6s', label:'de mejora promedio en tu vuelta más rápida al cierre del programa' },
+      { num:'4/4',   label:'sesiones con feedback personalizado, registrado en tu informe final' },
+      { num:'100%',  label:'de los pilotos mejora al menos un sector clave de la pista' },
+      { num:'+200',  label:'pilotos activos en la comunidad APEX a la que te sumás' },
     ],
-    timelineTitle: '4 SESIONES · PROGRAMA COMPLETO',
     requisitos: [
       'Sos nuevo en el sim racing o llevás poco tiempo practicando de forma autodidacta',
       'Querés entender cómo funciona la telemetría y qué información realmente importa',
@@ -615,18 +635,14 @@ const PROGRAMAS = {
     barOff:      'rgba(0,255,136,.1)',
     borderSubtle:'rgba(0,255,136,.08)',
     bgSubtle:    'rgba(0,255,136,.02)',
-    barCount:    4,
-    timeline: [
-      { num:'01', week:'Sesión 1 · 2 hs', name:'Diagnóstico y Baseline',        desc:'Evaluación completa del nivel actual: tiempos por sector, errores recurrentes, estilo de manejo. Definición de objetivos medibles para el programa. Setup personalizado de hardware.' },
-      { num:'02', week:'Sesión 2 · 2 hs', name:'Telemetría Aplicada',           desc:'Lectura avanzada de datos: comparativa de sectores, curvas de throttle y freno, trazadas superpuestas. Primeras correcciones basadas en datos, no en sensaciones.' },
-      { num:'03', week:'Sesión 3 · 2 hs', name:'Frenada y Brake Bias',          desc:'Técnica de frenada con pedales de carga celda. Ajuste de brake bias según circuito y condiciones. Práctica de late braking y trail braking progresivo.' },
-      { num:'04', week:'Sesión 4 · 2 hs', name:'Comparativa con Datos de F1',   desc:'Análisis lado a lado de tu telemetría vs. datos de referencia de pilotos profesionales. Identificación de los 3 décimas que más se pueden ganar y cómo atacarlos.' },
-      { num:'05', week:'Sesión 5 · 2 hs', name:'Psicología del Piloto',         desc:'Gestión del error, mentalidad bajo presión, rutinas pre-sesión. Trabajo con el coach en identificación de patrones mentales que limitan el rendimiento.' },
-      { num:'06', week:'Sesión 6 · 2 hs', name:'Race Craft Básico',             desc:'Gestión de neumáticos a lo largo de un stint. Estrategia de carrera simple: inicio, mid-race y final. Primeros ejercicios de posicionamiento en pista.' },
-      { num:'07', week:'Sesión 7 · 2 hs', name:'Simulación de Carrera',         desc:'Carrera completa con adversarios en condiciones dinámicas. Aplicación de todo lo trabajado en el programa bajo presión real de competición.' },
-      { num:'08', week:'Sesión 8 · 2 hs', name:'Cierre y Plan de Continuidad',  desc:'Comparación completa inicio vs. fin. Métricas de mejora. Presentación del plan de entrenamiento individual para los próximos 60 días y acceso prioritario a eventos APEX.' },
+    resultadosTitle: 'RESULTADOS QUE VAS A VER',
+    resultadosSub: 'Así impacta el programa PRO en el rendimiento real de nuestros pilotos, medido con datos.',
+    resultados: [
+      { num:'-1.4s', label:'de mejora promedio en tiempo de vuelta al terminar las 8 sesiones' },
+      { num:'87%',   label:'de los pilotos reduce su variación entre vueltas en más del 40%' },
+      { num:'8',     label:'sesiones de telemetría comparada con datos de pilotos profesionales' },
+      { num:'Top 3', label:'posición promedio en la competencia interna entre quienes terminan el programa' },
     ],
-    timelineTitle: '8 SESIONES · PROGRAMA COMPLETO',
     requisitos: [
       'Ya tenés experiencia básica en sim racing y querés llevar tu nivel al siguiente escalón',
       'Querés competir en campeonatos online o internos de APEX con chances reales',
@@ -668,15 +684,14 @@ const PROGRAMAS = {
     barOff:      'rgba(191,95,255,.1)',
     borderSubtle:'rgba(191,95,255,.1)',
     bgSubtle:    'rgba(191,95,255,.02)',
-    barCount:    5,
-    timeline: [
-      { num:'S1', week:'Semana 1 · Diagnóstico profundo',  name:'Evaluación Integral',        desc:'Diagnóstico completo: telemetría, video onboard, estilo de manejo y evaluación física inicial. Diseño del plan de entrenamiento personalizado para los 30 días. Primera sesión con el coach ex-piloto.' },
-      { num:'S2', week:'Semana 2 · Técnica intensiva',     name:'Perfeccionamiento por Sectores', desc:'Trabajo sector a sector con análisis de video onboard diario. Comparativa avanzada de telemetría con pilotos de referencia. Ajuste fino de setup técnico según datos reales.' },
-      { num:'S3', week:'Semana 3 · Race craft avanzado',   name:'Carrera y Competición',      desc:'Simulaciones de carrera completa con estrategia de neumáticos y pit stops. Gestión de situaciones de tráfico y duelos. Preparación mental específica para la presión de competición.' },
-      { num:'S4', week:'Semana 4 · Peak performance',      name:'Pico de Rendimiento',        desc:'Últimas sesiones de ataque al mejor tiempo personal. Preparación para evento o campeonato real. Cierre del mes con informe completo de evolución, métricas y plan de continuidad personalizado.' },
-      { num:'+',  week:'Durante todo el mes',              name:'Preparación Física',         desc:'Programa de nutrición y acondicionamiento físico específico para pilotos: neck, core, reacción y resistencia. Trabajo coordinado entre coach técnico y preparador físico.' },
+    resultadosTitle: 'RESULTADOS QUE VAS A VER',
+    resultadosSub: 'El estándar del pipeline de Fórmula 3 de APEX se mide con estos números cada mes.',
+    resultados: [
+      { num:'-2.1s', label:'de mejora promedio mensual en tiempo de vuelta' },
+      { num:'30',    label:'días de acceso ilimitado con coach ex-piloto dedicado' },
+      { num:'100%',  label:'de las métricas del mes forman parte de tu expediente de evaluación' },
+      { num:'1',     label:'coach personal, el mismo profesional durante todo el mes' },
     ],
-    timelineTitle: '30 DÍAS DE ACCESO ILIMITADO',
     requisitos: [
       'Estás completamente comprometido con llevar tu rendimiento al máximo nivel posible',
       'Querés ser evaluado para el pipeline de F3 de APEX en 2027 y necesitás las métricas',
@@ -880,6 +895,40 @@ function initDetDash(items){
 })();
 
 /* ══════════════════════════════
+   RESULTADOS — pista animada + stats reveal al hacer scroll
+══════════════════════════════ */
+function initDetResultados(p){
+  document.getElementById('det-resultados-title').textContent = p.resultadosTitle;
+  document.getElementById('det-resultados-sub').textContent = p.resultadosSub;
+
+  const grid = document.getElementById('det-stats-grid');
+  grid.innerHTML = p.resultados.map(r => `
+    <div class="det-stat-card">
+      <div class="det-stat-num">${r.num}</div>
+      <div class="det-stat-label">${r.label}</div>
+    </div>
+  `).join('');
+
+  const cards     = Array.from(grid.querySelectorAll('.det-stat-card'));
+  const trackWrap = document.getElementById('det-track-wrap');
+  const section   = document.getElementById('det-sec-resultados');
+  if(!section) return;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        trackWrap.classList.add('in-view');
+        cards.forEach((card, i) => {
+          setTimeout(() => card.classList.add('revealed'), 250 + i * 160);
+        });
+        io.disconnect();
+      }
+    });
+  }, { threshold: .3 });
+  io.observe(section);
+}
+
+/* ══════════════════════════════
    SECCIÓN FINAL — luces de largada + contador de precio
 ══════════════════════════════ */
 function initDetFinal(precioStr){
@@ -972,30 +1021,7 @@ function initDetFinal(precioStr){
   document.getElementById('det-incluye-eyebrow').textContent = 'Paso 01 · Qué incluye';
   initDetDash(p.incluye);
 
-  document.getElementById('det-cronograma-title').textContent = p.timelineTitle;
-
-  const barsWrap = document.getElementById('det-bars');
-  let barsHTML = '';
-  for(let i = 0; i < 5; i++){
-    barsHTML += `<div class="det-bar ${i < p.barCount ? 'on' : 'off'}"></div>`;
-  }
-  barsWrap.innerHTML = barsHTML;
-
-  const tlWrap = document.getElementById('det-timeline');
-  let tlHTML = '';
-  p.timeline.forEach(item => {
-    tlHTML += `
-      <div class="det-tl-item">
-        <div class="det-tl-num">${item.num}</div>
-        <div>
-          <div class="det-tl-week">${item.week}</div>
-          <div class="det-tl-name">${item.name}</div>
-          <div class="det-tl-desc">${item.desc}</div>
-        </div>
-      </div>
-    `;
-  });
-  tlWrap.innerHTML = tlHTML;
+  initDetResultados(p);
 
   /* ── Sección final: precio, CTA y otros programas ── */
   document.getElementById('det-final-progname').textContent = p.nombre;
