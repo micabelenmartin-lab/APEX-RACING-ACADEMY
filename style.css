@@ -1902,144 +1902,137 @@ a.footer-contact-line:hover{color:var(--white)}
 }
 
 /* ══════════════════════════════════════════════════════
-   NUEVO: SECTOR HUD — telemetría persistente lateral
+   NUEVO: SECTOR HUD — barra horizontal inferior, sin apoyarse en nada
 ══════════════════════════════════════════════════════ */
 #sector-hud{
-  position:fixed;right:1.4rem;top:50%;transform:translateY(-50%);
+  position:fixed;left:50%;bottom:1.1rem;
+  transform:translate(-50%,14px);
   z-index:400;
-  display:flex;flex-direction:column;gap:1rem;
-  padding:1rem .9rem;
+  width:min(760px,92vw);
   background:rgba(8,8,8,.55);
   border:1px solid rgba(255,255,255,.08);
-  border-radius:10px;
+  border-radius:999px;
   backdrop-filter:blur(10px);
   -webkit-backdrop-filter:blur(10px);
   font-family:var(--ff-mono);
   opacity:0;
-  transform:translateY(-50%) translateX(12px);
   transition:opacity .6s ease, transform .6s ease;
   pointer-events:none;
+  overflow:hidden;
 }
 #sector-hud.sh-visible{
   opacity:1;
-  transform:translateY(-50%) translateX(0);
+  transform:translate(-50%,0);
   pointer-events:auto;
 }
-.sh-row{display:flex;flex-direction:column;gap:.2rem}
-.sh-lbl{font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.sh-val{font-size:.85rem;color:var(--green);letter-spacing:.04em;
+.sh-inner{
+  display:flex;align-items:center;justify-content:center;gap:1.6rem;
+  padding:.6rem 1.4rem;
+}
+.sh-row{display:flex;align-items:center;gap:.4rem;flex-shrink:0}
+.sh-lbl{font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.sh-val{font-size:.75rem;color:var(--green);letter-spacing:.03em;
   text-shadow:0 0 8px rgba(0,255,136,.35)}
 .sh-best .sh-val{color:var(--violet);text-shadow:0 0 8px rgba(191,95,255,.35)}
-.sh-sectors{display:flex;flex-direction:column;gap:.55rem;
-  border-top:1px solid rgba(255,255,255,.08);
-  border-bottom:1px solid rgba(255,255,255,.08);
-  padding:.75rem 0}
+.sh-sectors{
+  display:flex;align-items:center;gap:1rem;
+  border-left:1px solid rgba(255,255,255,.08);
+  border-right:1px solid rgba(255,255,255,.08);
+  padding:0 1.2rem;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.sh-sectors::-webkit-scrollbar{display:none}
 .sh-sector{
-  display:flex;align-items:center;gap:.5rem;
-  font-size:.58rem;letter-spacing:.06em;color:var(--muted);
-  transition:color .3s ease, transform .3s ease;
+  display:flex;align-items:center;gap:.35rem;
+  font-size:.56rem;letter-spacing:.05em;color:var(--muted);white-space:nowrap;
+  transition:color .3s ease;
 }
 .sh-sector .sh-tag{
   font-weight:700;color:var(--muted2);
-  width:1.4rem;flex-shrink:0;
   transition:color .3s ease,text-shadow .3s ease;
 }
-.sh-sector.sh-active{color:var(--white);transform:translateX(-3px)}
+.sh-sector.sh-active{color:var(--white)}
 .sh-sector.sh-active .sh-tag{color:var(--green);text-shadow:0 0 8px rgba(0,255,136,.6)}
 .sh-sector.sh-done .sh-tag{color:var(--green-dim)}
-@media(max-width:1100px){
-  #sector-hud{display:none}
+.sh-sector .sh-name{display:none}
+.sh-sector.sh-active .sh-name{display:inline}
+.sh-track{position:relative;height:2px;width:100%;background:rgba(255,255,255,.06)}
+.sh-track-fill{
+  position:absolute;left:0;top:0;bottom:0;width:0%;
+  background:linear-gradient(90deg,var(--green),var(--violet));
+  box-shadow:0 0 8px rgba(0,255,136,.5);
+  transition:width .1s linear;
 }
-
-/* ══════════════════════════════════════════════════════
-   NUEVO: NOS BOOST BUTTON + OVERLAY
-══════════════════════════════════════════════════════ */
-#nos-btn{
-  position:fixed;left:1.4rem;bottom:1.6rem;z-index:400;
-  display:flex;flex-direction:column;align-items:center;gap:.15rem;
-  width:52px;height:52px;border-radius:50%;
-  background:radial-gradient(circle at 35% 30%,rgba(191,95,255,.25),rgba(5,5,5,.9));
-  border:1px solid rgba(191,95,255,.4);
-  color:var(--violet);
-  font-family:var(--ff-mono);cursor:pointer;
-  box-shadow:0 0 18px rgba(191,95,255,.25);
-  transition:transform .25s cubic-bezier(.2,.8,.3,1.4), box-shadow .25s ease, border-color .25s ease;
-  animation:nosIdlePulse 2.6s ease-in-out infinite;
-}
-#nos-btn .nos-arrow{font-size:.6rem;line-height:1;transition:transform .2s ease}
-#nos-btn .nos-label{font-size:.5rem;letter-spacing:.1em}
-#nos-btn:hover{
-  transform:scale(1.08);
-  border-color:var(--violet);
-  box-shadow:0 0 28px rgba(191,95,255,.5);
-}
-#nos-btn:active{transform:scale(.92)}
-#nos-btn.nos-firing .nos-arrow{transform:translateY(-3px)}
-@keyframes nosIdlePulse{
-  0%,100%{box-shadow:0 0 18px rgba(191,95,255,.25)}
-  50%{box-shadow:0 0 26px rgba(191,95,255,.5)}
-}
-@media(max-width:768px){
-  #nos-btn{width:44px;height:44px;left:1rem;bottom:5.2rem}
-}
-
-#nos-overlay{
-  position:fixed;inset:0;z-index:9997;pointer-events:none;
-  opacity:0;
-}
-#nos-overlay.nos-active{opacity:1}
-.nos-streaks{
-  position:absolute;inset:0;
-  background:
-    repeating-linear-gradient(100deg,
-      rgba(0,255,136,0) 0px,
-      rgba(0,255,136,0) 38px,
-      rgba(0,255,136,.10) 40px,
-      rgba(0,255,136,0) 42px),
-    repeating-linear-gradient(80deg,
-      rgba(191,95,255,0) 0px,
-      rgba(191,95,255,0) 60px,
-      rgba(191,95,255,.08) 62px,
-      rgba(191,95,255,0) 64px);
-  transform:scale(1.3) translateX(0);
-  opacity:0;
-}
-#nos-overlay.nos-active .nos-streaks{
-  animation:nosStreaks .7s cubic-bezier(.1,.7,.2,1) forwards;
-}
-@keyframes nosStreaks{
-  0%{opacity:0;transform:scale(1.5) translateX(-4%)}
-  15%{opacity:1}
-  100%{opacity:0;transform:scale(1) translateX(4%)}
-}
-.nos-flash{
-  position:absolute;inset:0;
-  background:radial-gradient(circle at 50% 50%,rgba(191,95,255,.35),rgba(0,0,0,0) 60%);
-  opacity:0;
-}
-#nos-overlay.nos-active .nos-flash{
-  animation:nosFlash .7s ease-out forwards;
-}
-@keyframes nosFlash{
-  0%{opacity:0}
-  10%{opacity:1}
-  100%{opacity:0}
-}
-body.nos-shake{animation:nosBodyShake .35s ease}
-@keyframes nosBodyShake{
-  0%,100%{transform:translate(0,0)}
-  20%{transform:translate(-2px,1px)}
-  40%{transform:translate(2px,-1px)}
-  60%{transform:translate(-1px,-1px)}
-  80%{transform:translate(1px,1px)}
-}
-@media(prefers-reduced-motion:reduce){
-  #nos-btn{animation:none}
-  .nos-streaks,.nos-flash{animation:none !important}
-  body.nos-shake{animation:none}
+@media(max-width:640px){
+  .sh-inner{gap:.9rem;padding:.55rem 1rem}
+  .sh-best{display:none}
+  .sh-sectors{padding:0 .8rem;gap:.7rem}
 }
 
 /* ══════════════════════════════════════════════════════
    NUEVO: COUNT-UP para precios
 ══════════════════════════════════════════════════════ */
 .count-up{display:inline-block;font-variant-numeric:tabular-nums}
+
+/* ══════════════════════════════════════════════════════
+   NUEVO: LÍNEA IDEAL — animación insignia en Experiencias
+══════════════════════════════════════════════════════ */
+.apex-line-wrap{
+  position:relative;
+  max-width:1000px;margin:0 auto 2.5rem;
+  padding:0 2rem;
+}
+.apex-line-svg{
+  width:100%;height:auto;display:block;
+  overflow:visible;
+}
+.apex-track-path{
+  fill:none;
+  stroke:url(#apexGrad);
+  stroke-width:2.5;
+  stroke-linecap:round;
+  transition:stroke-dashoffset 2s cubic-bezier(.16,.7,.2,1);
+}
+.apex-marker{
+  fill:var(--black);
+  stroke:var(--muted2);
+  stroke-width:1.5;
+  transition:stroke .4s ease, fill .4s ease;
+  transform-origin:center;
+  transform-box:fill-box;
+}
+.apex-line-wrap.apex-in .apex-marker{
+  animation:apexMarkerPulse 4.2s ease-in-out infinite;
+}
+.apex-line-wrap.apex-in .apex-marker:nth-child(2){animation-delay:.35s}
+.apex-line-wrap.apex-in .apex-marker:nth-child(3){animation-delay:.75s}
+@keyframes apexMarkerPulse{
+  0%,85%,100%{stroke:var(--muted2);fill:var(--black);transform:scale(1)}
+  90%{stroke:var(--green);fill:var(--green);transform:scale(1.6)}
+  95%{stroke:var(--violet);fill:var(--violet);transform:scale(1.1)}
+}
+.apex-dot-group{
+  opacity:0;
+  transition:opacity .6s ease .6s;
+}
+.apex-line-wrap.apex-in .apex-dot-group{opacity:1}
+.apex-dot-1{fill:var(--green)}
+.apex-dot-2{fill:var(--green);opacity:.55}
+.apex-dot-3{fill:var(--violet);opacity:.3}
+.apex-line-label{
+  position:absolute;left:2rem;bottom:-1.4rem;
+  font-family:var(--ff-mono);font-size:.6rem;letter-spacing:.14em;
+  color:var(--muted);text-transform:uppercase;
+  opacity:0;transform:translateY(6px);
+  transition:opacity .6s ease .8s, transform .6s ease .8s;
+}
+.apex-line-wrap.apex-in .apex-line-label{opacity:1;transform:translateY(0)}
+@media(max-width:768px){
+  .apex-line-wrap{padding:0 1.2rem;margin-bottom:2rem}
+  .apex-line-label{left:1.2rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .apex-track-path{transition:none}
+  .apex-marker,.apex-dot-group,.apex-line-label{animation:none !important;transition:none !important}
+}
