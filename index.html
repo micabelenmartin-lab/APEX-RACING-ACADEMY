@@ -632,7 +632,7 @@
   </p>
 
   <div class="cta-actions reveal d3">
-    <a href="mailto:info@apexsimracing.com" class="btn-primary">Reservar Mi Lugar</a>
+    <button type="button" class="btn-primary" id="cta-reservar-btn">Reservar Mi Lugar</button>
     <a href="#programas" class="btn-ghost"><span class="play">▶</span> Ver Programas</a>
   </div>
 
@@ -787,6 +787,119 @@
 
   var wrap = document.getElementById('sim-headline-wrap');
   if(wrap) observer.observe(wrap);
+})();
+</script>
+
+<!-- ══════ MODAL FORMULARIO DE RESERVA ══════ -->
+<div class="res-modal-overlay" id="res-modal-overlay" role="dialog" aria-modal="true" aria-label="Formulario de reserva">
+  <div class="res-modal">
+    <button class="res-modal-close" id="res-modal-close">✕ CERRAR</button>
+    <div class="res-modal-eyebrow">Inscripción</div>
+    <div class="res-modal-title">Reservá Tu Lugar</div>
+    <div class="res-modal-sub">Completá tus datos y te contactamos en menos de 24 hs</div>
+
+    <!-- Formulario -->
+    <form class="res-form" id="res-form" novalidate>
+      <div class="res-form-row">
+        <div class="res-field">
+          <label for="r-nombre">Nombre</label>
+          <input type="text" id="r-nombre" name="nombre" placeholder="Tu nombre" required>
+        </div>
+        <div class="res-field">
+          <label for="r-apellido">Apellido</label>
+          <input type="text" id="r-apellido" name="apellido" placeholder="Tu apellido" required>
+        </div>
+      </div>
+      <div class="res-field">
+        <label for="r-email">Email</label>
+        <input type="email" id="r-email" name="email" placeholder="tu@email.com" required>
+      </div>
+      <div class="res-field">
+        <label for="r-tel">Teléfono / WhatsApp</label>
+        <input type="tel" id="r-tel" name="telefono" placeholder="+54 11 0000-0000">
+      </div>
+      <div class="res-field">
+        <label for="r-exp">Experiencia en sim racing</label>
+        <select id="r-exp" name="experiencia">
+          <option value="">Seleccioná una opción</option>
+          <option value="ninguna">Sin experiencia previa</option>
+          <option value="basica">Básica (menos de 6 meses)</option>
+          <option value="intermedia">Intermedia (6 meses – 2 años)</option>
+          <option value="avanzada">Avanzada (más de 2 años)</option>
+        </select>
+      </div>
+      <div class="res-field">
+        <label for="r-msg">¿Algo que quieras contarnos? (opcional)</label>
+        <textarea id="r-msg" name="mensaje" rows="3" placeholder="Objetivos, preguntas, disponibilidad horaria…"></textarea>
+      </div>
+      <input type="hidden" name="_subject" value="Nueva inscripción APEX — Desde la Home">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <button type="submit" class="res-form-submit">Enviar Inscripción →</button>
+      <p class="res-form-note">Respuesta en menos de 24 hs · Cupos limitados</p>
+    </form>
+
+    <!-- Mensaje de éxito -->
+    <div class="res-form-success" id="res-form-success">
+      <div class="res-form-success-icon">✓</div>
+      <div class="res-form-success-title">¡Recibido!</div>
+      <div class="res-form-success-sub">Te contactamos en menos de 24 hs. Gracias por elegir APEX.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SCRIPT: MODAL DE RESERVA ═══════ -->
+<script>
+(function(){
+  var resModalOverlay = document.getElementById('res-modal-overlay');
+  var resModalClose   = document.getElementById('res-modal-close');
+  var resForm         = document.getElementById('res-form');
+  var resFormSuccess  = document.getElementById('res-form-success');
+  var resBtn          = document.getElementById('cta-reservar-btn');
+  if(!resModalOverlay || !resForm || !resBtn) return;
+
+  function openResModal(){
+    resForm.reset();
+    resForm.style.display = 'flex';
+    resFormSuccess.style.display = 'none';
+    resModalOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeResModal(){
+    resModalOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  resBtn.addEventListener('click', openResModal);
+  resModalClose.addEventListener('click', closeResModal);
+  resModalOverlay.addEventListener('click', function(e){ if(e.target === resModalOverlay) closeResModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeResModal(); });
+
+  resForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var submitBtn = resForm.querySelector('.res-form-submit');
+    var originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Enviando…';
+    submitBtn.disabled = true;
+
+    var formData = new FormData(resForm);
+
+    try{
+      var res = await fetch('https://formsubmit.co/ajax/micabelenmartin@gmail.com', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData,
+      });
+      if(!res.ok) throw new Error('Error de red');
+      resForm.style.display = 'none';
+      resFormSuccess.style.display = 'flex';
+    }catch(err){
+      alert('Hubo un problema al enviar el formulario. Por favor, escribinos directamente a micabelenmartin@gmail.com');
+    }finally{
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    }
+  });
 })();
 </script>
 
