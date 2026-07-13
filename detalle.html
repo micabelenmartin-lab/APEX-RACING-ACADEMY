@@ -104,7 +104,7 @@ html{ scroll-behavior: smooth; }
 @media(max-width:480px){.det-video-section{ padding:2rem 1.2rem }.det-video-wrap{ height:46vh }}
 
 /* ══════════════════════════════ RESULTADOS — pista animada + métricas ══════════════════════════════ */
-.det-resultados-section{padding:6rem 3rem 5rem;background:var(--black);border-bottom:1px solid #111;max-width:1100px;margin:0 auto;text-align:center;scroll-margin-top:80px;}
+.det-resultados-section{padding:6rem 3rem 5rem;background:var(--black);border-bottom:1px solid #111;max-width:1100px;margin:0 auto;text-align:center;scroll-margin-top:80px;position:relative;overflow:hidden;}
 .det-resultados-section .det-section-label{ justify-content:center; }
 .det-resultados-title{font-family:var(--ff-display);font-weight:900;font-style:italic;font-size:clamp(2.4rem,5vw,3.8rem);text-transform:uppercase;letter-spacing:-.01em;color:var(--white);margin:0 0 .8rem;}
 .det-resultados-sub{font-size:1.02rem;color:#888;max-width:640px;margin:0 auto 3.5rem;line-height:1.7;}
@@ -240,6 +240,33 @@ html{ scroll-behavior: smooth; }
   .det-dash-navitem{ min-width:150px; padding:1rem; }
   .det-dash-panel{ padding:1.8rem; }
   .det-dash-title{ font-size:1.4rem; }
+}
+
+/* ══════════════════════════════ TEXTURA DE GRILLA — igual al home (secciones "Qué incluye" y "Resultados") ══════════════════════════════ */
+.det-incluye-section,
+.det-resultados-section{
+  background-image:
+    linear-gradient(rgba(0,255,136,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,136,.06) 1px, transparent 1px);
+  background-size: 42px 42px;
+  background-position: center top;
+}
+.det-incluye-section::after,
+.det-resultados-section::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse at center, transparent 0%, var(--black) 78%);
+  pointer-events:none;
+  z-index:0;
+}
+.det-resultados-section > *{
+  position:relative;
+  z-index:1;
+}
+@media(max-width:900px){
+  .det-incluye-section,
+  .det-resultados-section{ background-size:32px 32px; }
 }
 
 /* ══════════════════════════════ FOOTER ══════════════════════════════ */
