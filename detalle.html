@@ -1240,56 +1240,6 @@ html{ scroll-behavior:smooth; }
 /* ══════════════════════════════
    DATA — contenido de cada programa
 ══════════════════════════════ */
-const PROGRAMAS = {
-
-  entry: {
-    nombre:      'ENTRY',
-    badge:       'NIVEL 01 · ENTRY',
-    popular:     false,
-    tagline:     'El punto de partida para pilotos que empiezan a tomarse en serio el sim. Fundamentos sólidos, herramientas reales, primer contacto con la mentalidad de competición.',
-    precio:      '$290',
-    precioPer:   '/ programa completo',
-    precioNota:  'Pago único · Sin costos adicionales',
-    emailSub:    'Inscripción Programa ENTRY',
-    ctaClass:    'btn-primary',
-    accent:      '#f2f2f2',
-    glow:        'rgba(242,242,242,.2)',
-    stroke:      'rgba(242,242,242,.04)',
-    badgeBg:     'rgba(242,242,242,.06)',
-    badgeBorder: 'rgba(242,242,242,.2)',
-    accentDim:   'rgba(242,242,242,.12)',
-    barOff:      'rgba(242,242,242,.08)',
-    borderSubtle:'#141414',
-    bgSubtle:    '#080808',
-    barCount:    2,
-    timeline: [
-      { num:'01', week:'Sesión 1 · 90 min', name:'Setup y Primera Vuelta',   desc:'Configuración de hardware (volante, pedales, posición de manejo). Primera toma de contacto con el simulador y registro de tiempos base. Identificación de áreas de mejora inmediata.' },
-      { num:'02', week:'Sesión 2 · 90 min', name:'Fundamentos de Trazada',   desc:'Teoría y práctica de los puntos de frenada, apex y salida de curva. Introducción a la telemetría: cómo leer los datos básicos de velocidad y throttle.' },
-      { num:'03', week:'Sesión 3 · 90 min', name:'Consistencia y Ritmo',     desc:'Trabajo específico en sectores débiles detectados en sesiones anteriores. Primeros ejercicios de consistencia: 10 vueltas dentro del mismo rango de tiempo.' },
-      { num:'04', week:'Sesión 4 · 90 min', name:'Cierre y Evaluación',      desc:'Sesión de ataque: búsqueda de mejor tiempo personal. Comparación de telemetría inicio vs. fin del programa. Entrega de informe de evolución con recomendaciones y próximos pasos.' },
-    ],
-    timelineTitle: '4 SESIONES · PROGRAMA COMPLETO',
-    requisitos: [
-      'Sos nuevo en el sim racing o llevás poco tiempo practicando de forma autodidacta',
-      'Querés entender cómo funciona la telemetría y qué información realmente importa',
-      'Buscás una base técnica sólida antes de pasar a competir o subir de nivel',
-      'Tenés acceso a hardware básico (volante + pedales) o vas a usar el nuestro',
-      'Podés comprometer al menos 4 sesiones en un período de 3 a 6 semanas',
-    ],
-    reqNota: 'No se necesita experiencia previa en sim racing ni en automovilismo. Solo ganas de aprender y mejorar. El hardware puede ser el tuyo o el de APEX — lo coordinamos antes de la primera sesión.',
-    includes: [
-      '4 sesiones de 90 minutos en simuladores APEX con hardware de nivel profesional',
-      'Introducción guiada a herramientas de telemetría y análisis de vueltas',
-      'Setup inicial de volante y pedales adaptado a tu estilo de manejo',
-      'Seguimiento sesión a sesión con feedback específico de cada vuelta',
-      'Informe de evolución al cierre con métricas y recomendaciones personalizadas',
-      'Acceso a la comunidad APEX y agenda de próximos eventos',
-    ],
-    otros: [
-      { key:'pro',   label:'PRO',   precio:'$590', accentColor:'var(--green)' },
-      { key:'elite', label:'ELITE', precio:'$990', accentColor:'var(--violet)' },
-    ],
-  },
 
   pro: {
     nombre:      'PRO',
@@ -1344,57 +1294,7 @@ const PROGRAMAS = {
     ],
   },
 
-  elite: {
-    nombre:      'ELITE',
-    badge:       'NIVEL 03 · ELITE',
-    popular:     false,
-    tagline:     'El nivel máximo de APEX. Acceso ilimitado, coach personal ex-piloto profesional, telemetría avanzada y un programa de preparación física específica para pilotos. Para los que no tienen techo.',
-    precio:      '$990',
-    precioPer:   '/ mes',
-    precioNota:  'Renovación mensual · Cancelá cuando querás',
-    emailSub:    'Inscripción Programa ELITE',
-    ctaClass:    'btn-elite',
-    accent:      '#bf5fff',
-    glow:        'rgba(191,95,255,.25)',
-    stroke:      'rgba(191,95,255,.04)',
-    badgeBg:     'rgba(191,95,255,.08)',
-    badgeBorder: 'rgba(191,95,255,.2)',
-    accentDim:   'rgba(191,95,255,.2)',
-    barOff:      'rgba(191,95,255,.1)',
-    borderSubtle:'rgba(191,95,255,.1)',
-    bgSubtle:    'rgba(191,95,255,.02)',
-    barCount:    5,
-    timeline: [
-      { num:'S1', week:'Semana 1 · Diagnóstico profundo',  name:'Evaluación Integral',        desc:'Diagnóstico completo: telemetría, video onboard, estilo de manejo y evaluación física inicial. Diseño del plan de entrenamiento personalizado para los 30 días. Primera sesión con el coach ex-piloto.' },
-      { num:'S2', week:'Semana 2 · Técnica intensiva',     name:'Perfeccionamiento por Sectores', desc:'Trabajo sector a sector con análisis de video onboard diario. Comparativa avanzada de telemetría con pilotos de referencia. Ajuste fino de setup técnico según datos reales.' },
-      { num:'S3', week:'Semana 3 · Race craft avanzado',   name:'Carrera y Competición',      desc:'Simulaciones de carrera completa con estrategia de neumáticos y pit stops. Gestión de situaciones de tráfico y duelos. Preparación mental específica para la presión de competición.' },
-      { num:'S4', week:'Semana 4 · Peak performance',      name:'Pico de Rendimiento',        desc:'Últimas sesiones de ataque al mejor tiempo personal. Preparación para evento o campeonato real. Cierre del mes con informe completo de evolución, métricas y plan de continuidad personalizado.' },
-      { num:'+',  week:'Durante todo el mes',              name:'Preparación Física',         desc:'Programa de nutrición y acondicionamiento físico específico para pilotos: neck, core, reacción y resistencia. Trabajo coordinado entre coach técnico y preparador físico.' },
-    ],
-    timelineTitle: '30 DÍAS DE ACCESO ILIMITADO',
-    requisitos: [
-      'Estás completamente comprometido con llevar tu rendimiento al máximo nivel posible',
-      'Querés ser evaluado para el pipeline de F3 de APEX en 2027 y necesitás las métricas',
-      'Competís o querés competir en categorías reales y usás el sim como herramienta de entrenamiento',
-      'Entendés que el rendimiento en el sim también depende del estado físico y mental',
-      'Podés dedicar tiempo real al entrenamiento durante el mes — esto no es una suscripción pasiva',
-    ],
-    reqNota: 'Los pilotos ELITE son los primeros considerados para el pipeline de Fórmula 3 que APEX está cerrando para 2027. Las métricas del mes son parte de tu expediente de evaluación. No es marketing — es el proceso real.',
-    reqNotaLabel: '// Acceso al F3 Pipeline',
-    includes: [
-      'Acceso ilimitado por 30 días a todos los simuladores APEX',
-      'Coach personal ex-piloto profesional: sesiones ilimitadas durante el mes',
-      'Telemetría avanzada con análisis de video onboard sesión a sesión',
-      'Programa de nutrición y preparación física específica para pilotos',
-      'Evaluación para el pipeline de Fórmula 3 (Academy 2027)',
-      'Informe mensual completo con métricas de rendimiento y plan de continuidad',
-    ],
-    otros: [
-      { key:'entry', label:'ENTRY', precio:'$290', accentColor:'#3a3a3a' },
-      { key:'pro',   label:'PRO',   precio:'$590', accentColor:'var(--green)' },
-    ],
-  },
-};
+  
 
 /* ══════════════════════════════
    MODAL DE INSCRIPCIÓN — abrir/cerrar/enviar
