@@ -1295,13 +1295,96 @@ section{padding:7rem 3rem}
 ══════════════════════════════ */
 footer{
   background:var(--black);border-top:1px solid #111;
-  padding:3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  padding:5rem 3rem 0;
+  position:relative;overflow:hidden;
 }
-.footer-logo{font-family:var(--ff-display);font-weight:900;font-size:1.2rem;letter-spacing:.08em;color:var(--green);text-shadow:0 0 16px rgba(0,255,136,.3)}
-.footer-copy{font-family:var(--ff-mono);font-size:.55rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
-.footer-links{display:flex;gap:2rem;flex-wrap:wrap}
-.footer-links a{font-family:var(--ff-mono);font-size:.55rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;transition:color .2s}
-.footer-links a:hover{color:var(--green)}
+footer::before{
+  content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);
+  width:600px;height:400px;
+  background:radial-gradient(ellipse at center, var(--green-glow), transparent 70%);
+  pointer-events:none;opacity:.5;
+}
+
+.footer-top{
+  position:relative;z-index:1;
+  display:grid;
+  grid-template-columns:1.6fr 1fr 1fr 1.3fr;
+  gap:3rem;
+  max-width:1400px;margin:0 auto;
+  padding-bottom:3rem;
+}
+
+.footer-col-title{
+  font-family:var(--ff-mono);font-size:.68rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--green);margin-bottom:1.3rem;
+}
+
+.footer-col a{
+  display:block;
+  font-family:var(--ff-body);font-size:.9rem;color:var(--muted);
+  margin-bottom:.85rem;transition:color .2s;width:fit-content;
+}
+.footer-col a:hover{color:var(--white)}
+
+.footer-brand{padding-right:1.5rem}
+.footer-logo{
+  font-family:var(--ff-display);font-weight:900;font-size:1.7rem;letter-spacing:.06em;
+  color:var(--white);margin-bottom:1.1rem;
+}
+.footer-logo .dot{color:var(--green);text-shadow:0 0 16px rgba(0,255,136,.5)}
+.footer-tagline{
+  font-family:var(--ff-body);font-size:.85rem;line-height:1.75;
+  color:var(--muted);max-width:320px;margin-bottom:1.8rem;
+}
+
+.footer-social{display:flex;gap:.7rem}
+.footer-social-link{
+  display:flex;align-items:center;justify-content:center;
+  width:38px;height:38px;border-radius:50%;
+  border:1px solid var(--muted2);color:var(--muted);
+  transition:border-color .2s,color .2s,transform .2s;
+}
+.footer-social-link svg{width:16px;height:16px}
+.footer-social-link:hover{
+  border-color:var(--green);color:var(--green);transform:translateY(-2px);
+}
+
+.footer-contact-line{
+  font-family:var(--ff-body);font-size:.85rem;color:var(--muted);
+  margin-bottom:.85rem;line-height:1.6;
+}
+.footer-contact-line.footer-address,.footer-contact-line.footer-hours{color:var(--muted)}
+a.footer-contact-line:hover{color:var(--white)}
+
+.footer-bottom{
+  position:relative;z-index:1;
+  max-width:1400px;margin:0 auto;
+  border-top:1px solid var(--muted2);
+  padding:1.8rem 0;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+}
+.footer-copy{
+  font-family:var(--ff-mono);font-size:.62rem;letter-spacing:.1em;
+  color:var(--muted);text-transform:uppercase;
+}
+.footer-legal{display:flex;gap:2rem;flex-wrap:wrap}
+.footer-legal a{
+  font-family:var(--ff-mono);font-size:.62rem;letter-spacing:.1em;
+  color:var(--muted);text-transform:uppercase;transition:color .2s;
+}
+.footer-legal a:hover{color:var(--green)}
+
+@media(max-width:1024px){
+  .footer-top{grid-template-columns:1fr 1fr;row-gap:2.5rem}
+  .footer-brand{grid-column:1 / -1}
+}
+
+@media(max-width:768px){
+  footer{padding:3.5rem 1.5rem 0}
+  .footer-top{grid-template-columns:1fr;gap:2.5rem;padding-bottom:2.5rem}
+  .footer-brand{grid-column:auto}
+  .footer-bottom{flex-direction:column;align-items:flex-start;gap:1rem;padding:1.5rem 0 2rem}
+}
 
 /* ══════════════════════════════
    REVEAL ANIMATIONS
@@ -1421,8 +1504,6 @@ footer{
   .cta-title{font-size:clamp(2.8rem,12vw,4.5rem)}
   .cta-sub{font-size:.85rem}
 
-  footer{flex-direction:column;align-items:flex-start;gap:1.5rem;padding:2rem 1.5rem}
-  .footer-links{gap:1rem}
 }
 
 @media(max-width:480px){
