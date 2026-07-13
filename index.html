@@ -33,35 +33,29 @@
 <!-- SCROLL PROGRESS -->
 <div id="scroll-bar" aria-hidden="true"></div>
 
-<!-- ═══════ SECTOR HUD (telemetría persistente de scroll) ═══════ -->
+<!-- ═══════ SECTOR HUD (barra horizontal inferior) ═══════ -->
 <aside id="sector-hud" aria-hidden="true">
-  <div class="sh-row sh-clock">
-    <span class="sh-lbl">Session</span>
-    <span class="sh-val" id="sh-timer">00:00.00</span>
+  <div class="sh-inner">
+    <div class="sh-row sh-clock">
+      <span class="sh-lbl">Session</span>
+      <span class="sh-val" id="sh-timer">00:00.00</span>
+    </div>
+    <div class="sh-sectors" id="sh-sectors">
+      <div class="sh-sector" data-target="hero"><span class="sh-tag">S1</span><span class="sh-name">Hero</span></div>
+      <div class="sh-sector" data-target="experiencias"><span class="sh-tag">S2</span><span class="sh-name">Experiencias</span></div>
+      <div class="sh-sector" data-target="programas"><span class="sh-tag">S3</span><span class="sh-name">Programas</span></div>
+      <div class="sh-sector" data-target="simulador"><span class="sh-tag">S4</span><span class="sh-name">Simulador</span></div>
+      <div class="sh-sector" data-target="tecnologia"><span class="sh-tag">S5</span><span class="sh-name">Tecnología</span></div>
+      <div class="sh-sector" data-target="cta"><span class="sh-tag">S6</span><span class="sh-name">Cierre</span></div>
+    </div>
+    <div class="sh-row sh-best">
+      <span class="sh-lbl">Best Lap</span>
+      <span class="sh-val" id="sh-best">--:--.--</span>
+    </div>
   </div>
-  <div class="sh-sectors" id="sh-sectors">
-    <div class="sh-sector" data-target="hero"><span class="sh-tag">S1</span><span class="sh-name">Hero</span></div>
-    <div class="sh-sector" data-target="experiencias"><span class="sh-tag">S2</span><span class="sh-name">Experiencias</span></div>
-    <div class="sh-sector" data-target="programas"><span class="sh-tag">S3</span><span class="sh-name">Programas</span></div>
-    <div class="sh-sector" data-target="simulador"><span class="sh-tag">S4</span><span class="sh-name">Simulador</span></div>
-    <div class="sh-sector" data-target="tecnologia"><span class="sh-tag">S5</span><span class="sh-name">Tecnología</span></div>
-    <div class="sh-sector" data-target="cta"><span class="sh-tag">S6</span><span class="sh-name">Cierre</span></div>
-  </div>
-  <div class="sh-row sh-best">
-    <span class="sh-lbl">Best Lap</span>
-    <span class="sh-val" id="sh-best">--:--.--</span>
-  </div>
+  <div class="sh-track" aria-hidden="true"><div class="sh-track-fill" id="sh-track-fill"></div></div>
 </aside>
 
-<!-- ═══════ NOS BOOST BUTTON + OVERLAY ═══════ -->
-<button type="button" id="nos-btn" aria-label="Activar Nitro">
-  <span class="nos-arrow">▲</span>
-  <span class="nos-label">NOS</span>
-</button>
-<div id="nos-overlay" aria-hidden="true">
-  <div class="nos-streaks"></div>
-  <div class="nos-flash"></div>
-</div>
 
 <!-- ═══════ NAV ═══════ -->
 <nav>
@@ -194,6 +188,49 @@
         <span class="exp-letter" data-delay="680">O</span>
       </div>
     </div>
+  </div>
+
+  <div class="apex-line-wrap reveal d2" id="apex-line-wrap">
+    <svg class="apex-line-svg" viewBox="0 0 1000 220" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="apexGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#00ff88"/>
+          <stop offset="100%" stop-color="#bf5fff"/>
+        </linearGradient>
+        <filter id="apexGlow" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="4.5" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      <path id="apexTrackPath" class="apex-track-path"
+        d="M15,165 C170,165 165,35 330,35 C470,35 460,155 610,160 C740,164 770,110 845,80 C905,55 950,70 985,45" />
+      <g class="apex-marker-group">
+        <circle class="apex-marker" cx="330" cy="35" r="5"/>
+        <circle class="apex-marker" cx="610" cy="160" r="5"/>
+        <circle class="apex-marker" cx="845" cy="80" r="5"/>
+      </g>
+      <g class="apex-dot-group" id="apex-dot-group">
+        <circle r="7" class="apex-dot apex-dot-1" filter="url(#apexGlow)">
+          <animateMotion dur="4.2s" repeatCount="indefinite" rotate="auto">
+            <mpath href="#apexTrackPath"/>
+          </animateMotion>
+        </circle>
+        <circle r="5" class="apex-dot apex-dot-2">
+          <animateMotion dur="4.2s" begin="-0.12s" repeatCount="indefinite" rotate="auto">
+            <mpath href="#apexTrackPath"/>
+          </animateMotion>
+        </circle>
+        <circle r="3.5" class="apex-dot apex-dot-3">
+          <animateMotion dur="4.2s" begin="-0.26s" repeatCount="indefinite" rotate="auto">
+            <mpath href="#apexTrackPath"/>
+          </animateMotion>
+        </circle>
+      </g>
+    </svg>
+    <div class="apex-line-label">// La línea ideal</div>
   </div>
 
   <div class="exp-circuits reveal d1">
