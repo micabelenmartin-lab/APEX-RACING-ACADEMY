@@ -1118,9 +1118,9 @@ section{padding:7rem 3rem}
   color:var(--white);
 }
 
-/* Título de tecnología: 1 punto más grande que el tamaño heredado de .prog-header .sec-title */
+/* Título de tecnología: agrandado respecto al tamaño heredado de .prog-header .sec-title */
 #tecnologia .prog-header .sec-title{
-  font-size:clamp(2.1rem,3.7vw,3.7rem);
+  font-size:clamp(2.8rem,4.6vw,4.6rem);
 }
 
 /* Carrusel — una sola tarjeta grande a la vez, se van pasando */
@@ -1157,11 +1157,6 @@ section{padding:7rem 3rem}
   content:'';position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(5,5,5,.08) 0%,rgba(5,5,5,.2) 45%,rgba(5,5,5,.94) 100%);
 }
-.tech-num{
-  position:absolute;top:2rem;left:2.4rem;z-index:1;
-  font-family:var(--ff-display);font-weight:900;font-size:clamp(2rem,4vw,3.4rem);
-  color:rgba(255,255,255,.4);line-height:1;
-}
 .tech-name{
   position:relative;z-index:1;
   font-family:var(--ff-display);font-weight:800;
@@ -1169,6 +1164,31 @@ section{padding:7rem 3rem}
   text-transform:uppercase;letter-spacing:.02em;color:var(--white);
   line-height:1.15;max-width:92%;
   white-space:normal;word-break:break-word;
+}
+.tech-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  z-index:2;
+  width:2.8rem;height:2.8rem;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.5);
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:50%;
+  color:var(--white);
+  font-size:1.6rem;line-height:1;
+  cursor:pointer;
+  transition:background .2s,border-color .2s,transform .2s;
+}
+.tech-arrow:hover{
+  background:rgba(0,0,0,.75);
+  border-color:var(--green);
+  color:var(--green);
+}
+.tech-arrow-prev{left:1rem}
+.tech-arrow-next{right:1rem}
+@media(max-width:768px){
+  .tech-arrow{width:2.2rem;height:2.2rem;font-size:1.3rem}
+  .tech-arrow-prev{left:.5rem}
+  .tech-arrow-next{right:.5rem}
 }
 .tech-carousel-dots{
   display:flex;justify-content:center;gap:.6rem;
