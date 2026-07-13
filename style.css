@@ -1660,13 +1660,13 @@ a.footer-contact-line:hover{color:var(--white)}
      (ej. navegador interno de WhatsApp/Instagram) cuando la carta está
      dentro de un ancestro (.carousel-track) que también tiene su propio
      transform: se rompe el ocultamiento de la cara trasera y se ve el
-     texto espejado superpuesto. Reforzamos con visibility, sincronizado
-     al punto medio del giro (.375s de .75s) para que el cambio de cara
-     ocurra cuando la carta está de canto y no se note el corte. */
-  .exp-circuit-front,.exp-circuit-back,
-  .prog-front,.prog-back{
-    transition:visibility 0s linear .375s;
-  }
+     texto espejado superpuesto DESDE EL INICIO del giro, no solo cerca
+     de los 90°. Por eso el cambio de visibilidad es inmediato (sin
+     delay) apenas se togglea .flipped, en vez de sincronizado a mitad
+     de animación: así nunca hay un frame con las dos caras
+     superpuestas, aunque en los navegadores rotos se pierda el "cruce"
+     prolijo a los 90° (en los que sí soportan backface-visibility esto
+     no se nota, porque ya lo manejan bien por su cuenta). */
   .exp-circuit-back,.prog-back{visibility:hidden}
   .exp-circuit.flipped .exp-circuit-back,
   .prog-card.flipped .prog-back{visibility:visible}
