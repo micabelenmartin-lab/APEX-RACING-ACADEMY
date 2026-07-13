@@ -671,6 +671,120 @@ if(mediaSlides.length){
 })();
 
 /* ══════════════════════════════════════════════════════
+   NUEVO: CIRCUIT SELECTOR — perilla arrastrable con snap
+═══════════════════════════════════════════════════════ */
+(function initCircuitSelector(){
+  const dialWrap = document.getElementById('cs-dial-wrap');
+  const needle = document.getElementById('cs-needle-group');
+  const numEl = document.getElementById('cs-dial-num');
+  const readout = document.querySelector('.cs-readout');
+  const nameEl = document.getElementById('cs-readout-name');
+  const tagEl = document.getElementById('cs-readout-tag');
+  const ticks = document.querySelectorAll('.cs-tick-group');
+  const cards = document.querySelectorAll('.exp-circuit[data-idx]');
+  if (!dialWrap || !needle || !cards.length) return;
+
+  const STOPS = [
+    { angle: -42, num: '01', name: 'Trazada Perfecta', tag: 'Precisión' },
+    { angle: 0,   num: '02', name: 'Gestión de Neumáticos', tag: 'Consistencia' },
+    { angle: 42,  num: '03', name: 'Carrera Bajo Presión', tag: 'Mentalidad' },
+  ];
+
+  let current = 0;
+
+  function applySelection(idx, angleOverride){
+    const stop = STOPS[idx];
+    const angle = (angleOverride !== undefined) ? angleOverride : stop.angle;
+    needle.style.transform = `rotate(${angle}deg)`;
+
+    ticks.forEach(t => t.classList.toggle('cs-tick-active', Number(t.dataset.idx) === idx));
+    cards.forEach(c => c.classList.toggle('cs-highlight', Number(c.dataset.idx) === idx));
+    dialWrap.setAttribute('aria-valuenow', idx + 1);
+
+    if (idx !== current || angleOverride === undefined){
+      if (readout) readout.classList.add('cs-swap');
+      setTimeout(() => {
+        numEl.textContent = stop.num;
+        nameEl.textContent = stop.name;
+        tagEl.textContent = stop.tag;
+        if (readout) readout.classList.remove('cs-swap');
+      }, angleOverride === undefined ? 180 : 0);
+    }
+    current = idx;
+  }
+
+  // estado inicial
+  applySelection(0, -42);
+  ticks.forEach(t => t.classList.toggle('cs-tick-active', Number(t.dataset.idx) === 0));
+  cards.forEach(c => c.classList.toggle('cs-highlight', Number(c.dataset.idx) === 0));
+
+  // click directo en cada marca
+  ticks.forEach(t => {
+    t.style.cursor = 'pointer';
+    t.addEventListener('click', () => applySelection(Number(t.dataset.idx)));
+  });
+
+  // al pasar el mouse por una tarjeta, sincroniza la perilla
+  cards.forEach(c => {
+    c.addEventListener('mouseenter', () => applySelection(Number(c.dataset.idx)));
+  });
+
+  // arrastre de la perilla con snap al soltar
+  let dragging = false;
+  let rect = null;
+
+  function angleFromEvent(e){
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = e.clientX - cx;
+    const dy = e.clientY - cy;
+    let deg = Math.atan2(dx, -dy) * (180 / Math.PI);
+    return Math.max(-58, Math.min(58, deg));
+  }
+
+  function nearestStop(deg){
+    let best = 0, bestDiff = Infinity;
+    STOPS.forEach((s, i) => {
+      const diff = Math.abs(s.angle - deg);
+      if (diff < bestDiff){ bestDiff = diff; best = i; }
+    });
+    return best;
+  }
+
+  dialWrap.addEventListener('pointerdown', e => {
+    dragging = true;
+    rect = dialWrap.getBoundingClientRect();
+    dialWrap.classList.add('cs-dragging');
+    dialWrap.setPointerCapture(e.pointerId);
+  });
+  dialWrap.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    const deg = angleFromEvent(e);
+    needle.style.transform = `rotate(${deg}deg)`;
+  });
+  function endDrag(e){
+    if (!dragging) return;
+    dragging = false;
+    dialWrap.classList.remove('cs-dragging');
+    const deg = angleFromEvent(e);
+    applySelection(nearestStop(deg));
+  }
+  dialWrap.addEventListener('pointerup', endDrag);
+  dialWrap.addEventListener('pointercancel', endDrag);
+
+  // teclado: flechas para navegar entre los 3 módulos
+  dialWrap.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowUp'){
+      e.preventDefault();
+      applySelection(Math.min(2, current + 1));
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown'){
+      e.preventDefault();
+      applySelection(Math.max(0, current - 1));
+    }
+  });
+})();
+
+/* ══════════════════════════════════════════════════════
    NUEVO: COUNT-UP de precios al entrar en vista
 ═══════════════════════════════════════════════════════ */
 (function initCountUp(){
