@@ -24,6 +24,7 @@
 <!-- CURSOR -->
 <div id="cursor" aria-hidden="true"></div>
 <div id="cursor-ring" aria-hidden="true"></div>
+<div id="cursor-trail" aria-hidden="true"></div>
 
 <!-- SCANLINES -->
 <div class="scanlines" aria-hidden="true"></div>
@@ -31,6 +32,36 @@
 
 <!-- SCROLL PROGRESS -->
 <div id="scroll-bar" aria-hidden="true"></div>
+
+<!-- ═══════ SECTOR HUD (telemetría persistente de scroll) ═══════ -->
+<aside id="sector-hud" aria-hidden="true">
+  <div class="sh-row sh-clock">
+    <span class="sh-lbl">Session</span>
+    <span class="sh-val" id="sh-timer">00:00.00</span>
+  </div>
+  <div class="sh-sectors" id="sh-sectors">
+    <div class="sh-sector" data-target="hero"><span class="sh-tag">S1</span><span class="sh-name">Hero</span></div>
+    <div class="sh-sector" data-target="experiencias"><span class="sh-tag">S2</span><span class="sh-name">Experiencias</span></div>
+    <div class="sh-sector" data-target="programas"><span class="sh-tag">S3</span><span class="sh-name">Programas</span></div>
+    <div class="sh-sector" data-target="simulador"><span class="sh-tag">S4</span><span class="sh-name">Simulador</span></div>
+    <div class="sh-sector" data-target="tecnologia"><span class="sh-tag">S5</span><span class="sh-name">Tecnología</span></div>
+    <div class="sh-sector" data-target="cta"><span class="sh-tag">S6</span><span class="sh-name">Cierre</span></div>
+  </div>
+  <div class="sh-row sh-best">
+    <span class="sh-lbl">Best Lap</span>
+    <span class="sh-val" id="sh-best">--:--.--</span>
+  </div>
+</aside>
+
+<!-- ═══════ NOS BOOST BUTTON + OVERLAY ═══════ -->
+<button type="button" id="nos-btn" aria-label="Activar Nitro">
+  <span class="nos-arrow">▲</span>
+  <span class="nos-label">NOS</span>
+</button>
+<div id="nos-overlay" aria-hidden="true">
+  <div class="nos-streaks"></div>
+  <div class="nos-flash"></div>
+</div>
 
 <!-- ═══════ NAV ═══════ -->
 <nav>
@@ -336,7 +367,7 @@
 
             <div class="prog-readout">
               <span class="prog-readout-lbl">Programa completo</span>
-              <span class="prog-readout-val">$290<small>/ único pago</small></span>
+              <span class="prog-readout-val">$<span class="count-up" data-count-to="290">0</span><small>/ único pago</small></span>
             </div>
 
             <a href="detalle.html?prog=entry" class="prog-cta cta-entry prog-cta-lights">
@@ -419,7 +450,7 @@
 
             <div class="prog-readout">
               <span class="prog-readout-lbl">Programa completo</span>
-              <span class="prog-readout-val">$590<small>/ único pago</small></span>
+              <span class="prog-readout-val">$<span class="count-up" data-count-to="590">0</span><small>/ único pago</small></span>
             </div>
 
             <a href="detalle.html?prog=pro" class="prog-cta cta-featured prog-cta-lights">
@@ -501,7 +532,7 @@
 
             <div class="prog-readout">
               <span class="prog-readout-lbl">Membresía mensual</span>
-              <span class="prog-readout-val">$990<small>/ mes</small></span>
+              <span class="prog-readout-val">$<span class="count-up" data-count-to="990">0</span><small>/ mes</small></span>
             </div>
 
             <a href="detalle.html?prog=elite" class="prog-cta cta-elite prog-cta-lights">
