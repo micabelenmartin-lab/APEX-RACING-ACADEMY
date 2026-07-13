@@ -225,9 +225,8 @@ html{ scroll-behavior:smooth; }
 .det-title-row{
   display:flex;
   align-items:flex-end;
-  gap:1.5rem;
-  flex-wrap:wrap;
-  margin-bottom:1.4rem;
+  gap:.9rem;
+  flex-wrap:nowrap;
 }
 
 /* Botón de inscripción junto al título */
@@ -295,15 +294,19 @@ html{ scroll-behavior:smooth; }
 /* Precio — chico respecto al original, pero bien visible debajo del título */
 .det-price{
   font-family:var(--ff-display);
-  font-weight:800;
-  font-size:clamp(2.1rem,3.4vw,3rem);
-  color:var(--prog-accent, var(--green));
-  line-height:1;
-  margin:0;
-  display:flex;
-  align-items:flex-end;
-  padding-bottom:.6rem;
-  white-space:nowrap;
+    font-weight:900;
+    font-style:italic;
+
+    font-size:clamp(2rem,2.8vw,2.9rem);
+
+    line-height:1;
+    color:var(--prog-accent,var(--green));
+
+    margin:0 0 .75rem 0;
+
+    white-space:nowrap;
+
+    text-shadow:0 0 18px rgba(0,255,136,.18);
 }
 
 /* Bloque de info debajo del título+precio: período, nota y CTAs */
@@ -1089,12 +1092,14 @@ html{ scroll-behavior:smooth; }
         <span class="det-badge-dot"></span>
         <span id="det-badge-text"></span>
       </div>
-      <span class="det-title-pre">PROGRAMA</span>
-     <div class="det-title-row">
+     <span class="det-title-pre">PROGRAMA</span>
+
+<div class="det-title-row">
     <h1 class="det-title" id="det-title"></h1>
     <div class="det-price" id="det-price"></div>
 </div>
-      <p class="det-tagline" id="det-tagline"></p>
+
+<p class="det-tagline" id="det-tagline"></p>
 
       <div class="det-info-below">
         <div class="det-cta-row" id="det-cta-row" style="margin-top:0"></div>
