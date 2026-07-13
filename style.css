@@ -489,7 +489,6 @@ section{padding:7rem 3rem}
 }
 .exp-circuit{
   position:relative;
-  perspective:1800px;
   background:var(--black);
   border-bottom:3px solid transparent;transition:border-color .4s, box-shadow .5s;
   box-shadow:0 0 32px rgba(191,95,255,.13), 0 0 80px rgba(191,95,255,.06);
@@ -509,10 +508,11 @@ section{padding:7rem 3rem}
   min-height:520px;
   transition:transform .75s cubic-bezier(.22,1,.36,1);
   transform-style:preserve-3d;
+  transform:perspective(1800px) rotateY(0deg);
   cursor:pointer;
 }
 .exp-circuit.flipped .exp-circuit-inner{
-  transform:rotateY(180deg);
+  transform:perspective(1800px) rotateY(180deg);
 }
 
 .exp-circuit-front,
@@ -800,7 +800,6 @@ section{padding:7rem 3rem}
   background:transparent;
   border-radius:6px;
   position:relative;
-  perspective:1800px;
   border-top:3px solid transparent;transition:border-color .3s,transform .3s;
 }
 .prog-card:hover{transform:translateY(-4px)}
@@ -882,9 +881,10 @@ section{padding:7rem 3rem}
   min-height:460px;
   transition:transform .75s cubic-bezier(.22,1,.36,1);
   transform-style:preserve-3d;
+  transform:perspective(1800px) rotateY(0deg);
   cursor:pointer;
 }
-.prog-card.flipped .prog-inner{ transform:rotateY(180deg); }
+.prog-card.flipped .prog-inner{ transform:perspective(1800px) rotateY(180deg); }
 
 .prog-front,
 .prog-back{
