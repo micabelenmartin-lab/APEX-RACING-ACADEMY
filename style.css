@@ -1243,58 +1243,6 @@ section{padding:7rem 3rem}
 }
 
 /* ══════════════════════════════
-   ACADEMIA
-══════════════════════════════ */
-#academia{background:var(--green);border-top:1px solid #111}
-#academia .eyebrow{color:var(--black);font-weight:700}
-#academia .eyebrow::before{color:rgba(0,0,0,.4)}
-#academia .sec-title{color:var(--black)}
-#academia .t-green{color:var(--black)}
-#academia .sec-sub{color:var(--black);font-size:1.05rem;font-weight:600}
-#academia .sec-sub span{color:var(--black);font-weight:inherit}
-#academia .t-violet{color:var(--black);font-weight:700}
-#academia .year-badge{border-color:rgba(0,0,0,.3);color:var(--black);box-shadow:none;font-weight:700}
-#academia .year-badge .yr{color:var(--black);font-weight:900}
-#academia .pipeline-box{border-color:var(--black);background:var(--black)}
-#academia .pipeline-box::before{background:var(--black);color:var(--green)}
-#academia .pipeline-step{border-bottom-color:rgba(255,255,255,.1)}
-#academia .p-icon{border-color:rgba(255,255,255,.25);color:var(--green)}
-#academia .pipeline-step:hover .p-icon{border-color:var(--green);box-shadow:0 0 10px rgba(0,255,136,.3)}
-#academia .p-title{color:var(--white);font-size:1.1rem}
-#academia .p-desc{color:rgba(255,255,255,.6);font-size:.88rem}
-#academia .p-final .p-icon{border-color:var(--violet);color:var(--violet)}
-#academia .p-final .p-title{color:var(--green)}
-.academy-inner{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
-.academy-left{display:flex;flex-direction:column}
-.year-badge{
-  display:inline-flex;align-items:center;gap:.8rem;
-  border:1px solid rgba(191,95,255,.35);padding:.5rem 1.2rem;
-  margin-bottom:2rem;font-family:var(--ff-mono);font-size:.6rem;
-  letter-spacing:.15em;text-transform:uppercase;color:var(--violet);
-  box-shadow:0 0 16px rgba(191,95,255,.1);
-}
-.year-badge .yr{font-size:1rem;font-weight:700}
-.pipeline-box{border:1px solid rgba(0,255,136,.12);padding:2.5rem;background:rgba(0,255,136,.02);position:relative}
-.pipeline-box::before{
-  content:'// F3 PIPELINE — 2027';
-  position:absolute;top:-10px;left:2rem;
-  background:var(--black);padding:0 .8rem;
-  font-family:var(--ff-mono);font-size:.52rem;letter-spacing:.2em;color:var(--green);
-}
-.pipeline-step{display:flex;gap:1.5rem;align-items:flex-start;padding:1.3rem 0;border-bottom:1px solid #141414}
-.pipeline-step:last-child{border-bottom:none}
-.p-icon{
-  width:30px;height:30px;border:1px solid #1e1e1e;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--ff-mono);font-size:.58rem;color:var(--green);transition:all .3s;
-}
-.pipeline-step:hover .p-icon{border-color:var(--green);box-shadow:0 0 10px rgba(0,255,136,.2)}
-.p-title{font-family:var(--ff-display);font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
-.p-desc{font-size:.76rem;color:#555;margin-top:.2rem;font-weight:300}
-.p-final .p-icon{border-color:var(--violet);color:var(--violet)}
-.p-final .p-title{color:var(--green)}
-
-/* ══════════════════════════════
    TESTIMONIOS / PILOTOS
 ══════════════════════════════ */
 #pilotos{background:var(--dark);border-top:1px solid #111}
@@ -1388,7 +1336,6 @@ footer{
   .prog-header{grid-template-columns:1fr;gap:1.5rem}
   .prog-cards{gap:1rem}
   .prog-front,.prog-back{padding:1.5rem 1.3rem}
-  .academy-inner{gap:3.5rem}
   .testi-grid{grid-template-columns:1fr}
 }
 
@@ -1464,9 +1411,6 @@ footer{
   .tech-name{padding:.9rem 1.4rem 1.1rem;font-size:clamp(1.05rem,4.2vw,1.5rem)}
   .tech-media{grid-template-columns:1fr}
   .tech-ph-col{flex-direction:row}
-
-  .academy-inner{grid-template-columns:1fr;gap:2.5rem}
-  .pipeline-box{padding:1.8rem}
 
   .testi-grid{grid-template-columns:1fr}
   .pilots-strip{grid-template-columns:repeat(2,1fr)}
