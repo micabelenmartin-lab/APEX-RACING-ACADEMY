@@ -1354,9 +1354,7 @@ detForm.addEventListener('submit', async function(e){
 ══════════════════════════════ */
 (function(){
   // Leer parámetro de URL
-  const params = new URLSearchParams(window.location.search);
-  const key    = (params.get('prog') || 'pro').toLowerCase();
-  const p      = PROGRAMAS[key] || PROGRAMAS['pro'];
+  const p = PROGRAMAS.pro;
 
   // Actualizar título de la pestaña
   document.title = 'Programa ' + p.nombre + ' | APEX Sim Racing';
@@ -1401,13 +1399,7 @@ detForm.addEventListener('submit', async function(e){
   ctaBtn.className = p.ctaClass;
   ctaBtn.textContent = 'Reservar Mi Lugar →';
   ctaBtn.addEventListener('click', () => openDetModal(p.nombre));
-  const ghostLink = document.createElement('a');
-  ghostLink.href      = 'index.html#programas';
-  ghostLink.className = 'btn-ghost';
-  ghostLink.textContent = 'Ver todos los programas';
   ctaRow.appendChild(ctaBtn);
-  ctaRow.appendChild(ghostLink);
-
   /* ── QUÉ INCLUYE — sección dinámica de tarjetas, fuera del grid, pantalla completa ── */
   document.getElementById('det-incluye-eyebrow').textContent = 'Paso 01 · Qué incluye';
   const incCardsWrap = document.getElementById('det-incluye-cards');
@@ -1500,29 +1492,16 @@ detForm.addEventListener('submit', async function(e){
   asideCtaBtn.addEventListener('click', () => openDetModal(p.nombre));
   asideCta.insertBefore(asideCtaBtn, asideCta.querySelector('p'));
 
-  // Otros programas
-  let othersHTML = `
-    <div class="det-other-programs">
-      <div class="det-other-label">// Otros programas</div>
-  `;
-  p.otros.forEach(o => {
-    othersHTML += `
-      <a href="detalle.html?prog=${o.key}" class="det-other-link">
-        ${o.label}
-        <span class="det-other-link-price" style="color:${o.accentColor}">${o.precio} →</span>
-      </a>
-    `;
-  });
-  othersHTML += `</div>`;
-
-  aside.innerHTML = asideHeadHTML + barsHTML;
-  aside.appendChild(asideCta);
-  aside.insertAdjacentHTML('beforeend', othersHTML);
+  
 
   /* ── FOOTER NAV ── */
   const footerNav = document.getElementById('det-footer-nav');
-  let fnHTML = `<span>Otros programas:</span>`;
-  p.otros.forEach(o => {
+footerNav.innerHTML = `
+<a href="index.html">Inicio</a>
+<a href="index.html#tecnologia">Simuladores</a>
+<a href="index.html#academia">Academia</a>
+<a href="index.html#cta">Contacto</a>
+`;
     fnHTML += `<a href="detalle.html?prog=${o.key}">${o.label}</a>`;
   });
   fnHTML += `<a href="index.html#cta">Contacto</a>`;
