@@ -464,14 +464,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const isMobile  = window.innerWidth <= 768;
     const expTrack  = document.querySelector('.exp-circuits');
     const expDots   = document.querySelector('.exp-carousel-dots');
+    const expPrev   = document.querySelector('.exp-arrow-prev');
+    const expNext   = document.querySelector('.exp-arrow-next');
     const progTrack = document.querySelector('.prog-cards');
     const progDots  = document.querySelector('.prog-carousel-dots');
+    const progPrev  = document.querySelector('.prog-arrow-prev');
+    const progNext  = document.querySelector('.prog-arrow-next');
 
     if (isMobile) {
       expTrack  && expTrack.classList.add('carousel-track');
       progTrack && progTrack.classList.add('carousel-track');
-      initCarousel(expTrack,  expDots);
-      initCarousel(progTrack, progDots);
+      initCarousel(expTrack,  expDots,  expPrev,  expNext);
+      initCarousel(progTrack, progDots, progPrev, progNext);
     } else {
       expTrack  && expTrack.classList.remove('carousel-track');
       progTrack && progTrack.classList.remove('carousel-track');
