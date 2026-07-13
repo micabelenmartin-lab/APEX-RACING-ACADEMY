@@ -1109,13 +1109,18 @@ section{padding:7rem 3rem}
 /* Subtítulo de tecnología: 2 puntos más grande que .sec-sub base (.9rem → 1.1rem) */
 #tecnologia .sec-sub{
   font-size:1.1rem;
-  color:#666;
+  color:var(--white);
 }
 
 #tecnologia .prog-header .sec-sub{
   font-size:1.1rem;
   max-width:100%;
-  color:#666;
+  color:var(--white);
+}
+
+/* Título de tecnología: 1 punto más grande que el tamaño heredado de .prog-header .sec-title */
+#tecnologia .prog-header .sec-title{
+  font-size:clamp(2.1rem,3.7vw,3.7rem);
 }
 
 /* Carrusel — una sola tarjeta grande a la vez, se van pasando */
