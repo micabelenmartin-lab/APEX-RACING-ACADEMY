@@ -631,40 +631,43 @@ if(mediaSlides.length){
       if (target) target.scrollIntoView({ behavior: 'smooth' });
     });
   });
+
+  // barra de progreso de la sesión (fill inferior del HUD)
+  const trackFill = document.getElementById('sh-track-fill');
+  if (trackFill){
+    window.addEventListener('scroll', () => {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - doc.clientHeight;
+      const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+      trackFill.style.width = pct + '%';
+    }, { passive: true });
+  }
 })();
 
 /* ══════════════════════════════════════════════════════
-   NUEVO: NOS BOOST — botón + tecla "N", efecto pantalla completa
+   NUEVO: LÍNEA IDEAL — dibujo del trazado + arranque del punto
 ═══════════════════════════════════════════════════════ */
-(function initNosBoost(){
-  const btn = document.getElementById('nos-btn');
-  const overlay = document.getElementById('nos-overlay');
-  if (!btn || !overlay) return;
+(function initApexLine(){
+  const wrap = document.getElementById('apex-line-wrap');
+  const path = document.getElementById('apexTrackPath');
+  if (!wrap || !path) return;
 
-  let cooling = false;
-  function fireNos(){
-    if (cooling) return;
-    cooling = true;
-    btn.classList.add('nos-firing');
-    overlay.classList.add('nos-active');
-    if (!prefersReducedMotion) document.body.classList.add('nos-shake');
+  const len = path.getTotalLength();
+  path.style.strokeDasharray = len;
+  path.style.strokeDashoffset = len;
 
-    setTimeout(() => {
-      overlay.classList.remove('nos-active');
-      btn.classList.remove('nos-firing');
-      document.body.classList.remove('nos-shake');
-    }, 700);
-    setTimeout(() => { cooling = false; }, 1400);
-  }
-
-  btn.addEventListener('click', fireNos);
-  window.addEventListener('keydown', e => {
-    if ((e.key === 'n' || e.key === 'N') && !e.metaKey && !e.ctrlKey && !e.altKey){
-      const tag = (document.activeElement && document.activeElement.tagName) || '';
-      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
-      fireNos();
-    }
-  });
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        requestAnimationFrame(() => {
+          path.style.strokeDashoffset = '0';
+        });
+        wrap.classList.add('apex-in');
+        io.unobserve(wrap);
+      }
+    });
+  }, { threshold: .4 });
+  io.observe(wrap);
 })();
 
 /* ══════════════════════════════════════════════════════
