@@ -137,32 +137,6 @@
   </div>
 </section>
 
-<!-- ═══════ MARQUEE HUD ═══════ -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span class="marquee-item">TELEMETRÍA EN TIEMPO REAL</span>
-    <span class="marquee-sep">◆</span>
-    <span class="marquee-item">CONSISTENCIA VUELTA A VUELTA</span>
-    <span class="marquee-sep">◆</span>
-    <span class="marquee-item">RACECRAFT BAJO PRESIÓN</span>
-    <span class="marquee-sep">◆</span>
-    <span class="marquee-item">HARDWARE DE NIVEL MUNDIAL</span>
-    <span class="marquee-sep">◆</span>
-    <span class="marquee-item">METODOLOGÍA DE PILOTOS PROFESIONALES</span>
-    <span class="marquee-sep">◆</span>
-    <span class="marquee-item">TELEMETRÍA EN TIEMPO REAL</span>
-    <span class="marquee-sep">◆</span>
-    <span class="marquee-item">CONSISTENCIA VUELTA A VUELTA</span>
-    <span class="marquee-sep">◆</span>
-    <span class="marquee-item">RACECRAFT BAJO PRESIÓN</span>
-    <span class="marquee-sep">◆</span>
-    <span class="marquee-item">HARDWARE DE NIVEL MUNDIAL</span>
-    <span class="marquee-sep">◆</span>
-    <span class="marquee-item">METODOLOGÍA DE PILOTOS PROFESIONALES</span>
-    <span class="marquee-sep">◆</span>
-  </div>
-</div>
-
 <!-- ═══════ EXPERIENCIAS ═══════ -->
 <section id="experiencias">
   <div class="exp-header exp-header-centered">
@@ -917,6 +891,81 @@
     <div class="offer-code">Código de lanzamiento: <strong>APEX20</strong></div>
   </div>
 </div>
+
+<!-- ═══════ SCRIPT: OFERTA DE LANZAMIENTO ═══════ -->
+<script>
+(function(){
+  var overlay   = document.getElementById('offer-modal-overlay');
+  var closeBtn  = document.getElementById('offer-modal-close');
+  var ctaBtn    = document.getElementById('offer-cta-btn');
+  if(!overlay) return;
+
+  /* Fecha límite de la oferta: editá esta fecha para renovar el lanzamiento */
+  var OFFER_END = new Date('2026-08-15T23:59:59');
+
+  function openOffer(){
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeOffer(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    try{ sessionStorage.setItem('apexOfferSeen', '1'); }catch(e){}
+  }
+
+  if(closeBtn) closeBtn.addEventListener('click', closeOffer);
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) closeOffer(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeOffer(); });
+
+  if(ctaBtn){
+    ctaBtn.addEventListener('click', function(){
+      closeOffer();
+      var resBtn = document.getElementById('cta-reservar-btn');
+      if(resBtn) resBtn.click();
+      else document.getElementById('cta').scrollIntoView({behavior:'smooth'});
+    });
+  }
+
+  /* Contador regresivo */
+  var dEl = document.getElementById('offer-d');
+  var hEl = document.getElementById('offer-h');
+  var mEl = document.getElementById('offer-m');
+  var sEl = document.getElementById('offer-s');
+
+  function pad(n){ return String(n).padStart(2, '0'); }
+
+  function tickCountdown(){
+    var diff = OFFER_END.getTime() - Date.now();
+    if(diff <= 0){
+      if(dEl) dEl.textContent = '00';
+      if(hEl) hEl.textContent = '00';
+      if(mEl) mEl.textContent = '00';
+      if(sEl) sEl.textContent = '00';
+      return;
+    }
+    var totalSec = Math.floor(diff / 1000);
+    var days = Math.floor(totalSec / 86400);
+    var hours = Math.floor((totalSec % 86400) / 3600);
+    var mins  = Math.floor((totalSec % 3600) / 60);
+    var secs  = totalSec % 60;
+
+    if(dEl) dEl.textContent = pad(days);
+    if(hEl) hEl.textContent = pad(hours);
+    if(mEl) mEl.textContent = pad(mins);
+    if(sEl) sEl.textContent = pad(secs);
+  }
+
+  tickCountdown();
+  setInterval(tickCountdown, 1000);
+
+  /* Mostrar el popup una vez por sesión, a los pocos segundos de llegar */
+  var alreadySeen = false;
+  try{ alreadySeen = sessionStorage.getItem('apexOfferSeen') === '1'; }catch(e){}
+  if(!alreadySeen && OFFER_END.getTime() > Date.now()){
+    setTimeout(openOffer, 4000);
+  }
+})();
+</script>
 
 <!-- ══════ MODAL FORMULARIO DE RESERVA ══════ -->
 <div class="res-modal-overlay" id="res-modal-overlay" role="dialog" aria-modal="true" aria-label="Formulario de reserva">
