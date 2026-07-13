@@ -521,4 +521,181 @@ if(mediaSlides.length){
     },3000);
 
 }
+
+/* ══════════════════════════════════════════════════════
+   NUEVO: CURSOR TRAIL — estela de velocidad tras el mouse
+═══════════════════════════════════════════════════════ */
+(function initCursorTrail(){
+  if (prefersReducedMotion) return;
+  const wrap = document.getElementById('cursor-trail');
+  if (!wrap || !window.matchMedia('(hover: hover)').matches) return;
+
+  const DOTS = 10;
+  const dots = [];
+  for (let i = 0; i < DOTS; i++) {
+    const d = document.createElement('div');
+    d.className = 'trail-dot';
+    document.body.appendChild(d);
+    dots.push({ el: d, x: 0, y: 0 });
+  }
+
+  let tx = 0, ty = 0, lastX = 0, lastY = 0, speed = 0;
+  document.addEventListener('mousemove', e => {
+    tx = e.clientX; ty = e.clientY;
+    speed = Math.min(1, Math.hypot(tx - lastX, ty - lastY) / 40);
+    lastX = tx; lastY = ty;
+  });
+
+  (function loop(){
+    let px = tx, py = ty;
+    dots.forEach((dot, i) => {
+      dot.x += (px - dot.x) * 0.45;
+      dot.y += (py - dot.y) * 0.45;
+      const scale = (1 - i / DOTS) * (0.35 + speed * 0.65);
+      dot.el.style.opacity = (1 - i / DOTS) * speed * 0.85;
+      dot.el.style.transform = `translate(${dot.x}px, ${dot.y}px) translate(-50%,-50%) scale(${scale})`;
+      px = dot.x; py = dot.y;
+    });
+    speed *= 0.92;
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* ══════════════════════════════════════════════════════
+   NUEVO: SECTOR HUD — timer de sesión + sector activo
+═══════════════════════════════════════════════════════ */
+(function initSectorHud(){
+  const hud = document.getElementById('sector-hud');
+  const timerEl = document.getElementById('sh-timer');
+  const bestEl = document.getElementById('sh-best');
+  const sectorEls = document.querySelectorAll('.sh-sector');
+  if (!hud || !sectorEls.length) return;
+
+  // Aparece una vez que el usuario empieza a scrollear
+  window.addEventListener('scroll', () => {
+    hud.classList.toggle('sh-visible', window.scrollY > 200);
+  }, { passive: true });
+
+  // Timer de sesión tipo cronómetro
+  const start = performance.now();
+  let bestSectorTime = null;
+  let sectorEnterTime = start;
+  let currentSector = null;
+
+  function fmt(ms){
+    const totalSec = ms / 1000;
+    const m = Math.floor(totalSec / 60);
+    const s = (totalSec % 60).toFixed(2).padStart(5, '0');
+    return `${String(m).padStart(2,'0')}:${s}`;
+  }
+
+  function tick(){
+    timerEl.textContent = fmt(performance.now() - start);
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  const secMap = new Map();
+  sectorEls.forEach(el => secMap.set(el.dataset.target, el));
+
+  const targets = document.querySelectorAll('section[id]');
+  const hudIo = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const el = secMap.get(entry.target.id);
+      if (!el) return;
+      if (entry.isIntersecting){
+        // marca el sector anterior como completado y registra su tiempo
+        if (currentSector && currentSector !== entry.target.id){
+          const elapsed = performance.now() - sectorEnterTime;
+          if (bestSectorTime === null || elapsed < bestSectorTime){
+            bestSectorTime = elapsed;
+            if (bestEl) bestEl.textContent = fmt(bestSectorTime);
+          }
+          const prevEl = secMap.get(currentSector);
+          if (prevEl) { prevEl.classList.remove('sh-active'); prevEl.classList.add('sh-done'); }
+        }
+        currentSector = entry.target.id;
+        sectorEnterTime = performance.now();
+        sectorEls.forEach(s => s.classList.remove('sh-active'));
+        el.classList.add('sh-active');
+      }
+    });
+  }, { threshold: .45 });
+  targets.forEach(t => hudIo.observe(t));
+
+  sectorEls.forEach(el => {
+    el.style.cursor = 'pointer';
+    el.style.pointerEvents = 'auto';
+    el.addEventListener('click', () => {
+      const target = document.getElementById(el.dataset.target);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+})();
+
+/* ══════════════════════════════════════════════════════
+   NUEVO: NOS BOOST — botón + tecla "N", efecto pantalla completa
+═══════════════════════════════════════════════════════ */
+(function initNosBoost(){
+  const btn = document.getElementById('nos-btn');
+  const overlay = document.getElementById('nos-overlay');
+  if (!btn || !overlay) return;
+
+  let cooling = false;
+  function fireNos(){
+    if (cooling) return;
+    cooling = true;
+    btn.classList.add('nos-firing');
+    overlay.classList.add('nos-active');
+    if (!prefersReducedMotion) document.body.classList.add('nos-shake');
+
+    setTimeout(() => {
+      overlay.classList.remove('nos-active');
+      btn.classList.remove('nos-firing');
+      document.body.classList.remove('nos-shake');
+    }, 700);
+    setTimeout(() => { cooling = false; }, 1400);
+  }
+
+  btn.addEventListener('click', fireNos);
+  window.addEventListener('keydown', e => {
+    if ((e.key === 'n' || e.key === 'N') && !e.metaKey && !e.ctrlKey && !e.altKey){
+      const tag = (document.activeElement && document.activeElement.tagName) || '';
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+      fireNos();
+    }
+  });
+})();
+
+/* ══════════════════════════════════════════════════════
+   NUEVO: COUNT-UP de precios al entrar en vista
+═══════════════════════════════════════════════════════ */
+(function initCountUp(){
+  const els = document.querySelectorAll('.count-up');
+  if (!els.length) return;
+
+  const animate = (el) => {
+    const to = parseInt(el.dataset.countTo, 10) || 0;
+    const dur = 1100;
+    const t0 = performance.now();
+    function step(now){
+      const p = Math.min(1, (now - t0) / dur);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(eased * to).toLocaleString('es-AR');
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = to.toLocaleString('es-AR');
+    }
+    requestAnimationFrame(step);
+  };
+
+  const cuIo = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting){
+        animate(e.target);
+        cuIo.unobserve(e.target);
+      }
+    });
+  }, { threshold: .6 });
+  els.forEach(el => cuIo.observe(el));
+})();
 });
