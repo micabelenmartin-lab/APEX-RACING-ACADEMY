@@ -109,6 +109,151 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3200);
   }
 
+  /* ── PREFERENCIA DE MOVIMIENTO REDUCIDO ── */
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── PARTICLE CANVAS: líneas de velocidad en el hero ── */
+  (function initParticles() {
+    const canvas = document.getElementById('particle-canvas');
+    if (!canvas || prefersReducedMotion) return;
+    const ctx = canvas.getContext('2d');
+    let w, h, particles;
+
+    function resize() {
+      const hero = canvas.closest('#hero');
+      w = canvas.width  = hero.offsetWidth;
+      h = canvas.height = hero.offsetHeight;
+    }
+
+    function makeParticle() {
+      const cx = w * 0.72, cy = h * 0.5; // origen cerca del panel derecho (piloto)
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 0.6 + Math.random() * 1.6;
+      return {
+        x: cx, y: cy,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life: 0,
+        maxLife: 60 + Math.random() * 90,
+        color: Math.random() > 0.6 ? '191,95,255' : '0,255,136'
+      };
+    }
+
+    function initParticleField(count) {
+      particles = [];
+      for (let i = 0; i < count; i++) {
+        const p = makeParticle();
+        p.life = Math.random() * p.maxLife; // desfasadas para que no nazcan todas juntas
+        particles.push(p);
+      }
+    }
+
+    resize();
+    initParticleField(46);
+    window.addEventListener('resize', () => { resize(); });
+
+    function tick() {
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach((p, i) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= 1.012;
+        p.vy *= 1.012;
+        p.life++;
+        const fade = 1 - p.life / p.maxLife;
+        if (fade <= 0 || p.x < -20 || p.x > w + 20 || p.y < -20 || p.y > h + 20) {
+          particles[i] = makeParticle();
+          return;
+        }
+        ctx.strokeStyle = `rgba(${p.color},${Math.max(fade * 0.5, 0)})`;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p.x - p.vx * 4, p.y - p.vy * 4);
+        ctx.stroke();
+      });
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
+
+  /* ── HERO IMAGE TILT 3D ── */
+  (function initTilt() {
+    const wrap  = document.querySelector('.hero-right');
+    const frame = document.querySelector('.hero-img-frame');
+    if (!wrap || !frame || prefersReducedMotion || window.matchMedia('(pointer: coarse)').matches) return;
+
+    wrap.addEventListener('mousemove', e => {
+      const rect = wrap.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width  - 0.5;
+      const py = (e.clientY - rect.top)  / rect.height - 0.5;
+      frame.style.transform = `rotateY(${px * 10}deg) rotateX(${-py * 10}deg) translateZ(10px)`;
+    });
+    wrap.addEventListener('mouseleave', () => {
+      frame.style.transform = 'rotateY(0deg) rotateX(0deg) translateZ(0)';
+    });
+  })();
+
+  /* ── BOTONES MAGNÉTICOS ── */
+  (function initMagneticButtons() {
+    if (prefersReducedMotion || window.matchMedia('(pointer: coarse)').matches) return;
+    const targets = document.querySelectorAll('.btn-primary, .btn-ghost, .nav-cta, .prog-cta');
+    targets.forEach(btn => {
+      const strength = 0.25;
+      btn.addEventListener('mousemove', e => {
+        const rect = btn.getBoundingClientRect();
+        const mx = e.clientX - (rect.left + rect.width / 2);
+        const my = e.clientY - (rect.top + rect.height / 2);
+        btn.style.transform = `translate(${mx * strength}px, ${my * strength}px)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = '';
+      });
+    });
+  })();
+
+  /* ── RIPPLE AL HACER CLICK ── */
+  (function initRipple() {
+    const targets = document.querySelectorAll('.btn-primary, .btn-ghost, .nav-cta, .prog-cta');
+    targets.forEach(btn => {
+      btn.addEventListener('click', e => {
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        ripple.style.top  = (e.clientY - rect.top  - size / 2) + 'px';
+        btn.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 650);
+      });
+    });
+  })();
+
+  /* ── LAP TIMER — cronómetro HUD en vivo ── */
+  (function initLapTimer() {
+    const lapEl = document.getElementById('tel-lap');
+    if (!lapEl) return;
+    let lapStart = performance.now();
+    const LAP_DURATION = 87400; // ~1:27.4, referencia ficticia de vuelta rápida
+
+    function pad(n, len) { return String(Math.floor(n)).padStart(len, '0'); }
+
+    function tick() {
+      let elapsed = performance.now() - lapStart;
+      if (elapsed >= LAP_DURATION) {
+        lapStart = performance.now();
+        elapsed = 0;
+      }
+      const mins = Math.floor(elapsed / 60000);
+      const secs = Math.floor((elapsed % 60000) / 1000);
+      const ms   = Math.floor(elapsed % 1000);
+      lapEl.textContent = `${pad(mins, 2)}:${pad(secs, 2)}.${pad(ms, 3)}`;
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  })();
+
   /* ── SCROLL REVEAL ── */
   const revEls = document.querySelectorAll('.reveal,.reveal-l,.reveal-r');
   const io = new IntersectionObserver(entries => {
