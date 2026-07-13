@@ -68,13 +68,13 @@ html{ scroll-behavior: smooth; }
 .det-popular::before{content:'';width:5px;height:5px;background:var(--black);border-radius:50%;display:block;animation:detBlink 1.2s infinite;}
 
 /* Tagline — bajada explicativa debajo del título+precio */
-.det-tagline{display:block;font-size:1.12rem;color:#999;font-weight:400;line-height:1.75;max-width:600px;margin:0 0 2rem;}
+.det-tagline{display:block;font-size:1.12rem;color:#999;font-weight:400;line-height:1.75;max-width:600px;margin:0 0 1rem;}
 
 /* Precio */
 .det-price{font-family:var(--ff-display);font-weight:800;font-size:clamp(3.5rem,6vw,5rem);color:var(--prog-accent, var(--green));line-height:1;margin-bottom:1.6rem;display:block;}
 
 /* Bloque de info debajo del título+precio */
-.det-info-below{margin-top:0;padding-top:1rem;border-top:1px solid #161616;}
+.det-info-below{margin-top:0;padding-top:.5rem;border-top:1px solid #161616;}
 .det-cta-row{display:flex;align-items:center;gap:1.2rem;margin-top:2rem;flex-wrap:wrap;}
 .det-cta-note{font-family:var(--ff-mono);font-size:.65rem;font-weight:600;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-top:1rem;}
 
@@ -298,7 +298,6 @@ html{ scroll-behavior: smooth; }
       <div class="det-title-row">
         <h1 class="det-title" id="det-title"></h1>
       </div>
-      <div class="det-price" id="det-price"></div>
       <p class="det-tagline" id="det-tagline"></p>
 
       <div class="det-info-below">
@@ -684,8 +683,6 @@ detForm.addEventListener('submit', async function(e){
   window.currentProgramName = p.nombre;
 
   document.getElementById('det-tagline').textContent = p.tagline;
-
-  document.getElementById('det-price').textContent = p.precio;
 
   const ctaRow  = document.getElementById('det-cta-row');
   const ctaBtn = document.createElement('button');
